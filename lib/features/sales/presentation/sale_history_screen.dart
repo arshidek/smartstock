@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:smartstock_inventory/features/sales/presentation/sale_details_screen.dart';
 import '../../../app/app_navigation.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
+import '../../../core/responsive/responsive.dart';
 import '../../../core/services/sale_service.dart';
-import '../../../core/widgets/dialogs/app_delete_dialog.dart';
 import '../../../core/widgets/filters/app_filter_bottom_sheet.dart';
 import '../../../core/widgets/search/app_search_bar.dart';
 import '../../../data/models/sale_model.dart';
-import '../widgets/AppSaleCard.dart';
+import 'mobile/mobile_sale_history_list.dart';
+import 'web/web_sale_history_list.dart';
 
 class SaleHistoryScreen extends StatefulWidget {
   const SaleHistoryScreen({super.key});
@@ -20,7 +20,6 @@ class SaleHistoryScreen extends StatefulWidget {
 class _SaleHistoryScreenState extends State<SaleHistoryScreen> {
   List<SaleModel> allSales = [];
   List<SaleModel> sales = [];
-
   final TextEditingController searchController = TextEditingController();
 
   @override
@@ -32,7 +31,6 @@ class _SaleHistoryScreenState extends State<SaleHistoryScreen> {
   void loadSales() {
     sales = SaleService().getAllSales();
     allSales = SaleService().getAllSales();
-
     setState(() {});
   }
 
@@ -63,7 +61,6 @@ class _SaleHistoryScreenState extends State<SaleHistoryScreen> {
         backgroundColor: AppColors.appBarColor,
         elevation: 0,
         automaticallyImplyLeading: false,
-
         leading: IconButton(
           onPressed: () => AppNavigation.goBack(context),
           icon: const Icon(
@@ -73,7 +70,6 @@ class _SaleHistoryScreenState extends State<SaleHistoryScreen> {
           ),
         ),
         titleSpacing: 0,
-
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -85,9 +81,7 @@ class _SaleHistoryScreenState extends State<SaleHistoryScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-
             const SizedBox(height: 2),
-
             const Text(
               "View all completed sales",
               style: TextStyle(
@@ -124,83 +118,14 @@ class _SaleHistoryScreenState extends State<SaleHistoryScreen> {
 
             /// Sales List
             Expanded(
-              child: sales.isEmpty
-                  ? const Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.receipt_long_outlined,
-                            size: 80,
-                            color: Colors.grey,
-                          ),
-                          SizedBox(height: 15),
-                          Text(
-                            "No Sales Found",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 5),
-                          Text(
-                            "Try searching with another product or invoice.",
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        ],
-                      ),
+              child: Responsive.isMobile(context)
+                  ? MobileSaleHistoryList(
+                      sales: sales,
+                      onLoadSales: loadSales,
                     )
-                  : ListView.builder(
-                      itemCount: sales.length,
-                      itemBuilder: (context, index) {
-                        final sale = sales[index];
-                        final item = sale.items.first;
-
-                        return AppSaleCard(
-                          imagePath: item.imagePath,
-                          productName: item.productName,
-                          invoiceNo: sale.invoiceNo,
-                          brandName: item.brandName,
-                          categoryName: item.categoryName,
-                          date:
-                              "${sale.saleDate.day}/${sale.saleDate.month}/${sale.saleDate.year}",
-                          paymentMethod: sale.paymentMethod,
-                          quantity: item.quantity,
-                          amount: "₹${item.totalPrice.toStringAsFixed(2)}",
-                          profit: "₹${item.profit.toStringAsFixed(2)}",
-
-                          showMenu: true,
-
-                          onTap: () {
-                            AppNavigation.goToScreen(
-                              context,
-                              SaleDetailsScreen(sale: sale),
-                            );
-                          },
-
-                          onDelete: () async {
-                            final confirm = await AppDeleteDialog.show(
-                              context: context,
-                              title: "Delete Sale",
-                              message:
-                                  "Are you sure you want to delete this sale?",
-                            );
-
-                            if (confirm == true) {
-                              await SaleService().deleteSale(sale.id);
-
-                              loadSales();
-
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Sale deleted successfully."),
-                                  backgroundColor: Colors.green,
-                                ),
-                              );
-                            }
-                          },
-                        );
-                      },
+                  : WebSaleHistoryList(
+                      sales: sales,
+                      onLoadSales: loadSales,
                     ),
             ),
           ],

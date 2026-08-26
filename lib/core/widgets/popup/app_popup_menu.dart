@@ -7,20 +7,34 @@ class AppPopupMenu extends StatelessWidget {
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
   final VoidCallback? onRestock;
+  final VoidCallback? onUpdate;
   final bool isRestockMenu;
+  final bool isSaleMenu;
+  final bool compact;
 
-  const AppPopupMenu({super.key, this.onEdit, this.onDelete})
+  const AppPopupMenu({super.key, this.onEdit, this.onDelete, this.compact = false})
     : onRestock = null,
-      isRestockMenu = false;
+      onUpdate = null,
+      isRestockMenu = false,
+      isSaleMenu = false;
 
-  const AppPopupMenu.restock({super.key, required this.onRestock})
+  const AppPopupMenu.restock({super.key, required this.onRestock, this.compact = false})
     : onEdit = null,
       onDelete = null,
+      onUpdate = null,
+      isSaleMenu = false,
       isRestockMenu = true;
+
+  const AppPopupMenu.sale({super.key, required this.onUpdate, required this.onDelete, this.compact = false})
+    : onEdit = null,
+      onRestock = null,
+      isRestockMenu = false,
+      isSaleMenu = true;
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
+      padding: compact ? EdgeInsets.zero : const EdgeInsets.all(8.0),
       elevation: AppSizes.size12,
       color: AppColors.white,
       shadowColor: AppColors.black.withOpacity(0.25),
@@ -31,11 +45,12 @@ class AppPopupMenu extends StatelessWidget {
       ),
       constraints: const BoxConstraints(minWidth: AppSizes.size220),
       offset: const Offset(0, AppSizes.size55),
-      icon: const Icon(
+      icon: compact ? null : const Icon(
         Icons.more_vert_rounded,
         size: AppSizes.size30,
         color: AppColors.black,
       ),
+      child: compact ? const Icon(Icons.more_vert, color: Colors.black87) : null,
 
       onSelected: (value) {
         switch (value) {
@@ -45,6 +60,10 @@ class AppPopupMenu extends StatelessWidget {
 
           case "edit":
             onEdit?.call();
+            break;
+
+          case "update":
+            onUpdate?.call();
             break;
 
           case "delete":
@@ -66,10 +85,30 @@ class AppPopupMenu extends StatelessWidget {
           ];
         }
 
+        if (isSaleMenu) {
+          return [
+            _menuItem(
+              value: "update",
+              title: "Update Sale",
+              icon: Icons.edit_rounded,
+              color: AppColors.blue,
+              bgColor: AppColors.lightBlue,
+            ),
+            const PopupMenuDivider(height: 1),
+            _menuItem(
+              value: "delete",
+              title: "Delete Sale",
+              icon: Icons.delete_outline_rounded,
+              color: AppColors.error,
+              bgColor: AppColors.lightRed,
+            ),
+          ];
+        }
+
         return [
           _menuItem(
             value: "edit",
-            title: "Edit Brand",
+            title: "Edit",
             icon: Icons.edit_rounded,
             color: AppColors.blue,
             bgColor: AppColors.lightBlue,
@@ -79,7 +118,7 @@ class AppPopupMenu extends StatelessWidget {
 
           _menuItem(
             value: "delete",
-            title: "Delete Brand",
+            title: "Delete",
             icon: Icons.delete_outline_rounded,
             color: AppColors.error,
             bgColor: AppColors.lightRed,

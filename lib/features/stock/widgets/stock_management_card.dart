@@ -54,156 +54,169 @@ class StockManagementCard extends StatelessWidget {
                 ),
               ],
             ),
-            child: Row(
-              children: [
-                /// Product Image
-                Container(
-                  width: AppSizes.size80,
-                  height: AppSizes.size80,
-                  decoration: BoxDecoration(
-                    color: AppColors.lightGrey,
-                    borderRadius: BorderRadius.circular(
-                      AppSizes.borderRadius16,
-                    ),
-                  ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(
-                      AppSizes.borderRadius16,
-                    ),
-                    child:
-                        product.imagePath.isNotEmpty &&
-                            (kIsWeb || File(product.imagePath).existsSync())
-                        ? kIsWeb
-                              ? Image.network(
-                                  product.imagePath,
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.file(
-                                  File(product.imagePath),
-                                  fit: BoxFit.cover,
-                                )
-                        : const Icon(
-                            Icons.image_outlined,
-                            size: AppSizes.size32,
-                            color: AppColors.grey,
-                          ),
-                  ),
-                ),
-
-                const SizedBox(width: AppSizes.size15),
-
-                Expanded(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      /// Left Side
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              product.name.toUpperCase(),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: AppSizes.font20,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-
-                            const SizedBox(height: AppSizes.size5),
-
-                            Text(
-                              "ID : ${product.productId}",
-                              style: const TextStyle(
-                                fontSize: AppSizes.font14,
-                                color: AppColors.grey,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-
-                            const SizedBox(height: AppSizes.size5),
-
-                            Text(
-                              brandName,
-                              style: const TextStyle(
-                                fontSize: AppSizes.font16,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-
-                            Text(
-                              categoryName,
-                              style: const TextStyle(
-                                fontSize: AppSizes.font16,
-                                color: AppColors.grey,
-                              ),
-                            ),
-                          ],
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final row = Row(
+                  children: [
+                    /// Product Image
+                    Container(
+                      width: AppSizes.size80,
+                      height: AppSizes.size80,
+                      decoration: BoxDecoration(
+                        color: AppColors.lightGrey,
+                        borderRadius: BorderRadius.circular(
+                          AppSizes.borderRadius16,
                         ),
                       ),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(
+                          AppSizes.borderRadius16,
+                        ),
+                        child:
+                            product.imagePath.isNotEmpty &&
+                                (kIsWeb || File(product.imagePath).existsSync())
+                            ? kIsWeb
+                                  ? Image.network(
+                                      product.imagePath,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.file(
+                                      File(product.imagePath),
+                                      fit: BoxFit.cover,
+                                    )
+                            : const Icon(
+                                Icons.image_outlined,
+                                size: AppSizes.size32,
+                                color: AppColors.grey,
+                              ),
+                      ),
+                    ),
 
-                      const SizedBox(width: 12),
+                    const SizedBox(width: AppSizes.size15),
 
-                      /// Right Side
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
+                    Expanded(
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Container(
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 10,
-                                  vertical: 10,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: statusColor.withOpacity(.12),
-                                  borderRadius: BorderRadius.circular(
-                                    AppSizes.borderRadius16,
-                                  ),
-                                ),
-                                child: Text(
-                                  statusText,
-                                  style: TextStyle(
-                                    color: statusColor,
-                                    fontSize: AppSizes.font12,
+                          /// Left Side
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  product.name.toUpperCase(),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                    fontSize: AppSizes.font20,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
+
+                                const SizedBox(height: AppSizes.size5),
+
+                                Text(
+                                  "ID : ${product.productId}",
+                                  style: const TextStyle(
+                                    fontSize: AppSizes.font14,
+                                    color: AppColors.grey,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+
+                                const SizedBox(height: AppSizes.size5),
+
+                                Text(
+                                  brandName,
+                                  style: const TextStyle(
+                                    fontSize: AppSizes.font16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+
+                                Text(
+                                  categoryName,
+                                  style: const TextStyle(
+                                    fontSize: AppSizes.font16,
+                                    color: AppColors.grey,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          const SizedBox(width: 12),
+
+                          /// Right Side
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 10,
+                                      vertical: 10,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: statusColor.withOpacity(.12),
+                                      borderRadius: BorderRadius.circular(
+                                        AppSizes.borderRadius16,
+                                      ),
+                                    ),
+                                    child: Text(
+                                      statusText,
+                                      style: TextStyle(
+                                        color: statusColor,
+                                        fontSize: AppSizes.font12,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+
+                                  AppPopupMenu.restock(onRestock: onRestock),
+                                ],
                               ),
 
-                              AppPopupMenu.restock(onRestock: onRestock),
+                              const SizedBox(height: 10),
+
+                              Text(
+                                "Qty : ${product.stock}",
+                                style: const TextStyle(
+                                  fontSize: AppSizes.font16,
+                                  color: AppColors.grey,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+
+                              const SizedBox(height: 10),
+
+                              Text(
+                                "₹${product.sellingPrice.toStringAsFixed(2)}",
+                                style: const TextStyle(
+                                  fontSize: AppSizes.font18,
+                                  color: AppColors.success,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
                             ],
-                          ),
-
-                          const SizedBox(height: 10),
-
-                          Text(
-                            "Qty : ${product.stock}",
-                            style: const TextStyle(
-                              fontSize: AppSizes.font16,
-                              color: AppColors.grey,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-
-                          const SizedBox(height: 10),
-
-                          Text(
-                            "₹${product.sellingPrice.toStringAsFixed(2)}",
-                            style: const TextStyle(
-                              fontSize: AppSizes.font18,
-                              color: AppColors.success,
-                              fontWeight: FontWeight.bold,
-                            ),
                           ),
                         ],
                       ),
-                    ],
+                    ),
+                  ],
+                );
+
+                return FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: Alignment.centerLeft,
+                  child: SizedBox(
+                    width: constraints.maxWidth,
+                    child: row,
                   ),
-                ),
-              ],
+                );
+              },
             ),
           ),
         ),

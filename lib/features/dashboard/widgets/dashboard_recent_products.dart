@@ -37,18 +37,19 @@ class DashboardRecentProducts extends StatelessWidget {
                 fontWeight: FontWeight.w600,
               ),
             ),
-            InkWell(
-              onTap: () {
-                AppNavigation.goToScreen(context, const ProductListScreen());
-              },
-              child: const Text(
-                "View All",
-                style: TextStyle(
-                  color: AppColors.blue,
-                  fontWeight: FontWeight.w500,
+            if (topRecent.isNotEmpty)
+              InkWell(
+                onTap: () {
+                  AppNavigation.goToScreen(context, const ProductListScreen());
+                },
+                child: const Text(
+                  "View All",
+                  style: TextStyle(
+                    color: AppColors.blue,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
-            ),
           ],
         ),
         const SizedBox(height: AppSizes.size16),

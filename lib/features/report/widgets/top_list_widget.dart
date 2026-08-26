@@ -53,17 +53,18 @@ class TopListWidget extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              InkWell(
-                onTap: onViewAll,
-                child: const Text(
-                  "View All",
-                  style: TextStyle(
-                    color: Color(0xFF4C2DB3), // Purple from mockup
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
+              if (items.isNotEmpty)
+                InkWell(
+                  onTap: onViewAll,
+                  child: const Text(
+                    "View All",
+                    style: TextStyle(
+                      color: Color(0xFF4C2DB3), // Purple from mockup
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
             ],
           ),
           if (headerRow != null && items.isNotEmpty) ...[

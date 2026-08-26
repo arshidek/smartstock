@@ -40,7 +40,11 @@ class SummaryCardGrid extends StatelessWidget {
         crossAxisCount: Responsive.isMobile(context) ? 2 : 4,
         crossAxisSpacing: AppSizes.padding16,
         mainAxisSpacing: AppSizes.padding16,
-        childAspectRatio: Responsive.isMobile(context) ? 0.9 : 1.2,
+        childAspectRatio: Responsive.isMobile(context)
+            ? 0.9
+            : Responsive.isTablet(context)
+                ? 1.5
+                : 1.6,
       ),
       itemBuilder: (context, index) {
         return _buildCard(metrics[index]);

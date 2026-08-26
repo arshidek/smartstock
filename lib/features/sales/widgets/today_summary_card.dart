@@ -26,12 +26,15 @@ class TodaySummaryCard extends StatelessWidget {
 
         const SizedBox(height: 6),
 
-        Text(
-          value,
-          style: TextStyle(
-            color: valueColor,
-            fontWeight: FontWeight.bold,
-            fontSize: 18,
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            value,
+            style: TextStyle(
+              color: valueColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+            ),
           ),
         ),
       ],
