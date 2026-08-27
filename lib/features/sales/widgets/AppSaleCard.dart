@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
+import '../../../core/widgets/popup/app_popup_menu.dart';
 
 class AppSaleCard extends StatelessWidget {
   final String imagePath;
@@ -147,26 +148,9 @@ class AppSaleCard extends StatelessWidget {
                         ),
 
                         if (showMenu)
-                          PopupMenuButton<String>(
-                            padding: EdgeInsets.zero,
-                            icon: const Icon(Icons.more_vert),
-                            onSelected: (value) {
-                              if (value == "view") {
-                                onView?.call();
-                              } else {
-                                onDelete?.call();
-                              }
-                            },
-                            itemBuilder: (_) => const [
-                              PopupMenuItem(
-                                value: "view",
-                                child: Text("View Details"),
-                              ),
-                              PopupMenuItem(
-                                value: "delete",
-                                child: Text("Delete"),
-                              ),
-                            ],
+                          AppPopupMenu.sale(
+                            onView: onView,
+                            onDelete: onDelete,
                           ),
                       ],
                     ),

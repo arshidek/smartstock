@@ -49,7 +49,7 @@ class TopListWidget extends StatelessWidget {
                 title,
                 style: const TextStyle(
                   color: AppColors.black,
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -57,9 +57,9 @@ class TopListWidget extends StatelessWidget {
                 onTap: onViewAll,
                 child: const Text(
                   "View All",
-                  style: TextStyle(
-                    color: Color(0xFF4C2DB3), // Purple from mockup
-                    fontSize: 12,
+                  style: const TextStyle(
+                    color: AppColors.blue,
+                    fontSize: 14,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -77,7 +77,7 @@ class TopListWidget extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 20),
                 child: Text(
                   "No data available.",
-                  style: TextStyle(color: AppColors.grey, fontSize: 12),
+                  style: TextStyle(color: AppColors.grey, fontSize: 14),
                 ),
               ),
             )
@@ -90,12 +90,11 @@ class TopListWidget extends StatelessWidget {
                   const Divider(color: Color(0xFFF1F5F9), height: 32),
               itemBuilder: (context, index) {
                 final item = items[index];
-                return Row(
+                Widget productPart = Row(
                   children: [
                     item.leading,
                     const SizedBox(width: 12),
                     Expanded(
-                      flex: 2,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -103,25 +102,56 @@ class TopListWidget extends StatelessWidget {
                             item.title,
                             style: const TextStyle(
                               color: AppColors.black,
-                              fontSize: 13,
+                              fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          const SizedBox(height: 2),
-                          Text(
-                            item.subtitle,
-                            style: const TextStyle(
-                              color: AppColors.grey,
-                              fontSize: 10,
+                          if (item.subtitle.isNotEmpty) ...[
+                            const SizedBox(height: 2),
+                            Text(
+                              item.subtitle,
+                              style: const TextStyle(
+                                color: AppColors.grey,
+                                fontSize: 13,
+                              ),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                          ],
                         ],
                       ),
                     ),
+                  ],
+                );
+
+                if (headerRow != null) {
+                  return Row(
+                    children: [
+                      Expanded(flex: 2, child: productPart),
+                      if (item.middleText != null)
+                        Expanded(
+                          flex: 1,
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: item.middleText!,
+                          ),
+                        ),
+                      Expanded(
+                        flex: 1,
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: item.trailing,
+                        ),
+                      ),
+                    ],
+                  );
+                }
+
+                return Row(
+                  children: [
+                    Expanded(child: productPart),
                     if (item.middleText != null) ...[
                       const SizedBox(width: 8),
                       item.middleText!,

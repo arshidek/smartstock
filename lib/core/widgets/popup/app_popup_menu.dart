@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
 
@@ -7,16 +6,60 @@ class AppPopupMenu extends StatelessWidget {
   final VoidCallback? onEdit;
   final VoidCallback? onDelete;
   final VoidCallback? onRestock;
+  final VoidCallback? onRefresh;
+  final VoidCallback? onShare;
+  final VoidCallback? onExport;
+  final VoidCallback? onView;
   final bool isRestockMenu;
+  final bool isReportMenu;
+  final bool isSaleMenu;
 
   const AppPopupMenu({super.key, this.onEdit, this.onDelete})
     : onRestock = null,
-      isRestockMenu = false;
+      onRefresh = null,
+      onShare = null,
+      onExport = null,
+      onView = null,
+      isRestockMenu = false,
+      isReportMenu = false,
+      isSaleMenu = false;
 
   const AppPopupMenu.restock({super.key, required this.onRestock})
     : onEdit = null,
       onDelete = null,
-      isRestockMenu = true;
+      onRefresh = null,
+      onShare = null,
+      onExport = null,
+      onView = null,
+      isRestockMenu = true,
+      isReportMenu = false,
+      isSaleMenu = false;
+
+  const AppPopupMenu.report({
+    super.key,
+    required this.onRefresh,
+    required this.onShare,
+    required this.onExport,
+  })  : onEdit = null,
+        onDelete = null,
+        onRestock = null,
+        onView = null,
+        isRestockMenu = false,
+        isReportMenu = true,
+        isSaleMenu = false;
+
+  const AppPopupMenu.sale({
+    super.key,
+    required this.onView,
+    required this.onDelete,
+  })  : onEdit = null,
+        onRestock = null,
+        onRefresh = null,
+        onShare = null,
+        onExport = null,
+        isRestockMenu = false,
+        isReportMenu = false,
+        isSaleMenu = true;
 
   @override
   Widget build(BuildContext context) {
@@ -31,28 +74,36 @@ class AppPopupMenu extends StatelessWidget {
       ),
       constraints: const BoxConstraints(minWidth: AppSizes.size220),
       offset: const Offset(0, AppSizes.size55),
-      icon: const Icon(
+      icon:  Icon(
         Icons.more_vert_rounded,
         size: AppSizes.size30,
-        color: AppColors.black,
+        color: AppColors.white,
       ),
-
       onSelected: (value) {
         switch (value) {
           case "restock":
             onRestock?.call();
             break;
-
           case "edit":
             onEdit?.call();
             break;
-
           case "delete":
             onDelete?.call();
             break;
+          case "refresh":
+            onRefresh?.call();
+            break;
+          case "share":
+            onShare?.call();
+            break;
+          case "export":
+            onExport?.call();
+            break;
+          case "view":
+            onView?.call();
+            break;
         }
       },
-
       itemBuilder: (context) {
         if (isRestockMenu) {
           return [
@@ -66,6 +117,54 @@ class AppPopupMenu extends StatelessWidget {
           ];
         }
 
+        if (isReportMenu) {
+          return [
+            _menuItem(
+              value: "refresh",
+              title: "Refresh",
+              icon: Icons.refresh,
+              color: AppColors.blue,
+              bgColor: AppColors.lightBlue,
+            ),
+            const PopupMenuDivider(height: 1),
+            _menuItem(
+              value: "share",
+              title: "Share",
+              icon: Icons.share_outlined,
+              color: AppColors.blue,
+              bgColor: AppColors.lightBlue,
+            ),
+            const PopupMenuDivider(height: 1),
+            _menuItem(
+              value: "export",
+              title: "Export",
+              icon: Icons.download,
+              color: AppColors.blue,
+              bgColor: AppColors.lightBlue,
+            ),
+          ];
+        }
+
+        if (isSaleMenu) {
+          return [
+            _menuItem(
+              value: "view",
+              title: "View Details",
+              icon: Icons.visibility_outlined,
+              color: AppColors.blue,
+              bgColor: AppColors.lightBlue,
+            ),
+            const PopupMenuDivider(height: 1),
+            _menuItem(
+              value: "delete",
+              title: "Delete",
+              icon: Icons.delete_outline_rounded,
+              color: AppColors.error,
+              bgColor: AppColors.lightRed,
+            ),
+          ];
+        }
+
         return [
           _menuItem(
             value: "edit",
@@ -74,9 +173,7 @@ class AppPopupMenu extends StatelessWidget {
             color: AppColors.blue,
             bgColor: AppColors.lightBlue,
           ),
-
           const PopupMenuDivider(height: 1),
-
           _menuItem(
             value: "delete",
             title: "Delete Brand",

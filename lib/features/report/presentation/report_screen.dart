@@ -24,6 +24,37 @@ class _ReportScreenState extends State<ReportScreen> {
   final ReportFunctions _reportFunctions = ReportFunctions();
   final PdfReportService _pdfService = PdfReportService();
 
+  Future<void> _selectDate() async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate ?? DateTime.now(),
+      firstDate: DateTime(2020),
+      lastDate: DateTime.now(),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme:  ColorScheme.light(
+              primary: AppColors.blue, 
+              onPrimary: AppColors.white, 
+              onSurface: AppColors.black, 
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: AppColors.blue, 
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,81 +108,28 @@ class _ReportScreenState extends State<ReportScreen> {
               },
             ),
 
-            // Date Filter
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppSizes.padding20,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  InkWell(
-                    onTap: () async {
-                      final picked = await showDatePicker(
-                        context: context,
-                        initialDate: _selectedDate ?? DateTime.now(),
-                        firstDate: DateTime(2020),
-                        lastDate: DateTime(2100),
-                      );
-                      if (picked != null) {
-                        setState(() {
-                          _selectedDate = picked;
-                          // In a real scenario, we would filter ReportFunctions data here
-                        });
-                      }
-                    },
-                    borderRadius: BorderRadius.circular(12),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                      decoration: BoxDecoration(
-                        color: AppColors.blue.withValues(alpha: 0.08),
-                        border: Border.all(
-                          color: AppColors.blue.withValues(alpha: 0.3),
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(
-                            Icons.calendar_today_outlined,
-                            size: 16,
-                            color: AppColors.blue,
-                          ),
-                          const SizedBox(width: 8),
-                          Text(
-                            "${(_selectedDate ?? DateTime.now()).day}/${(_selectedDate ?? DateTime.now()).month}/${(_selectedDate ?? DateTime.now()).year}",
-                            style: const TextStyle(
-                              color: AppColors.blue,
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: AppSizes.padding10),
+
 
             Expanded(
               child: IndexedStack(
                 index: _selectedTabIndex,
                 children: [
-                  InventoryReportView(functions: _reportFunctions),
-                  RevenueReportView(functions: _reportFunctions),
+                  InventoryReportView(
+                    functions: _reportFunctions,
+                    selectedDate: _selectedDate,
+                    onDateTap: _selectDate,
+                  ),
+                  RevenueReportView(
+                    functions: _reportFunctions,
+                    selectedDate: _selectedDate,
+                    onDateTap: _selectDate,
+                  ),
                 ],
               ),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: const AppBottomNavigationBar(currentIndex: 2),
     );
   }
 }
