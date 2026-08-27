@@ -70,18 +70,22 @@ fontSize: AppSizes.font24,
         ),
       ),
       body: Container(
+        height: double.infinity,
         decoration: const BoxDecoration(
           gradient: AppColors.background,
         ),
         child: SingleChildScrollView(
           padding: const EdgeInsets.only(bottom: AppSizes.size40),
           child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: AppSizes.size20),
-
-            ),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: AppSizes.size20),
+                child: Text(
+                  "Manage your app preferences and data",
+                  style: TextStyle(color: AppColors.grey, fontSize: 14),
+                ),
+              ),
             const SizedBox(height: AppSizes.size15),
 
             // Account Section
@@ -162,7 +166,11 @@ fontSize: AppSizes.font24,
           ],
         ),
       ),
+
       ),
+
+     // Close Container
+
       bottomNavigationBar: const AppBottomNavigationBar(currentIndex: 3),
     );
   }

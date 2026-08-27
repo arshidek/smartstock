@@ -7,6 +7,7 @@ import '../../../core/services/sale_service.dart';
 import '../../../data/models/product_model.dart';
 import '../../../data/models/sale_item_model.dart';
 import '../../../data/models/sale_model.dart';
+import '../../../core/utils/app_snack_bar.dart';
 
 class SaleFunctions {
   final SaleService _saleService = SaleService();
@@ -16,17 +17,13 @@ class SaleFunctions {
     return cartItems.fold(0, (sum, item) => sum + item.totalPrice);
   }
 
-  /// Discount
-  double getDiscount(List<SaleItemModel> cartItems, double discountPercentage) {
-    return getSubtotal(cartItems) * (discountPercentage / 100);
-  }
-
   /// Grand Total
   double getGrandTotal(
     List<SaleItemModel> cartItems,
-    double discountPercentage,
+    double discountAmount,
   ) {
-    return getSubtotal(cartItems) - getDiscount(cartItems, discountPercentage);
+    double total = getSubtotal(cartItems) - discountAmount;
+    return total < 0 ? 0 : total;
   }
 
   /// Update Quantity
@@ -60,6 +57,7 @@ class SaleFunctions {
 
     required String paymentMethod,
     required DateTime saleDate,
+    required double discountAmount,
 
     required VoidCallback refresh,
   }) async {
@@ -68,9 +66,7 @@ class SaleFunctions {
       debugPrint("Selected date before save: $saleDate");
 
       if (cartItems.isEmpty) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Please add at least one product.")),
-        );
+        AppSnackBar.warning(context, "Please add at least one product.");
         return;
       }
 
@@ -92,8 +88,8 @@ class SaleFunctions {
         saleDate: saleDate,
         items: List<SaleItemModel>.from(cartItems),
         subTotal: subTotal,
-        discount: 0,
-        grandTotal: subTotal,
+        discount: discountAmount,
+        grandTotal: subTotal - discountAmount,
         paymentMethod: paymentMethod,
 
         customerName: customerNameController.text.trim(),
@@ -139,20 +135,100 @@ class SaleFunctions {
 
       refresh();
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Sale completed successfully."),
-          backgroundColor: Colors.green,
-        ),
-      );
+      AppSnackBar.success(context, "Sale completed successfully.");
 
-      AppNavigation.goBack(context);
+      AppNavigation.goBackWithResult(context, true);
     } catch (e) {
       debugPrint("Save Sale Error : $e");
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.toString()), backgroundColor: Colors.red),
+      AppSnackBar.error(context, e.toString());
+    }
+  }
+
+  Future<void> updateSale({
+    required BuildContext context,
+    required SaleModel existingSale,
+    required List<SaleItemModel> newCartItems,
+    required TextEditingController customerNameController,
+    required TextEditingController customerPhoneController,
+    required TextEditingController customerEmailController,
+    required TextEditingController customerAddressController,
+    required TextEditingController noteController,
+    required String paymentMethod,
+    required DateTime saleDate,
+    required double discountAmount,
+    required VoidCallback refresh,
+  }) async {
+    try {
+      if (newCartItems.isEmpty) {
+        AppSnackBar.warning(context, "Please add at least one product.");
+        return;
+      }
+
+      double subTotal = 0;
+      int totalQuantity = 0;
+      double totalProfit = 0;
+
+      for (var item in newCartItems) {
+        subTotal += item.totalPrice;
+        totalQuantity += item.quantity;
+        totalProfit += item.profit;
+      }
+
+      final updatedSale = SaleModel(
+        id: existingSale.id,
+        invoiceNo: existingSale.invoiceNo,
+        saleDate: saleDate,
+        items: List<SaleItemModel>.from(newCartItems),
+        subTotal: subTotal,
+        discount: discountAmount,
+        grandTotal: subTotal - discountAmount,
+        paymentMethod: paymentMethod,
+        customerName: customerNameController.text.trim(),
+        customerPhone: customerPhoneController.text.trim(),
+        customerEmail: customerEmailController.text.trim(),
+        customerAddress: customerAddressController.text.trim(),
+        note: noteController.text.trim(),
+        totalQuantity: totalQuantity,
+        totalProfit: totalProfit,
       );
+
+      final productService = ProductService();
+
+      // Revert old stock
+      for (var oldItem in existingSale.items) {
+        ProductModel? product =
+            productService.getProductByProductId(oldItem.productId);
+        if (product != null) {
+          product.stock += oldItem.quantity;
+          await productService.updateProduct(product);
+        }
+      }
+
+      // Apply new stock
+      for (var newItem in newCartItems) {
+        ProductModel? product =
+            productService.getProductByProductId(newItem.productId);
+        if (product != null) {
+          product.stock -= newItem.quantity;
+          if (product.stock < 0) {
+            product.stock = 0;
+          }
+          await productService.updateProduct(product);
+        }
+      }
+
+      await _saleService.updateSale(updatedSale);
+
+      refresh();
+
+      AppSnackBar.success(context, "Sale updated successfully.");
+
+      AppNavigation.goBackWithResult(context, true);
+    } catch (e) {
+      debugPrint("Update Sale Error : $e");
+
+      AppSnackBar.error(context, e.toString());
     }
   }
 
@@ -163,9 +239,7 @@ class SaleFunctions {
     required VoidCallback refresh,
   }) {
     if (cartItems.isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(const SnackBar(content: Text("Cart is already empty.")));
+      AppSnackBar.warning(context, "Cart is already empty.");
       return;
     }
 
@@ -174,13 +248,13 @@ class SaleFunctions {
 
     refresh();
 
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text("Cart cleared successfully.")));
+    AppSnackBar.success(context, "Cart cleared successfully.");
   }
 
   List<SaleModel> loadSales() {
-    return _saleService.getAllSales();
+    final sales = _saleService.getAllSales();
+    sales.sort((a, b) => b.saleDate.compareTo(a.saleDate));
+    return sales;
   }
 
   double getTotalAmount(List<SaleModel> sales) {

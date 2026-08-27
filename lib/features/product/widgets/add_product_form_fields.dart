@@ -77,38 +77,14 @@ class AddProductFormFields {
     required String? selectedBrandId,
     required ValueChanged<String?> onChanged,
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text.rich(
-          TextSpan(
-            text: "Brand ",
-            children: [
-              TextSpan(
-                text: "*",
-                style: TextStyle(color: AppColors.error),
-              ),
-            ],
-          ),
-          style: TextStyle(fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(height: AppSizes.size7),
-        AppCustomDropdown.dropdown<String>(
-          label: "Brand",
-          icon: Icons.business,
-          value: selectedBrandId,
-          validator: (value) => Validator.validateDropdown(value, "Brand"),
-          items: brands
-              .map(
-                (brand) => DropdownMenuItem<String>(
-                  value: brand.id,
-                  child: Text(brand.name),
-                ),
-              )
-              .toList(),
-          onChanged: onChanged,
-        ),
-      ],
+    return AppCustomDropdown.dropdown<String>(
+      label: "Brand",
+      icon: Icons.workspace_premium_outlined,
+      value: selectedBrandId,
+      validator: (value) => Validator.validateDropdown(value, "Brand"),
+      items: brands.map((b) => b.id).toList(),
+      itemLabel: (id) => brands.firstWhere((b) => b.id == id).name,
+      onChanged: onChanged,
     );
   }
 
@@ -117,38 +93,14 @@ class AddProductFormFields {
     required String? selectedCategoryId,
     required ValueChanged<String?> onChanged,
   }) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        const Text.rich(
-          TextSpan(
-            text: "Category ",
-            children: [
-              TextSpan(
-                text: "*",
-                style: TextStyle(color: AppColors.error),
-              ),
-            ],
-          ),
-          style: TextStyle(fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(height: AppSizes.size7),
-        AppCustomDropdown.dropdown<String>(
-          label: "Category",
-          icon: Icons.local_offer_outlined,
-          value: selectedCategoryId,
-          validator: (value) => Validator.validateDropdown(value, "Category"),
-          items: categories
-              .map(
-                (category) => DropdownMenuItem<String>(
-                  value: category.id,
-                  child: Text(category.name),
-                ),
-              )
-              .toList(),
-          onChanged: onChanged,
-        ),
-      ],
+    return AppCustomDropdown.dropdown<String>(
+      label: "Category",
+      icon: Icons.local_offer_outlined,
+      value: selectedCategoryId,
+      validator: (value) => Validator.validateDropdown(value, "Category"),
+      items: categories.map((c) => c.id).toList(),
+      itemLabel: (id) => categories.firstWhere((c) => c.id == id).name,
+      onChanged: onChanged,
     );
   }
 }

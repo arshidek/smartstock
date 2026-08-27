@@ -51,94 +51,69 @@ class AppBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(
-        left: 16,
-        right: 16,
-        bottom: 24,
-      ), // Floating pill
-      decoration: BoxDecoration(
-        color: AppColors.white.withOpacity(0.85),
-        borderRadius: BorderRadius.circular(18),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.blueShadow,
-            blurRadius: 20,
-            offset: const Offset(0, 10),
+    return BottomNavigationBar(
+      currentIndex: currentIndex,
+      onTap: (index) => _onTap(context, index),
+      selectedItemColor: AppColors.black,
+      unselectedItemColor: Colors.grey,
+      type: BottomNavigationBarType.fixed,
+      showUnselectedLabels: true,
+      elevation: 8,
+      backgroundColor: AppColors.appBarColor,
+      items: [
+        BottomNavigationBarItem(
+          icon: _buildIcon(
+            Icons.home_outlined,
+            AppColors.blue,
+            AppColors.lightBlue,
           ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(18),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-          child: BottomNavigationBar(
-            currentIndex: currentIndex,
-            onTap: (index) => _onTap(context, index),
-            selectedItemColor: AppColors.black,
-            unselectedItemColor: Colors.grey,
-            type: BottomNavigationBarType.fixed,
-            showUnselectedLabels: true,
-            elevation: 0,
-            backgroundColor:
-                Colors.transparent, // Background handled by container
-            items: [
-              BottomNavigationBarItem(
-                icon: _buildIcon(
-                  Icons.home_outlined,
-                  AppColors.blue,
-                  AppColors.lightBlue,
-                ),
-                activeIcon: _buildIcon(
-                  Icons.home,
-                  AppColors.blue,
-                  AppColors.lightBlue,
-                ),
-                label: "Dashboard",
-              ),
-              BottomNavigationBarItem(
-                icon: _buildIcon(
-                  Icons.shopping_cart_outlined,
-                  const Color(0xFF06B6D4),
-                  const Color(0xFFCFFAFE),
-                ),
-                activeIcon: _buildIcon(
-                  Icons.shopping_cart,
-                  const Color(0xFF06B6D4),
-                  const Color(0xFFCFFAFE),
-                ),
-                label: "Sales",
-              ),
-              BottomNavigationBarItem(
-                icon: _buildIcon(
-                  Icons.bar_chart_outlined,
-                  AppColors.warning,
-                  AppColors.lightWarning,
-                ),
-                activeIcon: _buildIcon(
-                  Icons.bar_chart,
-                  AppColors.warning,
-                  AppColors.lightWarning,
-                ),
-                label: "Reports",
-              ),
-              BottomNavigationBarItem(
-                icon: _buildIcon(
-                  Icons.settings_outlined,
-                  AppColors.lightBlack,
-                  AppColors.lightGrey.withOpacity(0.2),
-                ),
-                activeIcon: _buildIcon(
-                  Icons.settings,
-                  AppColors.lightBlack,
-                  AppColors.lightGrey.withOpacity(0.2),
-                ),
-                label: "Settings",
-              ),
-            ],
+          activeIcon: _buildIcon(
+            Icons.home,
+            AppColors.blue,
+            AppColors.lightBlue,
           ),
+          label: "Dashboard",
         ),
-      ),
+        BottomNavigationBarItem(
+          icon: _buildIcon(
+            Icons.shopping_cart_outlined,
+            const Color(0xFF06B6D4),
+            const Color(0xFFCFFAFE),
+          ),
+          activeIcon: _buildIcon(
+            Icons.shopping_cart,
+            const Color(0xFF06B6D4),
+            const Color(0xFFCFFAFE),
+          ),
+          label: "Sales",
+        ),
+        BottomNavigationBarItem(
+          icon: _buildIcon(
+            Icons.bar_chart_outlined,
+            AppColors.warning,
+            AppColors.lightWarning,
+          ),
+          activeIcon: _buildIcon(
+            Icons.bar_chart,
+            AppColors.warning,
+            AppColors.lightWarning,
+          ),
+          label: "Reports",
+        ),
+        BottomNavigationBarItem(
+          icon: _buildIcon(
+            Icons.settings_outlined,
+            AppColors.lightBlack,
+            AppColors.lightGrey.withOpacity(0.2),
+          ),
+          activeIcon: _buildIcon(
+            Icons.settings,
+            AppColors.lightBlack,
+            AppColors.lightGrey.withOpacity(0.2),
+          ),
+          label: "Settings",
+        ),
+      ],
     );
   }
 }

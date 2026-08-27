@@ -26,6 +26,7 @@ class AppDeleteDialog {
             elevation: AppSizes.size20,
             backgroundColor: Colors.transparent,
             child: Container(
+              constraints: const BoxConstraints(maxWidth: 400),
               padding: const EdgeInsets.all(AppSizes.padding25),
               decoration: BoxDecoration(
                 color: AppColors.white,
