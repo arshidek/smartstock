@@ -51,35 +51,36 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      backgroundColor: AppColors.lightBlue,
+      backgroundColor: AppColors.appBarColor,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+        backgroundColor: AppColors.appBarColor,
+        elevation: 1,
         centerTitle: false,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.black),
+          icon: const Icon(Icons.arrow_back, color: AppColors.black,size: AppSizes.size30,),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text(
           "Settings",
           style: TextStyle(
             color: AppColors.black,
-            fontSize: 24,
+fontSize: AppSizes.font24,
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.only(bottom: AppSizes.size40),
-        child: Column(
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: AppColors.background,
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.only(bottom: AppSizes.size40),
+          child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: AppSizes.size20),
-              child: Text(
-                "Manage your app preferences and data",
-                style: TextStyle(color: AppColors.grey, fontSize: 14),
-              ),
+
             ),
             const SizedBox(height: AppSizes.size15),
 
@@ -160,6 +161,7 @@ class SettingsScreen extends StatelessWidget {
             const SecurityNoticeCard(),
           ],
         ),
+      ),
       ),
       bottomNavigationBar: const AppBottomNavigationBar(currentIndex: 3),
     );
