@@ -1,3 +1,6 @@
+
+
+
 import 'package:flutter/material.dart';
 
 import '../../constants/app_colors.dart';
@@ -8,28 +11,58 @@ class AppPopupMenu extends StatelessWidget {
   final VoidCallback? onDelete;
   final VoidCallback? onRestock;
   final VoidCallback? onUpdate;
+  final VoidCallback? onRefresh;
+  final VoidCallback? onShare;
+  final VoidCallback? onExport;
   final bool isRestockMenu;
   final bool isSaleMenu;
+  final bool isReportMenu;
   final bool compact;
 
   const AppPopupMenu({super.key, this.onEdit, this.onDelete, this.compact = false})
     : onRestock = null,
       onUpdate = null,
+      onRefresh = null,
+      onShare = null,
+      onExport = null,
       isRestockMenu = false,
-      isSaleMenu = false;
+      isSaleMenu = false,
+      isReportMenu = false;
 
   const AppPopupMenu.restock({super.key, required this.onRestock, this.compact = false})
     : onEdit = null,
       onDelete = null,
       onUpdate = null,
+      onRefresh = null,
+      onShare = null,
+      onExport = null,
       isSaleMenu = false,
+      isReportMenu = false,
       isRestockMenu = true;
 
   const AppPopupMenu.sale({super.key, required this.onUpdate, required this.onDelete, this.compact = false})
     : onEdit = null,
       onRestock = null,
+      onRefresh = null,
+      onShare = null,
+      onExport = null,
       isRestockMenu = false,
+      isReportMenu = false,
       isSaleMenu = true;
+
+  const AppPopupMenu.report({
+    super.key,
+    required this.onRefresh,
+    required this.onShare,
+    required this.onExport,
+    this.compact = false,
+  })  : onEdit = null,
+        onDelete = null,
+        onRestock = null,
+        onUpdate = null,
+        isRestockMenu = false,
+        isSaleMenu = false,
+        isReportMenu = true;
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +102,17 @@ class AppPopupMenu extends StatelessWidget {
           case "delete":
             onDelete?.call();
             break;
+          case "refresh":
+            onRefresh?.call();
+            break;
+            
+          case "share":
+            onShare?.call();
+            break;
+            
+          case "export":
+            onExport?.call();
+            break;
         }
       },
 
@@ -101,6 +145,34 @@ class AppPopupMenu extends StatelessWidget {
               icon: Icons.delete_outline_rounded,
               color: AppColors.error,
               bgColor: AppColors.lightRed,
+            ),
+          ];
+        }
+
+        if (isReportMenu) {
+          return [
+            _menuItem(
+              value: "refresh",
+              title: "Refresh Data",
+              icon: Icons.refresh_rounded,
+              color: AppColors.blue,
+              bgColor: AppColors.lightBlue,
+            ),
+            const PopupMenuDivider(height: 1),
+            _menuItem(
+              value: "export",
+              title: "Export PDF",
+              icon: Icons.picture_as_pdf_outlined,
+              color: AppColors.blue,
+              bgColor: AppColors.lightBlue,
+            ),
+            const PopupMenuDivider(height: 1),
+            _menuItem(
+              value: "share",
+              title: "Share Report",
+              icon: Icons.share_rounded,
+              color: AppColors.blue,
+              bgColor: AppColors.lightBlue,
             ),
           ];
         }

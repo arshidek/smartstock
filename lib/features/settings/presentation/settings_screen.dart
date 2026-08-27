@@ -51,7 +51,7 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      backgroundColor: AppColors.lightBlue,
+      backgroundColor: AppColors.appBarColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -69,9 +69,11 @@ class SettingsScreen extends StatelessWidget {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.only(bottom: AppSizes.size40),
-        child: Column(
+      body: Container(
+        decoration: const BoxDecoration(gradient: AppColors.background),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.only(bottom: AppSizes.size40),
+          child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Padding(
@@ -161,6 +163,7 @@ class SettingsScreen extends StatelessWidget {
           ],
         ),
       ),
+      ), // Close Container
       bottomNavigationBar: const AppBottomNavigationBar(currentIndex: 3),
     );
   }
