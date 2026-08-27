@@ -54,8 +54,11 @@ class SummaryCardGrid extends StatelessWidget {
 
   Widget _buildCard(SummaryMetric metric) {
     // Format the subtitle for AppStatsCard
-    final String sign = metric.isPositive ? "+" : "-";
-    final String subtitleText = "$sign${metric.percentage}% vs last month";
+    final String subtitleText = metric.percentage == 0.0 
+        ? "➖ unchanged" 
+        : metric.isPositive 
+            ? "📈 increased by ${metric.percentage}%" 
+            : "📉 decreased by ${metric.percentage}%";
 
     return AppStatsCard(
       title: metric.title,

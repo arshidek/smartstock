@@ -52,10 +52,10 @@ class AppSaleCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(AppSizes.borderRadius20),
-            border: Border.all(color: AppColors.blue.withOpacity(.08)),
+            border: Border.all(color: AppColors.blue.withValues(alpha: 0.08)),
             boxShadow: [
               BoxShadow(
-                color: AppColors.black.withOpacity(.08),
+                color: AppColors.black.withValues(alpha: 0.08),
                 blurRadius: AppSizes.blurRadius,
                 spreadRadius: 1,
                 offset: const Offset(0, 8),
@@ -119,7 +119,7 @@ class AppSaleCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-
+                            const SizedBox(width: 8),
                             Text(
                               paymentMethod,
                               style: const TextStyle(
@@ -127,9 +127,7 @@ class AppSaleCard extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-
                             const SizedBox(width: 8),
-
                             Container(
                               padding: const EdgeInsets.symmetric(
                                 horizontal: 10,
@@ -147,13 +145,28 @@ class AppSaleCard extends StatelessWidget {
                                 ),
                               ),
                             ),
-
                             if (showMenu)
                               AppPopupMenu.sale(
-                                onUpdate: onUpdate ?? () {},
-                                onDelete: onDelete ?? () {},
-                                compact: true,
+                                onUpdate: onUpdate,
+                                onDelete: onDelete,
                               ),
+                          ],
+                        ),
+
+                        const SizedBox(height: 6),
+
+                        /// Invoice
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                invoiceNo,
+                                style: const TextStyle(
+                                  color: AppColors.grey,
+                                  fontSize: 13,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
 

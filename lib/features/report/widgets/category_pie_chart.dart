@@ -52,7 +52,7 @@ class CategoryPieChart extends StatelessWidget {
                 title,
                 style: const TextStyle(
                   color: AppColors.black,
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -64,8 +64,8 @@ class CategoryPieChart extends StatelessWidget {
             children: [
               // Chart
               SizedBox(
-                height: 120,
-                width: 120,
+                height: 160,
+                width: 160,
                 child: Stack(
                   children: [
                     PieChart(
@@ -78,7 +78,7 @@ class CategoryPieChart extends StatelessWidget {
                                   color: AppColors.grey.withValues(alpha: 0.2),
                                   value: 1,
                                   title: '',
-                                  radius: 12,
+                                  radius: 24,
                                 ),
                               ]
                             : data.map((point) {
@@ -93,7 +93,7 @@ class CategoryPieChart extends StatelessWidget {
                                             ? 0.0001
                                             : point.value),
                                   title: '', // Don't show text on the segments
-                                  radius: 12,
+                                  radius: 24,
                                 );
                               }).toList(),
                       ),
@@ -106,14 +106,14 @@ class CategoryPieChart extends StatelessWidget {
                             Text(
                               centerSubtitle,
                               style: const TextStyle(
-                                fontSize: 10,
+                                fontSize: 13,
                                 color: AppColors.grey,
                               ),
                             ),
                           Text(
                             centerTitle,
                             style: const TextStyle(
-                              fontSize: 14,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: AppColors.black,
                             ),
@@ -155,8 +155,9 @@ class CategoryPieChart extends StatelessWidget {
                                   child: Text(
                                     point.label,
                                     style: const TextStyle(
-                                      fontSize: 11,
+                                      fontSize: 14,
                                       color: AppColors.grey,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
@@ -166,7 +167,7 @@ class CategoryPieChart extends StatelessWidget {
                                   Text(
                                     point.suffix,
                                     style: const TextStyle(
-                                      fontSize: 11,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.bold,
                                       color: AppColors.black,
                                     ),

@@ -24,94 +24,62 @@ class ReportFunctions {
 
   List<SummaryMetric> getInventorySummaryMetrics() {
     final products = _productService.getAllProducts();
-    final now = DateTime.now();
-    final thirtyDaysAgo = now.subtract(const Duration(days: 30));
-
-    double currentInvValue = 0;
-    int currentTotalStock = 0;
+    final categories = _categoryService.getAllCategories();
+    
     int currentLowStock = 0;
-
-    double previousInvValue = 0;
-    int previousTotalStock = 0;
-    int previousProductsCount = 0;
+    int outOfStock = 0;
 
     for (var p in products) {
-      double value = p.purchasePrice * p.stock;
-      currentInvValue += value;
-      currentTotalStock += p.stock;
-
       if (p.stock <= 5 && p.stock > 0) {
         currentLowStock++;
+      } else if (p.stock == 0) {
+        outOfStock++;
       }
-
-      if (p.createdAt.isBefore(thirtyDaysAgo)) {
-        previousInvValue += value; // Rough proxy since we lack stock history
-        previousTotalStock += p.stock;
-        previousProductsCount++;
-      }
-    }
-
-    double invValueGrowth = previousInvValue == 0
-        ? 0.0
-        : ((currentInvValue - previousInvValue) / previousInvValue) * 100;
-    double productsGrowth = previousProductsCount == 0
-        ? 0.0
-        : ((products.length - previousProductsCount) / previousProductsCount) *
-              100;
-    double stockGrowth = previousTotalStock == 0
-        ? 0.0
-        : ((currentTotalStock - previousTotalStock) / previousTotalStock) * 100;
-
-    String formattedInvValue =
-        "₹${(currentInvValue / 100000).toStringAsFixed(1)}L";
-    if (currentInvValue < 100000) {
-      formattedInvValue = "₹${currentInvValue.toStringAsFixed(0)}";
     }
 
     return [
       SummaryMetric(
-        icon: Icons.account_balance_wallet_outlined,
-        title: "Inv. Value",
-        value: formattedInvValue,
-        percentage: double.parse(invValueGrowth.abs().toStringAsFixed(1)),
-        isPositive: invValueGrowth >= 0,
-        iconColor: const Color(0xFF4C2DB3),
-        iconBackgroundColor: const Color(0xFFF0EDFB),
-      ),
-      SummaryMetric(
-        icon: Icons.widgets_outlined,
-        title: "Products",
+        icon: Icons.grid_view_outlined,
+        title: "Total Products",
         value: products.length.toString(),
-        percentage: double.parse(productsGrowth.abs().toStringAsFixed(1)),
-        isPositive: productsGrowth >= 0,
-        iconColor: const Color(0xFFB4783A),
-        iconBackgroundColor: const Color(0xFFFAF4EE),
-      ),
-      SummaryMetric(
-        icon: Icons.check_box_outlined,
-        title: "Total Stock",
-        value: currentTotalStock.toString(),
-        percentage: double.parse(stockGrowth.abs().toStringAsFixed(1)),
-        isPositive: stockGrowth >= 0,
-        iconColor: const Color(0xFF4C2DB3),
-        iconBackgroundColor: const Color(0xFFF0EDFB),
+        percentage: 0.0,
+        isPositive: true,
+        iconColor: AppColors.blue,
+        iconBackgroundColor: AppColors.lightBlue,
       ),
       SummaryMetric(
         icon: Icons.warning_amber_rounded,
         title: "Low Stock",
         value: currentLowStock.toString(),
-        percentage:
-            0.0, // Low stock growth is too volatile to proxy without history
+        percentage: 0.0,
+        isPositive: false,
+        iconColor: AppColors.warning,
+        iconBackgroundColor: AppColors.warning.withValues(alpha: 0.15),
+      ),
+      SummaryMetric(
+        icon: Icons.block_outlined,
+        title: "Out of Stock",
+        value: outOfStock.toString(),
+        percentage: 0.0,
         isPositive: false,
         iconColor: AppColors.error,
-        iconBackgroundColor: AppColors.error.withValues(alpha: 0.1),
+        iconBackgroundColor: AppColors.lightRed,
+      ),
+      SummaryMetric(
+        icon: Icons.local_offer_outlined,
+        title: "Categories",
+        value: categories.length.toString(),
+        percentage: 0.0,
+        isPositive: true,
+        iconColor: AppColors.purple,
+        iconBackgroundColor: AppColors.lightPurple,
       ),
     ];
   }
 
-  List<ChartDataPoint> getInventoryTrendData() {
+  List<ChartDataPoint> getInventoryTrendData({DateTime? selectedDate}) {
     final products = _productService.getAllProducts();
-    DateTime now = DateTime.now();
+    DateTime now = selectedDate ?? DateTime.now();
     List<ChartDataPoint> trendData = [];
 
     for (int i = 6; i >= 0; i--) {
@@ -156,11 +124,11 @@ class ReportFunctions {
     }
 
     final colors = [
-      const Color(0xFF4C2DB3),
-      const Color(0xFF0F9D58),
-      const Color(0xFF8B4513),
-      const Color(0xFFF4B400),
-      const Color(0xFFE91E63),
+      AppColors.blue,
+      AppColors.success,
+      AppColors.purple,
+      AppColors.warning,
+      AppColors.error,
     ];
 
     int colorIndex = 0;
@@ -197,27 +165,15 @@ class ReportFunctions {
 
     return lowStockProducts.take(4).map((p) {
       return TopListItemModel(
-        leading: Container(
-          width: 40,
-          height: 40,
-          decoration: BoxDecoration(
-            color: const Color(0xFFF4F6FB),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: const Icon(
-            Icons.widgets_outlined,
-            color: Color(0xFF4C2DB3),
-            size: 20,
-          ),
-        ),
+        leading: _buildProductImage(p.imagePath),
         title: p.name,
-        subtitle: "SKU: ${p.barcode}",
+        subtitle: "",
         trailing: Text(
           "${p.stock} units left",
           style: const TextStyle(
             color: AppColors.error,
             fontWeight: FontWeight.bold,
-            fontSize: 12,
+            fontSize: 14,
           ),
         ),
       );
@@ -226,9 +182,9 @@ class ReportFunctions {
 
   // --- REVENUE METRICS ---
 
-  List<SummaryMetric> getRevenueSummaryMetrics() {
+  List<SummaryMetric> getRevenueSummaryMetrics({DateTime? selectedDate}) {
     final sales = _saleService.getAllSales();
-    final now = DateTime.now();
+    final now = selectedDate ?? DateTime.now();
     final thirtyDaysAgo = now.subtract(const Duration(days: 30));
     final sixtyDaysAgo = now.subtract(const Duration(days: 60));
 
@@ -241,11 +197,12 @@ class ReportFunctions {
     int previousOrders = 0;
 
     for (var s in sales) {
-      if (s.saleDate.isAfter(thirtyDaysAgo)) {
+      if ((s.saleDate.isAfter(thirtyDaysAgo) || s.saleDate.isAtSameMomentAs(thirtyDaysAgo)) &&
+          (s.saleDate.isBefore(now) || s.saleDate.isAtSameMomentAs(now))) {
         currentRevenue += s.grandTotal;
         currentNetProfit += s.totalProfit;
         currentOrders++;
-      } else if (s.saleDate.isAfter(sixtyDaysAgo) &&
+      } else if ((s.saleDate.isAfter(sixtyDaysAgo) || s.saleDate.isAtSameMomentAs(sixtyDaysAgo)) &&
           s.saleDate.isBefore(thirtyDaysAgo)) {
         previousRevenue += s.grandTotal;
         previousNetProfit += s.totalProfit;
@@ -315,11 +272,11 @@ class ReportFunctions {
     ];
   }
 
-  List<ChartDataPoint> getRevenueTrendData() {
+  List<ChartDataPoint> getRevenueTrendData({DateTime? selectedDate}) {
     final sales = _saleService.getAllSales();
 
-    // Default to last 7 days if not enough data
-    DateTime now = DateTime.now();
+    // Default to last 7 days ending at selectedDate
+    DateTime now = selectedDate ?? DateTime.now();
 
     List<ChartDataPoint> trendData = [];
 
@@ -350,9 +307,11 @@ class ReportFunctions {
     return trendData;
   }
 
-  List<PieChartDataPoint> getRevenueByCategoryData() {
+  List<PieChartDataPoint> getRevenueByCategoryData({DateTime? selectedDate}) {
     final categories = _categoryService.getAllCategories();
     final sales = _saleService.getAllSales();
+    final now = selectedDate ?? DateTime.now();
+    final thirtyDaysAgo = now.subtract(const Duration(days: 30));
 
     Map<String, double> categoryRevenue = {};
     for (var cat in categories) {
@@ -362,25 +321,28 @@ class ReportFunctions {
     double totalRevenue = 0;
 
     for (var sale in sales) {
-      for (var item in sale.items) {
-        String catName = item.categoryName;
-        if (categoryRevenue.containsKey(catName)) {
-          categoryRevenue[catName] =
-              categoryRevenue[catName]! + item.totalPrice;
-        } else {
-          categoryRevenue[catName] =
-              (categoryRevenue[catName] ?? 0.0) + item.totalPrice;
+      if ((sale.saleDate.isAfter(thirtyDaysAgo) || sale.saleDate.isAtSameMomentAs(thirtyDaysAgo)) &&
+          (sale.saleDate.isBefore(now) || sale.saleDate.isAtSameMomentAs(now))) {
+        for (var item in sale.items) {
+          String catName = item.categoryName;
+          if (categoryRevenue.containsKey(catName)) {
+            categoryRevenue[catName] =
+                categoryRevenue[catName]! + item.totalPrice;
+          } else {
+            categoryRevenue[catName] =
+                (categoryRevenue[catName] ?? 0.0) + item.totalPrice;
+          }
+          totalRevenue += item.totalPrice;
         }
-        totalRevenue += item.totalPrice;
       }
     }
 
     List<Color> pieColors = [
-      const Color(0xFF4285F4),
-      const Color(0xFF34A853),
-      const Color(0xFFFBBC05),
-      const Color(0xFF9C27B0),
-      const Color(0xFFEA4335),
+      AppColors.blue,
+      AppColors.success,
+      AppColors.purple,
+      AppColors.warning,
+      AppColors.error,
       const Color(0xFF00BCD4),
       const Color(0xFFFF9800),
     ];
@@ -412,36 +374,47 @@ class ReportFunctions {
     return result;
   }
 
-  double getTotalRevenue() {
+  double getTotalRevenue({DateTime? selectedDate}) {
     final sales = _saleService.getAllSales();
+    final now = selectedDate ?? DateTime.now();
+    final thirtyDaysAgo = now.subtract(const Duration(days: 30));
+
     double totalRevenue = 0;
     for (var s in sales) {
-      totalRevenue += s.grandTotal;
+      if ((s.saleDate.isAfter(thirtyDaysAgo) || s.saleDate.isAtSameMomentAs(thirtyDaysAgo)) &&
+          (s.saleDate.isBefore(now) || s.saleDate.isAtSameMomentAs(now))) {
+        totalRevenue += s.grandTotal;
+      }
     }
     return totalRevenue;
   }
 
-  List<TopListItemModel> getTopSellingProducts() {
+  List<TopListItemModel> getTopSellingProducts({DateTime? selectedDate}) {
     final sales = _saleService.getAllSales();
+    final now = selectedDate ?? DateTime.now();
+    final thirtyDaysAgo = now.subtract(const Duration(days: 30));
 
     double totalRevenue = 0;
     Map<String, _ProductAgg> productSales = {};
 
     for (var sale in sales) {
-      for (var item in sale.items) {
-        totalRevenue += item.totalPrice;
+      if ((sale.saleDate.isAfter(thirtyDaysAgo) || sale.saleDate.isAtSameMomentAs(thirtyDaysAgo)) &&
+          (sale.saleDate.isBefore(now) || sale.saleDate.isAtSameMomentAs(now))) {
+        for (var item in sale.items) {
+          totalRevenue += item.totalPrice;
 
-        if (productSales.containsKey(item.productId)) {
-          productSales[item.productId]!.quantity += item.quantity;
-          productSales[item.productId]!.revenue += item.totalPrice;
-        } else {
-          productSales[item.productId] = _ProductAgg(
-            item.productName,
-            item.categoryName,
-            item.imagePath,
-            item.quantity,
-            item.totalPrice,
-          );
+          if (productSales.containsKey(item.productId)) {
+            productSales[item.productId]!.quantity += item.quantity;
+            productSales[item.productId]!.revenue += item.totalPrice;
+          } else {
+            productSales[item.productId] = _ProductAgg(
+              item.productName,
+              item.categoryName,
+              item.imagePath,
+              item.quantity,
+              item.totalPrice,
+            );
+          }
         }
       }
     }
@@ -462,7 +435,12 @@ class ReportFunctions {
         subtitle: p.category,
         middleText: Text(
           "${p.quantity}",
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold, 
+            fontSize: 15,
+            color: AppColors.black,
+          ),
         ),
         trailing: _buildRevenueTrailing(
           "₹${p.revenue.toStringAsFixed(0)}",
@@ -494,21 +472,24 @@ class ReportFunctions {
 
   Widget _buildRevenueTrailing(String amount, double percent) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Row(
-          children: [
-            Text(
-              amount,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
-            ),
-            const SizedBox(width: 8),
-            Text(
-              "$percent%",
-              style: const TextStyle(color: AppColors.grey, fontSize: 10),
-            ),
-          ],
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Row(
+            children: [
+              Text(
+                amount,
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+              ),
+              const SizedBox(width: 8),
+              Text(
+                "$percent%",
+                style: const TextStyle(color: AppColors.grey, fontSize: 13),
+              ),
+            ],
+          ),
         ),
         const SizedBox(height: 4),
         Container(
@@ -523,7 +504,7 @@ class ReportFunctions {
             width: 80 * (percent / 100),
             height: 4,
             decoration: BoxDecoration(
-              color: const Color(0xFF4C2DB3), // Purple
+              color: AppColors.blue, // Blue progress line
               borderRadius: BorderRadius.circular(2),
             ),
           ),

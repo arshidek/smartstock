@@ -16,6 +16,8 @@ class TrendBarChart extends StatelessWidget {
   final List<ChartDataPoint> data;
   final Color barColor;
   final Color highlightBarColor;
+  final DateTime? selectedDate;
+  final VoidCallback? onDateTap;
 
   const TrendBarChart({
     super.key,
@@ -23,6 +25,8 @@ class TrendBarChart extends StatelessWidget {
     required this.data,
     required this.barColor,
     required this.highlightBarColor,
+    this.selectedDate,
+    this.onDateTap,
   });
 
   @override
@@ -31,26 +35,75 @@ class TrendBarChart extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    final double maxValue = data
+    final double rawMaxValue = data
         .map((e) => e.value)
         .reduce((a, b) => a > b ? a : b);
+    final double maxValue = rawMaxValue == 0 ? 10.0 : rawMaxValue;
+
+    final currentDate = selectedDate ?? DateTime.now();
+    const months = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+    final dateString = "${currentDate.day} ${months[currentDate.month - 1]} ${currentDate.year}";
 
     return AppCardWidget(
       margin: EdgeInsets.zero,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: AppColors.black,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  color: AppColors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              InkWell(
+                onTap: onDateTap,
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.blue.withValues(alpha: 0.1),
+                    border: Border.all(
+                      color: AppColors.blue.withValues(alpha: 0.3),
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(
+                        Icons.calendar_today_outlined,
+                        size: 16,
+                        color: AppColors.blue,
+                      ),
+                      const SizedBox(width: 8),
+                      Text(
+                        dateString,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: AppColors.blue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: AppSizes.padding20),
           SizedBox(
-            height: 200,
+            height: 280,
             child: BarChart(
               BarChartData(
                 alignment: BarChartAlignment.spaceAround,
@@ -67,7 +120,7 @@ class TrendBarChart extends StatelessWidget {
                         TextStyle(
                           color: AppColors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 12,
+                          fontSize: 14,
                         ),
                       );
                     },
@@ -89,7 +142,8 @@ class TrendBarChart extends StatelessWidget {
                             data[index].label,
                             style: const TextStyle(
                               color: AppColors.grey,
-                              fontSize: 11,
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         );
@@ -119,7 +173,7 @@ class TrendBarChart extends StatelessWidget {
                     barRods: [
                       BarChartRodData(
                         toY: point.value,
-                        width: 40,
+                        width: 45,
                         color: highlightBarColor.withValues(
                           alpha:
                               0.2 +

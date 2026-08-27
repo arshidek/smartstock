@@ -1,8 +1,4 @@
-
-
-
 import 'package:flutter/material.dart';
-
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
 
@@ -14,41 +10,41 @@ class AppPopupMenu extends StatelessWidget {
   final VoidCallback? onRefresh;
   final VoidCallback? onShare;
   final VoidCallback? onExport;
+  final VoidCallback? onView;
   final bool isRestockMenu;
   final bool isSaleMenu;
   final bool isReportMenu;
   final bool compact;
 
-  const AppPopupMenu({super.key, this.onEdit, this.onDelete, this.compact = false})
-    : onRestock = null,
-      onUpdate = null,
-      onRefresh = null,
-      onShare = null,
-      onExport = null,
-      isRestockMenu = false,
-      isSaleMenu = false,
-      isReportMenu = false;
+  const AppPopupMenu({
+    super.key,
+    this.onEdit,
+    this.onDelete,
+    this.compact = false,
+  })  : onRestock = null,
+        onUpdate = null,
+        onRefresh = null,
+        onShare = null,
+        onExport = null,
+        onView = null,
+        isRestockMenu = false,
+        isSaleMenu = false,
+        isReportMenu = false;
 
-  const AppPopupMenu.restock({super.key, required this.onRestock, this.compact = false})
-    : onEdit = null,
-      onDelete = null,
-      onUpdate = null,
-      onRefresh = null,
-      onShare = null,
-      onExport = null,
-      isSaleMenu = false,
-      isReportMenu = false,
-      isRestockMenu = true;
-
-  const AppPopupMenu.sale({super.key, required this.onUpdate, required this.onDelete, this.compact = false})
-    : onEdit = null,
-      onRestock = null,
-      onRefresh = null,
-      onShare = null,
-      onExport = null,
-      isRestockMenu = false,
-      isReportMenu = false,
-      isSaleMenu = true;
+  const AppPopupMenu.restock({
+    super.key,
+    required this.onRestock,
+    this.compact = false,
+  })  : onEdit = null,
+        onDelete = null,
+        onUpdate = null,
+        onRefresh = null,
+        onShare = null,
+        onExport = null,
+        onView = null,
+        isSaleMenu = false,
+        isReportMenu = false,
+        isRestockMenu = true;
 
   const AppPopupMenu.report({
     super.key,
@@ -60,9 +56,25 @@ class AppPopupMenu extends StatelessWidget {
         onDelete = null,
         onRestock = null,
         onUpdate = null,
+        onView = null,
         isRestockMenu = false,
         isSaleMenu = false,
         isReportMenu = true;
+
+  const AppPopupMenu.sale({
+    super.key,
+    this.onUpdate,
+    this.onView,
+    required this.onDelete,
+    this.compact = false,
+  })  : onEdit = null,
+        onRestock = null,
+        onRefresh = null,
+        onShare = null,
+        onExport = null,
+        isRestockMenu = false,
+        isReportMenu = false,
+        isSaleMenu = true;
 
   @override
   Widget build(BuildContext context) {
@@ -74,48 +86,45 @@ class AppPopupMenu extends StatelessWidget {
       surfaceTintColor: AppColors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSizes.borderRadius20),
-        side: BorderSide(color: AppColors.white),
+        side:  BorderSide(color: AppColors.white),
       ),
       constraints: const BoxConstraints(minWidth: AppSizes.size220),
       offset: const Offset(0, AppSizes.size55),
-      icon: compact ? null : const Icon(
-        Icons.more_vert_rounded,
-        size: AppSizes.size30,
-        color: AppColors.black,
-      ),
-      child: compact ? const Icon(Icons.more_vert, color: Colors.black87) : null,
-
+      icon: compact
+          ? const Icon(Icons.more_vert, color: Colors.black87)
+          :  Icon(
+              Icons.more_vert_rounded,
+              size: AppSizes.size30,
+              color: AppColors.white,
+            ),
       onSelected: (value) {
         switch (value) {
           case "restock":
             onRestock?.call();
             break;
-
           case "edit":
             onEdit?.call();
             break;
-
           case "update":
             onUpdate?.call();
             break;
-
+          case "view":
+            onView?.call();
+            break;
           case "delete":
             onDelete?.call();
             break;
           case "refresh":
             onRefresh?.call();
             break;
-            
           case "share":
             onShare?.call();
             break;
-            
           case "export":
             onExport?.call();
             break;
         }
       },
-
       itemBuilder: (context) {
         if (isRestockMenu) {
           return [
@@ -125,26 +134,6 @@ class AppPopupMenu extends StatelessWidget {
               icon: Icons.add_box_outlined,
               color: AppColors.blue,
               bgColor: AppColors.lightBlue,
-            ),
-          ];
-        }
-
-        if (isSaleMenu) {
-          return [
-            _menuItem(
-              value: "update",
-              title: "Update Sale",
-              icon: Icons.edit_rounded,
-              color: AppColors.blue,
-              bgColor: AppColors.lightBlue,
-            ),
-            const PopupMenuDivider(height: 1),
-            _menuItem(
-              value: "delete",
-              title: "Delete Sale",
-              icon: Icons.delete_outline_rounded,
-              color: AppColors.error,
-              bgColor: AppColors.lightRed,
             ),
           ];
         }
@@ -160,19 +149,48 @@ class AppPopupMenu extends StatelessWidget {
             ),
             const PopupMenuDivider(height: 1),
             _menuItem(
+              value: "share",
+              title: "Share Report",
+              icon: Icons.share_rounded,
+              color: AppColors.blue,
+              bgColor: AppColors.lightBlue,
+            ),
+            const PopupMenuDivider(height: 1),
+            _menuItem(
               value: "export",
               title: "Export PDF",
               icon: Icons.picture_as_pdf_outlined,
               color: AppColors.blue,
               bgColor: AppColors.lightBlue,
             ),
+          ];
+        }
+
+        if (isSaleMenu) {
+          return [
+            if (onView != null)
+              _menuItem(
+                value: "view",
+                title: "View Details",
+                icon: Icons.visibility_outlined,
+                color: AppColors.blue,
+                bgColor: AppColors.lightBlue,
+              ),
+            if (onUpdate != null)
+              _menuItem(
+                value: "update",
+                title: "Update Sale",
+                icon: Icons.edit_rounded,
+                color: AppColors.blue,
+                bgColor: AppColors.lightBlue,
+              ),
             const PopupMenuDivider(height: 1),
             _menuItem(
-              value: "share",
-              title: "Share Report",
-              icon: Icons.share_rounded,
-              color: AppColors.blue,
-              bgColor: AppColors.lightBlue,
+              value: "delete",
+              title: "Delete Sale",
+              icon: Icons.delete_outline_rounded,
+              color: AppColors.error,
+              bgColor: AppColors.lightRed,
             ),
           ];
         }
@@ -185,9 +203,7 @@ class AppPopupMenu extends StatelessWidget {
             color: AppColors.blue,
             bgColor: AppColors.lightBlue,
           ),
-
           const PopupMenuDivider(height: 1),
-
           _menuItem(
             value: "delete",
             title: "Delete",
