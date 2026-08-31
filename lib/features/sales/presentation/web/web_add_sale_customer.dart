@@ -55,10 +55,8 @@ class WebAddSaleCustomer extends StatelessWidget {
                 label: "Customer Name",
                 hint: "Enter customer name",
                 icon: Icons.person_outline,
-                validator: (value) => Validator.validateName(
-                  value,
-                  fieldName: "Customer Name",
-                ),
+                validator: (value) =>
+                    Validator.validateName(value, fieldName: "Customer Name"),
               ),
             ),
             const SizedBox(width: AppSizes.size15),
@@ -96,10 +94,8 @@ class WebAddSaleCustomer extends StatelessWidget {
           hint: "Enter customer address",
           icon: Icons.location_on_outlined,
           maxLines: 3,
-          validator: (value) => Validator.validateDescription(
-            value,
-            fieldName: "Address",
-          ),
+          validator: (value) =>
+              Validator.validateDescription(value, fieldName: "Address"),
         ),
       ],
     );

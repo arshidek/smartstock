@@ -92,10 +92,10 @@ class AppPopupMenu extends StatelessWidget {
       offset: const Offset(0, AppSizes.size55),
       icon: compact
           ? const Icon(Icons.more_vert, color: Colors.black87)
-          :  Icon(
+          : const Icon(
               Icons.more_vert_rounded,
               size: AppSizes.size30,
-              color: AppColors.white,
+              color: Colors.black87,
             ),
       onSelected: (value) {
         switch (value) {

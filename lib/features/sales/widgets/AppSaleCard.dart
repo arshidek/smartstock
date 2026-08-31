@@ -153,24 +153,7 @@ class AppSaleCard extends StatelessWidget {
                           ],
                         ),
 
-                        const SizedBox(height: 6),
 
-                        /// Invoice
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                invoiceNo,
-                                style: const TextStyle(
-                                  color: AppColors.grey,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 4),
 
                         /// Brand + Category and Amount Row
                         Row(

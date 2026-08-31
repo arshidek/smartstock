@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
+import '../../../core/widgets/cards/app_card_widget.dart';
 import '../../../data/models/brand_model.dart';
 import '../../../data/models/category_model.dart';
 import '../widgets/add_product_image_name.dart';
@@ -66,40 +67,45 @@ class AddProductBody extends StatelessWidget {
       decoration: BoxDecoration(gradient: AppColors.background),
       child: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(AppSizes.padding8),
+
           child: Form(
             key: formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AddProductImageName(
-                  images: images,
-                  imageError: imageError,
-                  productError: productError,
-                  productNameController: productNameController,
-                  onPickImages: onPickImages,
-                  onRemoveImage: onRemoveImage,
-                ),
-                const SizedBox(height: AppSizes.size20),
-                AddProductPricingInventory(
-                  purchasePriceController: purchasePriceController,
-                  sellingPriceController: sellingPriceController,
-                  stockController: stockController,
-                  barcodeController: barcodeController,
-                  descriptionController: descriptionController,
-                  barcodeError: barcodeError,
-                  brands: brands,
-                  categories: categories,
-                  selectedBrandId: selectedBrandId,
-                  selectedCategoryId: selectedCategoryId,
-                  onBrandChanged: onBrandChanged,
-                  onCategoryChanged: onCategoryChanged,
-                  onScanBarcode: onScanBarcode,
-                ),
-                const SizedBox(height: AppSizes.size20),
-                AddProductActionButtons(onSave: onSave),
-                const SizedBox(height: AppSizes.size20),
-              ],
+            child: AppCardWidget(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AddProductImageName(
+                    images: images,
+                    imageError: imageError,
+                    productError: productError,
+                    productNameController: productNameController,
+                    onPickImages: onPickImages,
+                    onRemoveImage: onRemoveImage,
+                  ),
+                  const SizedBox(height: AppSizes.size20),
+                  const Divider(),
+                  const SizedBox(height: AppSizes.size20),
+                  AddProductPricingInventory(
+                    purchasePriceController: purchasePriceController,
+                    sellingPriceController: sellingPriceController,
+                    stockController: stockController,
+                    barcodeController: barcodeController,
+                    descriptionController: descriptionController,
+                    barcodeError: barcodeError,
+                    brands: brands,
+                    categories: categories,
+                    selectedBrandId: selectedBrandId,
+                    selectedCategoryId: selectedCategoryId,
+                    onBrandChanged: onBrandChanged,
+                    onCategoryChanged: onCategoryChanged,
+                    onScanBarcode: onScanBarcode,
+                  ),
+                  const SizedBox(height: AppSizes.size20),
+                  const Divider(),
+                  const SizedBox(height: AppSizes.size20),
+                  AddProductActionButtons(onSave: onSave),
+                ],
+              ),
             ),
           ),
         ),

@@ -74,37 +74,43 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
       body: Container(
         decoration: BoxDecoration(gradient: AppColors.background),
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(AppSizes.padding20),
+
           child: Column(
             children: [
               AppCardWidget(
-                margin: EdgeInsets.zero,
-                child: ResponsiveRow(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                child: Column(
                   children: [
-                    Expanded(
-                      child: ProductDetailImageViewer(
-                        images: widget.product.allImages,
-                      ),
-                    ),
-                    const SizedBox(width: AppSizes.size40),
-                    Expanded(
-                      child: ProductDetailInfoCard(
-                        product: widget.product,
-                        brand: _brand,
-                        category: _category,
-                        formattedDate: _formatDateTime(
-                          widget.product.createdAt,
+                    ResponsiveRow(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: ProductDetailImageViewer(
+                            images: widget.product.allImages,
+                          ),
                         ),
-                      ),
+                        const SizedBox(width: AppSizes.size40),
+                        Expanded(
+                          child: ProductDetailInfoCard(
+                            product: widget.product,
+                            brand: _brand,
+                            category: _category,
+                            formattedDate: _formatDateTime(
+                              widget.product.createdAt,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    const Divider(),
+                    const SizedBox(height: 20),
+                    ProductInformationSection(
+                      product: widget.product,
+                      brand: _brand,
+                      category: _category,
                     ),
                   ],
                 ),
-              ),
-              ProductInformationSection(
-                product: widget.product,
-                brand: _brand,
-                category: _category,
               ),
             ],
           ),

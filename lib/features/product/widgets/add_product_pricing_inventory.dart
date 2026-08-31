@@ -45,89 +45,87 @@ class AddProductPricingInventory extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppCardWidget(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text(
-            "Pricing & Inventory",
-            style: TextStyle(
-              fontSize: AppSizes.font16,
-              fontWeight: FontWeight.bold,
-            ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text(
+          "Pricing & Inventory",
+          style: TextStyle(
+            fontSize: AppSizes.font16,
+            fontWeight: FontWeight.bold,
           ),
-          const SizedBox(height: AppSizes.size5),
-          const Text(
-            "Enter product pricing and inventory details.",
-            style: TextStyle(color: AppColors.grey, fontSize: AppSizes.font14),
+        ),
+        const SizedBox(height: AppSizes.size5),
+        const Text(
+          "Enter product pricing and inventory details.",
+          style: TextStyle(color: AppColors.grey, fontSize: AppSizes.font14),
+        ),
+        const SizedBox(height: AppSizes.size20),
+        _buildFormRow(
+          context,
+          child1: AddProductFormFields.buildPurchasePriceField(
+            controller: purchasePriceController,
           ),
-          const SizedBox(height: AppSizes.size20),
-          _buildFormRow(
-            context,
-            child1: AddProductFormFields.buildPurchasePriceField(
-              controller: purchasePriceController,
-            ),
-            child2: AddProductFormFields.buildSellingPriceField(
-              controller: sellingPriceController,
-            ),
+          child2: AddProductFormFields.buildSellingPriceField(
+            controller: sellingPriceController,
           ),
-          const SizedBox(height: AppSizes.size15),
-          _buildFormRow(
-            context,
-            child1: AddProductFormFields.buildBrandDropdown(
-              brands: brands,
-              selectedBrandId: selectedBrandId,
-              onChanged: onBrandChanged,
-            ),
-            child2: AddProductFormFields.buildCategoryDropdown(
-              categories: categories,
-              selectedCategoryId: selectedCategoryId,
-              onChanged: onCategoryChanged,
-            ),
+        ),
+        const SizedBox(height: AppSizes.size15),
+        _buildFormRow(
+          context,
+          child1: AddProductFormFields.buildBrandDropdown(
+            brands: brands,
+            selectedBrandId: selectedBrandId,
+            onChanged: onBrandChanged,
           ),
-          const SizedBox(height: AppSizes.size15),
-          _buildFormRow(
-            context,
-            child1: AddProductBarcodeStockFields.buildStockField(
-              controller: stockController,
-            ),
-            child2: AddProductBarcodeStockFields.buildBarcodeField(
-              controller: barcodeController,
-              barcodeError: barcodeError,
-              onScanBarcode: onScanBarcode,
-            ),
+          child2: AddProductFormFields.buildCategoryDropdown(
+            categories: categories,
+            selectedCategoryId: selectedCategoryId,
+            onChanged: onCategoryChanged,
           ),
-          const SizedBox(height: AppSizes.size20),
-          const Text(
-            "Product Description",
-            style: TextStyle(
-              fontSize: AppSizes.font16,
-              fontWeight: FontWeight.bold,
-            ),
+        ),
+        const SizedBox(height: AppSizes.size15),
+        _buildFormRow(
+          context,
+          child1: AddProductBarcodeStockFields.buildStockField(
+            controller: stockController,
           ),
-          const SizedBox(height: AppSizes.size5),
-          const Text(
-            "Add additional information about the product.",
-            style: TextStyle(color: AppColors.grey, fontSize: AppSizes.font14),
+          child2: AddProductBarcodeStockFields.buildBarcodeField(
+            controller: barcodeController,
+            barcodeError: barcodeError,
+            onScanBarcode: onScanBarcode,
           ),
-          const SizedBox(height: AppSizes.size20),
-          const Text(
-            "Description (Optional)",
-            style: TextStyle(fontWeight: FontWeight.w600),
+        ),
+        const SizedBox(height: AppSizes.size20),
+        const Text(
+          "Product Description",
+          style: TextStyle(
+            fontSize: AppSizes.font16,
+            fontWeight: FontWeight.bold,
           ),
-          const SizedBox(height: AppSizes.size7),
-          AppCustomTextField.textField(
-            controller: descriptionController,
-            label: "Description",
-            hint: "Enter Product Description",
-            icon: Icons.description_outlined,
-            maxLines: 5,
-            textInputAction: TextInputAction.done,
-            validator: (value) => null,
-          ),
-          const SizedBox(height: AppSizes.size25),
-        ],
-      ),
+        ),
+        const SizedBox(height: AppSizes.size5),
+        const Text(
+          "Add additional information about the product.",
+          style: TextStyle(color: AppColors.grey, fontSize: AppSizes.font14),
+        ),
+        const SizedBox(height: AppSizes.size20),
+        const Text(
+          "Description (Optional)",
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
+        const SizedBox(height: AppSizes.size7),
+        AppCustomTextField.textField(
+          controller: descriptionController,
+          label: "Description",
+          hint: "Enter Product Description",
+          icon: Icons.description_outlined,
+          maxLines: 5,
+          textInputAction: TextInputAction.done,
+          validator: (value) => null,
+        ),
+        const SizedBox(height: AppSizes.size25),
+      ],
     );
   }
 

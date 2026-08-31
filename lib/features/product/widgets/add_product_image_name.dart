@@ -29,98 +29,96 @@ class AddProductImageName extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppCardWidget(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              /// Left Side: Big Image OR Big Add Button
-              Padding(
-                padding: const EdgeInsets.only(top: AppSizes.padding20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MainImagePicker(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            /// Left Side: Big Image OR Big Add Button
+            Padding(
+              padding: const EdgeInsets.only(top: AppSizes.padding20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MainImagePicker(
+                    images: images,
+                    onPickImages: onPickImages,
+                    onRemoveImage: onRemoveImage,
+                    imageError: imageError,
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(width: AppSizes.size20),
+
+            /// Right Side: Product Name and Small Images
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text.rich(
+                    TextSpan(
+                      text: "Product Name ",
+                      children: [
+                        TextSpan(
+                          text: "*",
+                          style: TextStyle(color: AppColors.error),
+                        ),
+                      ],
+                    ),
+                    style: TextStyle(
+                      fontSize: AppSizes.size12,
+                      color: AppColors.grey,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(height: AppSizes.size10),
+
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      AppCustomTextField.textField(
+                        controller: productNameController,
+                        label: "Product Name",
+                        hint: "Enter Product Name",
+                        icon: Icons.widgets_outlined,
+                        validator: (value) => Validator.validateName(
+                          value,
+                          fieldName: "Product name",
+                        ),
+                      ),
+                      if (productError != null)
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            left: AppSizes.padding10,
+                            top: AppSizes.size5,
+                          ),
+                          child: Text(
+                            productError!,
+                            style: const TextStyle(
+                              color: AppColors.error,
+                              fontSize: AppSizes.font14,
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
+
+                  if (images.isNotEmpty)
+                    ThumbnailImagePicker(
                       images: images,
                       onPickImages: onPickImages,
                       onRemoveImage: onRemoveImage,
-                      imageError: imageError,
                     ),
-                  ],
-                ),
+                ],
               ),
-
-              const SizedBox(width: AppSizes.size20),
-
-              /// Right Side: Product Name and Small Images
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text.rich(
-                      TextSpan(
-                        text: "Product Name ",
-                        children: [
-                          TextSpan(
-                            text: "*",
-                            style: TextStyle(color: AppColors.error),
-                          ),
-                        ],
-                      ),
-                      style: TextStyle(
-                        fontSize: AppSizes.size12,
-                        color: AppColors.grey,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    const SizedBox(height: AppSizes.size10),
-
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        AppCustomTextField.textField(
-                          controller: productNameController,
-                          label: "Product Name",
-                          hint: "Enter Product Name",
-                          icon: Icons.widgets_outlined,
-                          validator: (value) => Validator.validateName(
-                            value,
-                            fieldName: "Product name",
-                          ),
-                        ),
-                        if (productError != null)
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              left: AppSizes.padding10,
-                              top: AppSizes.size5,
-                            ),
-                            child: Text(
-                              productError!,
-                              style: const TextStyle(
-                                color: AppColors.error,
-                                fontSize: AppSizes.font14,
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-
-                    if (images.isNotEmpty)
-                      ThumbnailImagePicker(
-                        images: images,
-                        onPickImages: onPickImages,
-                        onRemoveImage: onRemoveImage,
-                      ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
