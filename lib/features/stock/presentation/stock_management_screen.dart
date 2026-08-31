@@ -12,6 +12,9 @@ import '../../../data/models/product_model.dart';
 
 import '../functions/ stock_functions.dart';
 import '../widgets/stock_management_card.dart';
+import '../../../core/responsive/responsive.dart';
+import '../../product/presentation/product_detail_screen.dart';
+import '../widgets/stock_product_list.dart';
 
 enum StockType { outOfStock, lowStock }
 
@@ -193,53 +196,12 @@ class _StockManagementScreenState extends State<StockManagementScreen> {
 
             // Products List
             Expanded(
-              child:
-                  (isOutOfStock
-                          ? filteredOutOfStockProducts
-                          : filteredLowStockProducts)
-                      .isEmpty
-                  ? const Center(
-                      child: Text(
-                        "No Products Found",
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    )
-                  : ListView.builder(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      itemCount: isOutOfStock
-                          ? filteredOutOfStockProducts.length
-                          : filteredLowStockProducts.length,
-                      itemBuilder: (context, index) {
-                        final product = isOutOfStock
-                            ? filteredOutOfStockProducts[index]
-                            : filteredLowStockProducts[index];
-                        final brand = BrandService().getBrandById(
-                          product.brandId,
-                        );
-                        final category = CategoryService().getCategoryById(
-                          product.categoryId,
-                        );
-
-                        return StockManagementCard(
-                          product: product,
-                          brandName: brand?.name ?? "",
-                          categoryName: category?.name ?? "",
-                          onRestock: () async {
-                            final result = await AppNavigation.goToScreen(
-                              context,
-                              UpdateStockScreen(product: product),
-                            );
-
-                            if (result == true) {
-                              loadProducts();
-                            }
-                          },
-                        );
-                      },
-                    ),
+              child: StockProductList(
+                products: isOutOfStock
+                    ? filteredOutOfStockProducts
+                    : filteredLowStockProducts,
+                loadProducts: loadProducts,
+              ),
             ),
 
             // Summary Cards

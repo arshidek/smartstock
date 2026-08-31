@@ -13,6 +13,7 @@ import '../../../data/models/product_model.dart';
 import '../widgets/note_card.dart';
 import '../widgets/product_header_card.dart';
 import '../widgets/stock_update_card.dart';
+import '../../../core/responsive/responsive.dart';
 
 class UpdateStockScreen extends StatefulWidget {
   final ProductModel product;
@@ -96,6 +97,19 @@ class _UpdateStockScreenState extends State<UpdateStockScreen> {
                       product: widget.product,
                       brand: _brand,
                       category: _category,
+                      onEditDate: () async {
+                        final picked = await showDatePicker(
+                          context: context,
+                          initialDate: widget.product.createdAt,
+                          firstDate: DateTime(2000),
+                          lastDate: DateTime(2100),
+                        );
+                        if (picked != null) {
+                          setState(() {
+                            widget.product.createdAt = picked;
+                          });
+                        }
+                      },
                     ),
                   ],
                 ),
@@ -130,19 +144,35 @@ class _UpdateStockScreenState extends State<UpdateStockScreen> {
                   horizontal: AppSizes.padding16,
                   vertical: AppSizes.size10,
                 ),
-                child: AppButton(
-                  text: "Update Stock",
-                  icon: Icons.inventory,
-                  backgroundColor: AppColors.blue,
-                  textColor: AppColors.white,
-                  iconColor: AppColors.white,
-                  onPressed: () async {
-                    await _stockFunction.updateStock(
-                      context: context,
-                      product: widget.product,
-                      isAddStock: isAddStock,
-                      quantity: quantity,
+                child: Builder(
+                  builder: (context) {
+                    final button = AppButton(
+                      text: "Update Stock",
+                      icon: Icons.inventory,
+                      backgroundColor: AppColors.blue,
+                      textColor: AppColors.white,
+                      iconColor: AppColors.white,
+                      onPressed: () async {
+                        await _stockFunction.updateStock(
+                          context: context,
+                          product: widget.product,
+                          isAddStock: isAddStock,
+                          quantity: quantity,
+                        );
+                      },
                     );
+
+                    return Responsive.isMobile(context)
+                        ? button
+                        : Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              SizedBox(
+                                width: 180,
+                                child: button,
+                              ),
+                            ],
+                          );
                   },
                 ),
               ),

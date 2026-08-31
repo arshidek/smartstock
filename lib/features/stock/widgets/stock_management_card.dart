@@ -13,6 +13,7 @@ class StockManagementCard extends StatelessWidget {
   final String brandName;
   final String categoryName;
   final VoidCallback? onRestock;
+  final VoidCallback? onTap;
 
   const StockManagementCard({
     super.key,
@@ -20,6 +21,7 @@ class StockManagementCard extends StatelessWidget {
     required this.brandName,
     required this.categoryName,
     this.onRestock,
+    this.onTap,
   });
 
   @override
@@ -39,7 +41,7 @@ class StockManagementCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
         child: InkWell(
           borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
-          onTap: () {},
+          onTap: onTap,
           child: Container(
             padding: const EdgeInsets.all(AppSizes.padding16),
             decoration: BoxDecoration(
@@ -57,6 +59,7 @@ class StockManagementCard extends StatelessWidget {
             child: LayoutBuilder(
               builder: (context, constraints) {
                 final row = Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     /// Product Image
                     Container(
@@ -96,7 +99,7 @@ class StockManagementCard extends StatelessWidget {
 
                     Expanded(
                       child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           /// Left Side
                           Expanded(
@@ -116,17 +119,6 @@ class StockManagementCard extends StatelessWidget {
                                 const SizedBox(height: AppSizes.size5),
 
                                 Text(
-                                  "ID : ${product.productId}",
-                                  style: const TextStyle(
-                                    fontSize: AppSizes.font14,
-                                    color: AppColors.grey,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-
-                                const SizedBox(height: AppSizes.size5),
-
-                                Text(
                                   brandName,
                                   style: const TextStyle(
                                     fontSize: AppSizes.font16,
@@ -134,10 +126,12 @@ class StockManagementCard extends StatelessWidget {
                                   ),
                                 ),
 
+                                const SizedBox(height: 2),
+
                                 Text(
                                   categoryName,
                                   style: const TextStyle(
-                                    fontSize: AppSizes.font16,
+                                    fontSize: AppSizes.font14,
                                     color: AppColors.grey,
                                   ),
                                 ),
@@ -145,7 +139,7 @@ class StockManagementCard extends StatelessWidget {
                             ),
                           ),
 
-                          const SizedBox(width: 12),
+                          const SizedBox(width: AppSizes.size10),
 
                           /// Right Side
                           Column(
@@ -153,44 +147,53 @@ class StockManagementCard extends StatelessWidget {
                             children: [
                               Row(
                                 mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
-                                      vertical: 10,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: statusColor.withOpacity(.12),
-                                      borderRadius: BorderRadius.circular(
-                                        AppSizes.borderRadius16,
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 2),
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(
+                                        horizontal: AppSizes.padding10,
+                                        vertical: 4,
                                       ),
-                                    ),
-                                    child: Text(
-                                      statusText,
-                                      style: TextStyle(
-                                        color: statusColor,
-                                        fontSize: AppSizes.font12,
-                                        fontWeight: FontWeight.bold,
+                                      decoration: BoxDecoration(
+                                        color: statusColor.withOpacity(.12),
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: Text(
+                                        statusText,
+                                        style: TextStyle(
+                                          color: statusColor,
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
                                   ),
-
-                                  AppPopupMenu.restock(onRestock: onRestock),
+                                  const SizedBox(width: 4),
+                                  SizedBox(
+                                    height: 24,
+                                    width: 24,
+                                    child: AppPopupMenu.restock(
+                                      onRestock: onRestock,
+                                      compact: true,
+                                    ),
+                                  ),
                                 ],
                               ),
 
-                              const SizedBox(height: 10),
+                              const SizedBox(height: 2),
 
                               Text(
                                 "Qty : ${product.stock}",
                                 style: const TextStyle(
-                                  fontSize: AppSizes.font16,
+                                  fontSize: AppSizes.font14,
                                   color: AppColors.grey,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
 
-                              const SizedBox(height: 10),
+                              const SizedBox(height: AppSizes.size5),
 
                               Text(
                                 "₹${product.sellingPrice.toStringAsFixed(2)}",
