@@ -53,124 +53,116 @@ class SettingsScreen extends StatelessWidget {
       extendBody: true,
       backgroundColor: AppColors.appBarColor,
       appBar: AppBar(
-        backgroundColor: AppColors.appBarColor,
+        backgroundColor: AppColors.blue,
         elevation: 1,
         centerTitle: false,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.black,size: AppSizes.size30,),
-          onPressed: () => Navigator.pop(context),
-        ),
-        title: const Text(
+        automaticallyImplyLeading: false,
+        titleSpacing: AppSizes.padding16,
+        title: Text(
           "Settings",
           style: TextStyle(
-            color: AppColors.black,
-fontSize: AppSizes.font24,
+            color: AppColors.white,
+            fontSize: AppSizes.font24,
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
       body: Container(
         height: double.infinity,
-        decoration: const BoxDecoration(
-          gradient: AppColors.background,
-        ),
+        decoration: const BoxDecoration(gradient: AppColors.background),
         child: SingleChildScrollView(
           padding: const EdgeInsets.only(bottom: AppSizes.size40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: AppSizes.size20),
-                child: Text(
-                  "Manage your app preferences and data",
-                  style: TextStyle(color: AppColors.grey, fontSize: 14),
-                ),
+
+
+
+              // Account Section
+              const SettingSectionHeader(title: "ACCOUNT"),
+              SettingItemGroup(
+                items: [
+                  SettingItemModel(
+                    icon: Icons.person_outline,
+                    title: "Profile",
+                    subtitle: "Manage your account information",
+                    iconBackgroundColor: AppColors.lightPurple,
+                    iconColor: AppColors.blue,
+                    onTap: () {
+                      AppNavigation.goToScreen(context, const ProfileScreen());
+                    },
+                  ),
+                ],
               ),
-            const SizedBox(height: AppSizes.size15),
 
-            // Account Section
-            const SettingSectionHeader(title: "ACCOUNT"),
-            SettingItemGroup(
-              items: [
-                SettingItemModel(
-                  icon: Icons.person_outline,
-                  title: "Profile",
-                  subtitle: "Manage your account information",
-                  iconBackgroundColor: AppColors.lightPurple,
-                  iconColor: AppColors.blue,
-                  onTap: () {
-                    AppNavigation.goToScreen(context, const ProfileScreen());
-                  },
-                ),
-              ],
-            ),
+              // More Section
+              const SettingSectionHeader(title: "MORE"),
+              SettingItemGroup(
+                items: [
+                  SettingItemModel(
+                    icon: Icons.info_outline,
+                    title: "About App",
+                    subtitle: "Version 1.0.0",
+                    iconBackgroundColor: const Color(
+                      0xFFFFF3E0,
+                    ), // Light orange
+                    iconColor: const Color(0xFFFF9800), // Orange
+                    onTap: () {
+                      AppNavigation.goToScreen(context, const AboutAppScreen());
+                    },
+                  ),
+                  SettingItemModel(
+                    icon: Icons.description_outlined,
+                    title: "Terms & Conditions",
+                    subtitle: "Read our terms and conditions",
+                    iconBackgroundColor: const Color(
+                      0xFFE8EAF6,
+                    ), // Light indigo
+                    iconColor: const Color(0xFF3F51B5), // Indigo
+                    onTap: () {
+                      AppNavigation.goToScreen(
+                        context,
+                        const TermsConditionsScreen(),
+                      );
+                    },
+                  ),
+                  SettingItemModel(
+                    icon: Icons.privacy_tip_outlined,
+                    title: "Privacy Policy",
+                    subtitle: "Read our privacy policy",
+                    iconBackgroundColor: const Color(0xFFE3F2FD), // Light blue
+                    iconColor: AppColors.blue,
+                    onTap: () {
+                      AppNavigation.goToScreen(context, PrivacyPolicyScreen());
+                    },
+                  ),
+                ],
+              ),
 
-            // More Section
-            const SettingSectionHeader(title: "MORE"),
-            SettingItemGroup(
-              items: [
-                SettingItemModel(
-                  icon: Icons.info_outline,
-                  title: "About App",
-                  subtitle: "Version 1.0.0",
-                  iconBackgroundColor: const Color(0xFFFFF3E0), // Light orange
-                  iconColor: const Color(0xFFFF9800), // Orange
-                  onTap: () {
-                    AppNavigation.goToScreen(context, const AboutAppScreen());
-                  },
-                ),
-                SettingItemModel(
-                  icon: Icons.description_outlined,
-                  title: "Terms & Conditions",
-                  subtitle: "Read our terms and conditions",
-                  iconBackgroundColor: const Color(0xFFE8EAF6), // Light indigo
-                  iconColor: const Color(0xFF3F51B5), // Indigo
-                  onTap: () {
-                    AppNavigation.goToScreen(
-                      context,
-                      const TermsConditionsScreen(),
-                    );
-                  },
-                ),
-                SettingItemModel(
-                  icon: Icons.privacy_tip_outlined,
-                  title: "Privacy Policy",
-                  subtitle: "Read our privacy policy",
-                  iconBackgroundColor: const Color(0xFFE3F2FD), // Light blue
-                  iconColor: AppColors.blue,
-                  onTap: () {
-                    AppNavigation.goToScreen(context, PrivacyPolicyScreen());
-                  },
-                ),
-              ],
-            ),
+              // Session/Logout Section
+              const SettingSectionHeader(title: "ACCOUNT"),
+              SettingItemGroup(
+                items: [
+                  SettingItemModel(
+                    icon: Icons.logout,
+                    title: "Logout",
+                    subtitle: "Logout from your account",
+                    iconBackgroundColor: const Color(0xFFFFEBEE), // Light red
+                    iconColor: AppColors.error,
+                    isDestructive: true,
+                    onTap: () => _handleLogout(context),
+                  ),
+                ],
+              ),
 
-            // Session/Logout Section
-            const SettingSectionHeader(title: "ACCOUNT"),
-            SettingItemGroup(
-              items: [
-                SettingItemModel(
-                  icon: Icons.logout,
-                  title: "Logout",
-                  subtitle: "Logout from your account",
-                  iconBackgroundColor: const Color(0xFFFFEBEE), // Light red
-                  iconColor: AppColors.error,
-                  isDestructive: true,
-                  onTap: () => _handleLogout(context),
-                ),
-              ],
-            ),
-
-            const SizedBox(height: AppSizes.size32),
-            const SecurityNoticeCard(),
-          ],
+              const SizedBox(height: AppSizes.size32),
+              const SecurityNoticeCard(),
+            ],
+          ),
         ),
       ),
 
-      ),
-
-     // Close Container
-
+      // Close Container
       bottomNavigationBar: const AppBottomNavigationBar(currentIndex: 3),
     );
   }

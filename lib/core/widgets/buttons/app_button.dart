@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
-
 import '../../constants/app_sizes.dart';
 
 class AppButton extends StatelessWidget {
   final String text;
-  final IconData icon;
+  final IconData? icon;
   final VoidCallback onPressed;
   final Color backgroundColor;
   final Color textColor;
-  final Color iconColor;
+  final Color? iconColor;
   final double? fontSize;
   final double iconSpacing;
 
@@ -19,7 +18,7 @@ class AppButton extends StatelessWidget {
     required this.onPressed,
     required this.backgroundColor,
     required this.textColor,
-    required this.iconColor,
+    this.iconColor,
     this.fontSize,
     this.iconSpacing = AppSizes.size10,
   });
@@ -42,10 +41,10 @@ class AppButton extends StatelessWidget {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(icon, color: iconColor, size: AppSizes.size20),
-
-              SizedBox(width: iconSpacing),
-
+              if (icon != null) ...[
+                Icon(icon, color: iconColor, size: AppSizes.size20),
+                SizedBox(width: iconSpacing),
+              ],
               Text(
                 text,
                 maxLines: 1,

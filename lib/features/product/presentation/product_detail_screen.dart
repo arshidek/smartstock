@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 import '../../../core/services/brand_service.dart';
@@ -101,9 +100,9 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: AppSizes.size20),
                     const Divider(),
-                    const SizedBox(height: 20),
+                    const SizedBox(height: AppSizes.size20),
                     ProductInformationSection(
                       product: widget.product,
                       brand: _brand,

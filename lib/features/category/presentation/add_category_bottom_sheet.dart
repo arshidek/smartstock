@@ -86,7 +86,6 @@ class _AddCategoryBottomSheetState extends State<AddCategoryBottomSheet> {
 
               const SizedBox(height: AppSizes.size20),
 
-              // Extracted image picker widget to reduce lines
               CategoryImagePickerWidget(
                 image: _image,
                 imageError: _imageError,

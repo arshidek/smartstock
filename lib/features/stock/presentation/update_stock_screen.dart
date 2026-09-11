@@ -14,6 +14,7 @@ import '../widgets/note_card.dart';
 import '../widgets/product_header_card.dart';
 import '../widgets/stock_update_card.dart';
 import '../../../core/responsive/responsive.dart';
+import '../../../core/widgets/filters/app_date_picker_bottom_sheet.dart';
 
 class UpdateStockScreen extends StatefulWidget {
   final ProductModel product;
@@ -98,7 +99,7 @@ class _UpdateStockScreenState extends State<UpdateStockScreen> {
                       brand: _brand,
                       category: _category,
                       onEditDate: () async {
-                        final picked = await showDatePicker(
+                        final picked = await showAppDatePicker(
                           context: context,
                           initialDate: widget.product.createdAt,
                           firstDate: DateTime(2000),

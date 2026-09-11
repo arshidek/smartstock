@@ -24,7 +24,6 @@ class BrandDescriptionSection extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        /// Brand Image
         ClipRRect(
           borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
           child: brand.imagePath != null && brand.imagePath!.isNotEmpty

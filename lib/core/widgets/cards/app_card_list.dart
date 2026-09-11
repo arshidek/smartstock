@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/foundation.dart' ;
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
@@ -106,7 +106,7 @@ class AppCardList extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(width: 16),
+                const SizedBox(width: AppSizes.size10),
 
                 /// Details
                 Expanded(
@@ -125,7 +125,7 @@ class AppCardList extends StatelessWidget {
 
                       // Product ID (Optional)
                       if (productId != null) ...[
-                        const SizedBox(height: 4),
+                        const SizedBox(height: AppSizes.size5),
                         Text(
                           "ID : $productId",
                           style: const TextStyle(
@@ -137,7 +137,7 @@ class AppCardList extends StatelessWidget {
 
                       // Brand & Category (Optional)
                       if (brand != null || category != null) ...[
-                        const SizedBox(height: 4),
+                        const SizedBox(height: AppSizes.size5),
                         Text(
                           "${brand ?? ""}${brand != null && category != null ? " • " : ""}${category ?? ""}",
                           style: const TextStyle(
@@ -149,7 +149,7 @@ class AppCardList extends StatelessWidget {
 
                       // Subtitle (Existing)
                       if (subtitle.isNotEmpty) ...[
-                        const SizedBox(height: 6),
+                        const SizedBox(height: AppSizes.size5),
                         Row(
                           children: [
                             const Icon(
@@ -173,18 +173,18 @@ class AppCardList extends StatelessWidget {
 
                       // Stock (Optional)
                       if (stock != null) ...[
-                        const SizedBox(height: 4),
+                        const SizedBox(height: AppSizes.size5),
                         Text(
                           "Stock : $stock",
                           style: const TextStyle(
-                            fontSize: 13,
+                            fontSize: AppSizes.font13,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                       ],
 
                       // Price
-                      const SizedBox(height: 6),
+                      const SizedBox(height: AppSizes.font15),
                       Row(
                         children: [
                           const Icon(
@@ -206,10 +206,10 @@ class AppCardList extends StatelessWidget {
 
                       // Status (Optional)
                       if (status != null) ...[
-                        const SizedBox(height: 8),
+                        const SizedBox(height: AppSizes.size8),
                         Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 10,
+                            horizontal: AppSizes.padding10,
                             vertical: 4,
                           ),
                           decoration: BoxDecoration(
@@ -221,7 +221,7 @@ class AppCardList extends StatelessWidget {
                           child: Text(
                             status!,
                             style: TextStyle(
-                              color: isOutOfStock ? Colors.red : Colors.orange,
+                              color: isOutOfStock ? AppColors.error : AppColors.warning,
                               fontWeight: FontWeight.bold,
                               fontSize: 12,
                             ),

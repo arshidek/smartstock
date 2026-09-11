@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smartstock_inventory/core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
-import '../function/report_functions.dart';
+import '../function/inventory_report_logic.dart';
 import '../widgets/summary_card_grid.dart';
 import '../widgets/trend_bar_chart.dart';
 import '../widgets/category_pie_chart.dart';
@@ -10,7 +11,7 @@ import '../../stock/presentation/stock_management_screen.dart';
 import '../../../core/responsive/responsive.dart';
 
 class InventoryReportView extends StatelessWidget {
-  final ReportFunctions functions;
+  final InventoryReportLogic functions;
   final DateTime? selectedDate;
   final VoidCallback? onDateTap;
 
@@ -24,9 +25,11 @@ class InventoryReportView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSizes.padding20,
-        vertical: AppSizes.padding10,
+      padding: const EdgeInsets.only(
+        left: AppSizes.padding20,
+        right: AppSizes.padding20,
+        top: AppSizes.padding10,
+        bottom: 100, // clears the bottom nav bar
       ),
       children: [
         SummaryCardGrid(metrics: functions.getInventorySummaryMetrics()),
@@ -34,8 +37,8 @@ class InventoryReportView extends StatelessWidget {
         TrendBarChart(
           title: "Inventory Trend",
           data: functions.getInventoryTrendData(selectedDate: selectedDate),
-          barColor: const Color(0xFFBDB2EB), // Light purple
-          highlightBarColor: const Color(0xFF4C2DB3), // Dark purple
+          barColor: AppColors.lightPurple,
+          highlightBarColor: AppColors.grey,
           selectedDate: selectedDate,
           onDateTap: onDateTap,
         ),
@@ -50,7 +53,7 @@ class InventoryReportView extends StatelessWidget {
           const SizedBox(height: AppSizes.padding20),
           TopListWidget(
             title: "Top Low Stock Products",
-            items: functions.getTopLowStockProducts(),
+            items: functions.getTopLowStockProducts(context),
             onViewAll: () {
               AppNavigation.goToScreen(
                 context,
@@ -60,7 +63,7 @@ class InventoryReportView extends StatelessWidget {
           ),
         ] else ...[
           SizedBox(
-            height: 380, // Fixed height to match both cards
+            height: 380,
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -76,7 +79,7 @@ class InventoryReportView extends StatelessWidget {
                 Expanded(
                   child: TopListWidget(
                     title: "Top Low Stock Products",
-                    items: functions.getTopLowStockProducts(),
+                    items: functions.getTopLowStockProducts(context),
                     onViewAll: () {
                       AppNavigation.goToScreen(
                         context,
@@ -89,7 +92,7 @@ class InventoryReportView extends StatelessWidget {
             ),
           ),
         ],
-        const SizedBox(height: AppSizes.padding20), // Reduced padding
+        const SizedBox(height: AppSizes.padding20),
       ],
     );
   }

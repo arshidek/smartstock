@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
-import '../../../app/app_navigation.dart';
 import '../../../core/widgets/popup/app_popup_menu.dart';
 
 class ReportAppBar extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback onRefresh;
-  final VoidCallback onExport;
-  final VoidCallback onShare;
+  final Future<void> Function() onExport;
+  final Future<void> Function() onShare;
 
   const ReportAppBar({
     super.key,
@@ -23,16 +22,8 @@ class ReportAppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       centerTitle: false,
       automaticallyImplyLeading: false,
-      leading: IconButton(
-        onPressed: () => AppNavigation.goBack(context),
-        icon:  Icon(
-          Icons.arrow_back,
-          color: AppColors.white,
-          size: AppSizes.size30,
-        ),
-      ),
-      titleSpacing: 0,
-      title:  Text(
+      titleSpacing: AppSizes.padding16,
+      title: Text(
         "Reports",
         style: TextStyle(
           color: AppColors.white,

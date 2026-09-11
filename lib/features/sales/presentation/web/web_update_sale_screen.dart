@@ -3,6 +3,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/buttons/app_button.dart';
 import '../../../../core/widgets/cards/app_card_widget.dart';
+import '../../../../core/widgets/filters/app_date_picker_bottom_sheet.dart';
 import '../../../../data/models/sale_item_model.dart';
 import '../../function/sale_functions.dart';
 import 'web_add_sale_cart.dart';
@@ -61,7 +62,7 @@ class WebUpdateSaleScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.only(bottom: AppSizes.padding20),
         child: Column(
           children: [
             const SizedBox(height: AppSizes.size20),
@@ -186,7 +187,7 @@ class WebUpdateSaleScreen extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: AppSizes.size8),
         _buildDatePicker(context),
       ],
     );
@@ -202,7 +203,7 @@ class WebUpdateSaleScreen extends StatelessWidget {
           InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () async {
-              final pickedDate = await showDatePicker(
+              final pickedDate = await showAppDatePicker(
                 context: context,
                 initialDate: selectedSaleDate,
                 firstDate: DateTime(2024),
@@ -230,13 +231,13 @@ class WebUpdateSaleScreen extends StatelessWidget {
                             size: AppSizes.size15,
                             color: AppColors.blue,
                           ),
-                          const SizedBox(width: 6),
+                          const SizedBox(width: AppSizes.size5),
                           Text(
                             "${selectedSaleDate.day} ${["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][selectedSaleDate.month - 1]} ${selectedSaleDate.year}",
                             style: const TextStyle(
                               color: AppColors.blue,
                               fontWeight: FontWeight.w600,
-                              fontSize: 13,
+                              fontSize: AppSizes.font13,
                             ),
                           ),
                         ],

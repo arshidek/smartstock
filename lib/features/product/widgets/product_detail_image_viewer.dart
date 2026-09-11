@@ -1,8 +1,5 @@
-import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_sizes.dart';
+import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import 'product_main_image.dart';
 import 'product_thumbnail_list.dart';
 
@@ -43,7 +40,7 @@ class _ProductDetailImageViewerState extends State<ProductDetailImageViewer> {
             });
           },
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: AppSizes.size15),
         ProductThumbnailList(
           images: images,
           currentImageIndex: _currentImageIndex,

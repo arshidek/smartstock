@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+
 
 class AppSizes {
   // logo
@@ -32,6 +32,7 @@ class AppSizes {
   static const double size60 = 60;
   static const double size70 = 70;
   static const double size80 = 80;
+  static const double size85 = 85;
   static const double size90 = 90;
   static const double size100 = 100;
   static const double size110 = 110;
@@ -68,6 +69,7 @@ class AppSizes {
   static const double font20 = 20.0;
   static const double font22 = 22.0;
   static const double font24 = 24.0;
+  static const double font28 = 28.0;
   static const double font26 = 26.0;
   static const double font30 = 30.0;
   static const double font32 = 32.0;
@@ -78,11 +80,13 @@ class AppSizes {
   static const double margin5 = 5;
   static const double padding8 = 8.0;
   static const double padding10 = 10.0;
+  static const double padding12= 12.0;
   static const double padding16 = 16.0;
   static const double padding20 = 20.0;
   static const double padding25 = 25.0;
   static const double padding30 = 30.0;
   static const double padding40 = 40.0;
+  static const double padding48 = 48.0;
 
   //Border Size
   static const double borderSize2 = 2;

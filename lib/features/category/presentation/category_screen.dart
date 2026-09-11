@@ -45,7 +45,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                 );
 
                 if (result == true) {
-                  // SnackBar handled by CategoryFunctions
                 }
               },
               backgroundColor: AppColors.blue,
@@ -116,7 +115,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
 
               const SizedBox(height: AppSizes.size20),
 
-              // Categories List
+
               Expanded(
                 child: ValueListenableBuilder<Box<CategoryModel>>(
                   valueListenable: CategoryService().box.listenable(),
@@ -134,7 +133,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                           query: _searchController.text,
                         );
 
-                    // Extracted category list view to reduce lines
                     return CategoryListView(
                       categories: searchCategories,
                       isTabletOrWeb: isTabletOrWeb,
@@ -156,7 +154,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       );
 
                       if (result == true) {
-                        // SnackBar handled by CategoryFunctions
                       }
                     },
                     backgroundColor: AppColors.blue,

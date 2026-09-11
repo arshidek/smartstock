@@ -1,5 +1,4 @@
 import 'package:hive/hive.dart';
-
 import '../../data/models/user_model.dart';
 import '../constants/hive_boxes.dart';
 import 'auth_service.dart';

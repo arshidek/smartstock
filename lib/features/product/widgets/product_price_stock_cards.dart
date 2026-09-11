@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smartstock_inventory/core/constants/app_colors.dart';
+import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import '../../../core/responsive/responsive.dart';
 import '../../../data/models/product_model.dart';
 
@@ -14,10 +16,10 @@ class ProductPriceStockCards extends StatelessWidget {
         // Price Card
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(AppSizes.padding16),
             decoration: BoxDecoration(
-              color: const Color(0xFFF4F6FB), // Light bluish-grey
-              borderRadius: BorderRadius.circular(12),
+              color: AppColors.lightBlue,
+              borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,17 +27,21 @@ class ProductPriceStockCards extends StatelessWidget {
                 Text(
                   "Price",
                   style: TextStyle(
-                    color: Colors.black54,
+                    color: AppColors.grey,
                     fontWeight: FontWeight.bold,
-                    fontSize: Responsive.isMobile(context) ? 14 : 16,
+                    fontSize: Responsive.isMobile(context)
+                        ? AppSizes.font14
+                        : AppSizes.font16,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: AppSizes.size8),
                 Text(
                   "₹${product.sellingPrice}",
                   style: TextStyle(
-                    color: Colors.blueAccent,
-                    fontSize: Responsive.isMobile(context) ? 24 : 28,
+                    color: AppColors.bannerBlue,
+                    fontSize: Responsive.isMobile(context)
+                        ? AppSizes.font20
+                        : AppSizes.font28,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -43,14 +49,14 @@ class ProductPriceStockCards extends StatelessWidget {
             ),
           ),
         ),
-        const SizedBox(width: 16),
+        const SizedBox(width: AppSizes.size15),
         // Stock Status Card
         Expanded(
           child: Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.all(AppSizes.padding16),
             decoration: BoxDecoration(
               color: product.stockColor.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(12),
+              borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,12 +64,14 @@ class ProductPriceStockCards extends StatelessWidget {
                 Text(
                   "Stock Status",
                   style: TextStyle(
-                    color: Colors.black54,
+                    color: AppColors.grey,
                     fontWeight: FontWeight.bold,
-                    fontSize: Responsive.isMobile(context) ? 14 : 16,
+                    fontSize: Responsive.isMobile(context)
+                        ? AppSizes.font14
+                        : AppSizes.font16,
                   ),
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: AppSizes.size8),
                 Row(
                   children: [
                     Flexible(
@@ -74,18 +82,20 @@ class ProductPriceStockCards extends StatelessWidget {
                           product.stockStatus,
                           style: TextStyle(
                             color: product.stockColor,
-                            fontSize: Responsive.isMobile(context) ? 18 : 24,
+                            fontSize: Responsive.isMobile(context)
+                                ? AppSizes.font18
+                                : AppSizes.font24,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                       ),
                     ),
                     if (product.stock <= 5 && product.stock > 0) ...[
-                      const SizedBox(width: 6),
+                      const SizedBox(width: AppSizes.size5),
                       Icon(
                         Icons.warning_amber_rounded,
                         color: product.stockColor,
-                        size: 20,
+                        size: AppSizes.size20,
                       ),
                     ],
                   ],

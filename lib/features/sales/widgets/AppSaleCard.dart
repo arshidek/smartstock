@@ -62,160 +62,169 @@ class AppSaleCard extends StatelessWidget {
               ),
               BoxShadow(
                 color: AppColors.blueShadow,
-                blurRadius: 12,
+                blurRadius: AppSizes.borderRadius12,
                 offset: const Offset(0, 6),
               ),
             ],
           ),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              final row = Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /// IMAGE
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(14),
-                    child: imagePath.isNotEmpty
-                        ? kIsWeb
-                              ? Image.network(
-                                  imagePath,
-                                  width: 85,
-                                  height: 85,
-                                  fit: BoxFit.cover,
-                                )
-                              : Image.file(
-                                  File(imagePath),
-                                  width: 85,
-                                  height: 85,
-                                  fit: BoxFit.cover,
-                                )
-                        : Container(
-                            width: 85,
-                            height: 85,
-                            color: AppColors.lightGrey,
-                            child: const Icon(Icons.image_outlined),
-                          ),
-                  ),
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  final row = Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      /// IMAGE
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(14),
+                        child: imagePath.isNotEmpty
+                            ? kIsWeb
+                                  ? Image.network(
+                                      imagePath,
+                                      width: AppSizes.size85,
+                                      height: AppSizes.size85,
+                                      fit: BoxFit.cover,
+                                    )
+                                  : Image.file(
+                                      File(imagePath),
+                                      width: AppSizes.size85,
+                                      height: AppSizes.size85,
+                                      fit: BoxFit.cover,
+                                    )
+                            : Container(
+                                width: AppSizes.size85,
+                                height: AppSizes.size85,
+                                color: AppColors.lightGrey,
+                                child: const Icon(Icons.image_outlined),
+                              ),
+                      ),
 
-                  const SizedBox(width: 16),
+                      const SizedBox(width: AppSizes.font15),
 
-                  /// DETAILS
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        /// Top Row
-                        Row(
+                      /// DETAILS
+                      Expanded(
+                        child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(
-                              child: Text(
-                                productName,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
+                            /// Top Row
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    productName,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                      fontSize: AppSizes.font18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              paymentMethod,
-                              style: const TextStyle(
-                                color: AppColors.grey,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            Container(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 10,
-                                vertical: 5,
-                              ),
-                              decoration: BoxDecoration(
-                                color: AppColors.lightBlue,
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Text(
-                                "$quantity Qty",
-                                style: const TextStyle(
-                                  color: AppColors.blue,
-                                  fontWeight: FontWeight.bold,
+                                const SizedBox(width: AppSizes.size8),
+                                Text(
+                                  paymentMethod,
+                                  style: const TextStyle(
+                                    color: AppColors.grey,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
+                                const SizedBox(width: AppSizes.size8),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: AppSizes.padding10,
+                                    vertical: 5,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.lightBlue,
+                                    borderRadius: BorderRadius.circular(
+                                      AppSizes.borderRadius20,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    "$quantity Qty",
+                                    style: const TextStyle(
+                                      color: AppColors.blue,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                if (showMenu)
+                                  const SizedBox(width: AppSizes.size28),
+                              ],
                             ),
-                            if (showMenu)
-                              AppPopupMenu.sale(
-                                onUpdate: onUpdate,
-                                onDelete: onDelete,
-                              ),
+
+                            /// Brand + Category and Amount Row
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    "$brandName • $categoryName",
+                                    style: const TextStyle(
+                                      color: AppColors.grey,
+                                      fontSize: AppSizes.font13,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  amount,
+                                  style: const TextStyle(
+                                    fontSize: AppSizes.font18,
+                                    fontWeight: FontWeight.bold,
+                                    color: AppColors.success,
+                                  ),
+                                ),
+                              ],
+                            ),
+
+                            const SizedBox(height: AppSizes.size5),
+
+                            /// Date and Profit Row
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    date,
+                                    style: const TextStyle(
+                                      color: AppColors.grey,
+                                      fontSize: AppSizes.font13,
+                                    ),
+                                  ),
+                                ),
+                                Text(
+                                  "Profit $profit",
+                                  style: const TextStyle(
+                                    color: AppColors.success,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
                           ],
                         ),
+                      ),
+                    ],
+                  );
 
-
-
-                        /// Brand + Category and Amount Row
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                "$brandName • $categoryName",
-                                style: const TextStyle(
-                                  color: AppColors.grey,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              amount,
-                              style: const TextStyle(
-                                fontSize: 19,
-                                fontWeight: FontWeight.bold,
-                                color: AppColors.success,
-                              ),
-                            ),
-                          ],
-                        ),
-
-                        const SizedBox(height: 4),
-
-                        /// Date and Profit Row
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                date,
-                                style: const TextStyle(
-                                  color: AppColors.grey,
-                                  fontSize: 13,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              "Profit $profit",
-                              style: const TextStyle(
-                                color: AppColors.success,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  return FittedBox(
+                    fit: BoxFit.scaleDown,
+                    alignment: Alignment.centerLeft,
+                    child: SizedBox(width: constraints.maxWidth, child: row),
+                  );
+                },
+              ),
+              if (showMenu)
+                Positioned(
+                  top: -12,
+                  right: -12,
+                  child: AppPopupMenu.sale(
+                    compact: true,
+                    onUpdate: onUpdate,
+                    onDelete: onDelete,
                   ),
-                ],
-              );
-
-              return FittedBox(
-                fit: BoxFit.scaleDown,
-                alignment: Alignment.centerLeft,
-                child: SizedBox(
-                  width: constraints.maxWidth,
-                  child: row,
                 ),
-              );
-            },
+            ],
           ),
         ),
       ),

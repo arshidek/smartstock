@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/responsive/responsive.dart';
 import '../../../core/widgets/buttons/app_button.dart';
@@ -14,7 +15,7 @@ class AddProductActionButtons extends StatelessWidget {
     if (Responsive.isWeb(context)) {
       return Align(
         alignment: Alignment.centerRight,
-        child: SizedBox(width: 250, child: _buildButton()),
+        child: SizedBox(width: AppSizes.size240, child: _buildButton()),
       );
     } else {
       return _buildButton();

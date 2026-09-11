@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:smartstock_inventory/core/responsive/responsive.dart';
-
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 
@@ -61,20 +59,20 @@ class SaleProductCard extends StatelessWidget {
         vertical: AppSizes.size10,
       ),
       child: InkWell(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.all(AppSizes.padding16),
           decoration: BoxDecoration(
             color: AppColors.white,
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
             border: Border.all(
               color: isSelected ? AppColors.blue : AppColors.lightGrey,
               width: isSelected ? 2 : 1,
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(.06),
+                color: AppColors.black.withOpacity(.06),
                 blurRadius: 8,
                 offset: const Offset(0, 4),
               ),
@@ -86,36 +84,85 @@ class SaleProductCard extends StatelessWidget {
                 children: [
                   /// IMAGE
                   Container(
-                    width: 85,
-                    height: 85,
+                    width: AppSizes.size85,
+                    height: AppSizes.size85,
                     decoration: BoxDecoration(
                       color: AppColors.lightGrey,
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(
+                        AppSizes.borderRadius16,
+                      ),
                     ),
                     child: Container(
-                      width: 90,
-                      height: 90,
+                      width: AppSizes.size90,
+                      height: AppSizes.size90,
                       decoration: BoxDecoration(
                         color: AppColors.lightGrey,
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(
+                          AppSizes.borderRadius16,
+                        ),
                         border: Border.all(color: AppColors.lightBlue),
                       ),
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(
+                          AppSizes.borderRadius16,
+                        ),
                         child: imagePath != null && imagePath!.isNotEmpty
-                            ? kIsWeb
-                                  ? Image.network(imagePath!, fit: BoxFit.cover)
-                                  : Image.file(File(imagePath!), fit: BoxFit.cover)
+                            ? imagePath!.startsWith('data:image')
+                                  ? Image.memory(
+                                      UriData.parse(
+                                        imagePath!,
+                                      ).contentAsBytes(),
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (
+                                            context,
+                                            error,
+                                            stackTrace,
+                                          ) => const Icon(
+                                            Icons.image_not_supported_outlined,
+                                            color: AppColors.grey,
+                                            size: AppSizes.size32,
+                                          ),
+                                    )
+                                  : kIsWeb
+                                  ? Image.network(
+                                      imagePath!,
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (
+                                            context,
+                                            error,
+                                            stackTrace,
+                                          ) => const Icon(
+                                            Icons.image_not_supported_outlined,
+                                            color: AppColors.grey,
+                                            size: AppSizes.size32,
+                                          ),
+                                    )
+                                  : Image.file(
+                                      File(imagePath!),
+                                      fit: BoxFit.cover,
+                                      errorBuilder:
+                                          (
+                                            context,
+                                            error,
+                                            stackTrace,
+                                          ) => const Icon(
+                                            Icons.image_not_supported_outlined,
+                                            color: AppColors.grey,
+                                            size: AppSizes.size32,
+                                          ),
+                                    )
                             : const Icon(
                                 Icons.image_outlined,
                                 color: AppColors.grey,
-                                size: 35,
+                                size: AppSizes.size32,
                               ),
                       ),
                     ),
                   ),
 
-                  const SizedBox(width: 16),
+                  const SizedBox(width: AppSizes.size15),
 
                   /// DETAILS
                   Expanded(
@@ -132,23 +179,23 @@ class SaleProductCard extends StatelessWidget {
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
-                                  fontSize: 18,
+                                  fontSize: AppSizes.font18,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: AppSizes.size8),
                               Text(
                                 "$brand • $category",
                                 style: const TextStyle(
                                   color: AppColors.grey,
-                                  fontSize: 14,
+                                  fontSize: AppSizes.font14,
                                 ),
                               ),
                             ],
                           ),
                         ),
 
-                        const SizedBox(width: 8),
+                        const SizedBox(width: AppSizes.size8),
 
                         /// RIGHT COLUMN
                         Column(
@@ -157,7 +204,7 @@ class SaleProductCard extends StatelessWidget {
                             showStatus
                                 ? Container(
                                     padding: const EdgeInsets.symmetric(
-                                      horizontal: 10,
+                                      horizontal: AppSizes.padding10,
                                       vertical: 5,
                                     ),
                                     decoration: BoxDecoration(
@@ -169,7 +216,7 @@ class SaleProductCard extends StatelessWidget {
                                       style: TextStyle(
                                         color: statusColor,
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 12,
+                                        fontSize: AppSizes.font12,
                                       ),
                                     ),
                                   )
@@ -181,29 +228,31 @@ class SaleProductCard extends StatelessWidget {
                                         style: const TextStyle(
                                           color: AppColors.success,
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 13,
+                                          fontSize: AppSizes.font13,
                                         ),
                                       ),
-                                      const SizedBox(height: 4),
+                                      const SizedBox(height: AppSizes.size5),
                                       Text(
                                         trailingBottom ?? "",
                                         style: const TextStyle(
                                           color: AppColors.grey,
-                                          fontSize: 12,
+                                          fontSize: AppSizes.font12,
                                         ),
                                       ),
                                     ],
                                   ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: AppSizes.size8),
                             Text(
                               "Stock : $stock",
-                              style: const TextStyle(fontWeight: FontWeight.w600),
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                            const SizedBox(height: 8),
+                            const SizedBox(height: AppSizes.size8),
                             Text(
                               price,
                               style: const TextStyle(
-                                fontSize: 20,
+                                fontSize: AppSizes.font20,
                                 color: AppColors.success,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -219,10 +268,7 @@ class SaleProductCard extends StatelessWidget {
               return FittedBox(
                 fit: BoxFit.scaleDown,
                 alignment: Alignment.centerLeft,
-                child: SizedBox(
-                  width: constraints.maxWidth,
-                  child: row,
-                ),
+                child: SizedBox(width: constraints.maxWidth, child: row),
               );
             },
           ),

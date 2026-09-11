@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import '../../../core/constants/app_colors.dart';
 
-/// A widget that displays an empty state when no products are found.
 class ProductEmptyState extends StatelessWidget {
   const ProductEmptyState({super.key});
 
@@ -9,26 +9,32 @@ class ProductEmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 45),
-      margin: const EdgeInsets.all(20),
+      margin: const EdgeInsets.all(AppSizes.margin12),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(18),
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(AppSizes.borderRadius18),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.widgets_outlined, size: 60, color: AppColors.blue),
-          const SizedBox(height: 12),
+          const Icon(
+            Icons.widgets_outlined,
+            size: AppSizes.size60,
+            color: AppColors.blue,
+          ),
+          const SizedBox(height: AppSizes.size12),
           const Text(
             "No Products Found",
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: AppSizes.font18,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          const SizedBox(height: 5),
+          const SizedBox(height: AppSizes.size5),
           const Text(
             "Try another product name, brand or product ID.",
-            style: TextStyle(color: Colors.grey),
+            style: TextStyle(color: AppColors.grey),
             textAlign: TextAlign.center,
           ),
         ],

@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:smartstock_inventory/core/responsive/responsive.dart';
-
+import 'package:smartstock_inventory/core/constants/app_sizes.dart';
+import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/dialogs/app_delete_dialog.dart';
 import '../../../data/models/sale_item_model.dart';
 
@@ -21,16 +21,16 @@ class CartItemCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
+      margin: const EdgeInsets.only(bottom: AppSizes.margin12),
+      padding: EdgeInsets.all(AppSizes.padding16),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.grey.shade300, width: 1),
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
+        border: Border.all(color: AppColors.lightGrey, width: 1),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(.06),
-            blurRadius: 8,
+            blurRadius: AppSizes.borderRadius8,
             offset: const Offset(0, 4),
           ),
         ],
@@ -42,28 +42,57 @@ class CartItemCard extends StatelessWidget {
             children: [
               /// IMAGE
               Container(
-                width: 85,
-                height: 85,
+                width: AppSizes.size85,
+                height: AppSizes.size85,
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(16),
+                  color: AppColors.lightGrey,
+                  borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
                   border: Border.all(color: Colors.blue.shade100),
                 ),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
+                  borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
                   child: item.imagePath.isNotEmpty
-                      ? kIsWeb
-                          ? Image.network(item.imagePath, fit: BoxFit.cover)
-                          : Image.file(File(item.imagePath), fit: BoxFit.cover)
+                      ? item.imagePath.startsWith('data:image')
+                            ? Image.memory(
+                                UriData.parse(item.imagePath).contentAsBytes(),
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(
+                                      Icons.image_not_supported_outlined,
+                                      color: AppColors.grey,
+                                      size: AppSizes.size32,
+                                    ),
+                              )
+                            : kIsWeb
+                            ? Image.network(
+                                item.imagePath,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(
+                                      Icons.image_not_supported_outlined,
+                                      color: AppColors.grey,
+                                      size: AppSizes.size32,
+                                    ),
+                              )
+                            : Image.file(
+                                File(item.imagePath),
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(
+                                      Icons.image_not_supported_outlined,
+                                      color: AppColors.grey,
+                                      size: AppSizes.size32,
+                                    ),
+                              )
                       : const Icon(
                           Icons.image_outlined,
-                          color: Colors.grey,
-                          size: 35,
+                          color: AppColors.grey,
+                          size: AppSizes.size32,
                         ),
                 ),
               ),
 
-              const SizedBox(width: 12),
+              const SizedBox(width: AppSizes.size12),
 
               Expanded(
                 child: Column(
@@ -75,7 +104,7 @@ class CartItemCard extends StatelessWidget {
                       child: Text(
                         item.productName,
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: AppSizes.font16,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -86,11 +115,11 @@ class CartItemCard extends StatelessWidget {
                       alignment: Alignment.centerLeft,
                       child: Text(
                         "${item.brandName} • ${item.categoryName}",
-                        style: const TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: AppColors.grey),
                       ),
                     ),
 
-                    const SizedBox(height: 5),
+                    const SizedBox(height: AppSizes.size5),
 
                     FittedBox(
                       fit: BoxFit.scaleDown,
@@ -121,35 +150,38 @@ class CartItemCard extends StatelessWidget {
                         onRemove();
                       }
                     },
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(
+                      AppSizes.borderRadius20,
+                    ),
                     child: const Padding(
                       padding: EdgeInsets.all(4.0),
                       child: Icon(
                         Icons.delete,
-                        color: Colors.red,
-                        size: 22,
+                        color: AppColors.error,
+                        size: AppSizes.size22,
                       ),
                     ),
                   ),
-                  
-                  const SizedBox(height: 10),
+
+                  const SizedBox(height: AppSizes.size10),
 
                   Text(
                     "Qty : ${item.quantity}",
                     style: const TextStyle(
-                      fontSize: 14,
+                      fontSize: AppSizes.font14,
                       fontWeight: FontWeight.bold,
-                      color: Colors.blue,
+                      color: AppColors.blue,
                     ),
                   ),
 
-                  const SizedBox(height: 6),
+                  const SizedBox(height: AppSizes.size5),
 
                   Text(
                     "₹${item.totalPrice.toStringAsFixed(2)}",
                     style: const TextStyle(
-                      fontSize: 16,
+                      fontSize: AppSizes.font16,
                       fontWeight: FontWeight.bold,
+                      color: AppColors.success
                     ),
                   ),
                 ],
@@ -160,14 +192,10 @@ class CartItemCard extends StatelessWidget {
           return FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
-            child: SizedBox(
-              width: constraints.maxWidth,
-              child: row,
-            ),
+            child: SizedBox(width: constraints.maxWidth, child: row),
           );
         },
       ),
-
     );
   }
 }

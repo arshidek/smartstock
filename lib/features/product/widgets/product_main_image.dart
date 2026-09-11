@@ -26,44 +26,77 @@ class ProductMainImage extends StatelessWidget {
       height: 350,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: const Color(0xFFF0F4FA),
+        color: AppColors.lightBlue,
         borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
       ),
       child: Stack(
         children: [
           Center(
             child: displayImage != null && displayImage!.isNotEmpty
-                ? kIsWeb
-                      ? Image.network(displayImage!, fit: BoxFit.contain)
-                      : Image.file(File(displayImage!), fit: BoxFit.contain)
+                ? displayImage!.startsWith('data:image')
+                      ? Image.memory(
+                          UriData.parse(displayImage!).contentAsBytes(),
+                          fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) =>
+                              const Icon(
+                                Icons.image_not_supported_outlined,
+                                size: AppSizes.size80,
+                                color: AppColors.grey,
+                              ),
+                        )
+                      : kIsWeb
+                      ? Image.network(
+                          displayImage!,
+                          fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) =>
+                              const Icon(
+                                Icons.image_not_supported_outlined,
+                                size: AppSizes.size80,
+                                color: AppColors.grey,
+                              ),
+                        )
+                      : Image.file(
+                          File(displayImage!),
+                          fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) =>
+                              const Icon(
+                                Icons.image_not_supported_outlined,
+                                size: AppSizes.size80,
+                                color: AppColors.grey,
+                              ),
+                        )
                 : const Icon(
                     Icons.image_outlined,
-                    size: 80,
+                    size: AppSizes.size80,
                     color: AppColors.grey,
                   ),
           ),
           if (currentImageIndex == 0 && images.isNotEmpty)
             Positioned(
-              top: 16,
-              left: 16,
+              top: AppSizes.padding16,
+              left: AppSizes.padding16,
               child: Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
+                  horizontal: AppSizes.padding10,
                   vertical: 6,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.blueAccent,
-                  borderRadius: BorderRadius.circular(8),
+                  color: AppColors.bannerBlue,
+                  borderRadius: BorderRadius.circular(AppSizes.borderRadius8),
                 ),
-                child: const Row(
+                child: Row(
                   children: [
-                    Icon(Icons.star, color: Colors.yellow, size: 14),
-                    SizedBox(width: 4),
+                    Icon(
+                      Icons.star,
+                      color: AppColors.yellow,
+                      size: AppSizes.size15,
+                    ),
+                    SizedBox(width: AppSizes.size5),
                     Text(
                       "Primary",
                       style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
+                        color: AppColors.white,
+                        fontSize: AppSizes.font12,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -73,36 +106,36 @@ class ProductMainImage extends StatelessWidget {
             ),
           if (images.length > 1) ...[
             Positioned(
-              left: 10,
+              left: AppSizes.size10,
               top: 0,
               bottom: 0,
               child: Center(
                 child: InkWell(
                   onTap: onPrevious,
                   child: CircleAvatar(
-                    backgroundColor: Colors.white.withOpacity(0.8),
-                    radius: 18,
+                    backgroundColor: AppColors.lightBlue,
+                    radius: AppSizes.borderRadius18,
                     child: const Icon(
                       Icons.chevron_left,
-                      color: Colors.black54,
+                      color: AppColors.black,
                     ),
                   ),
                 ),
               ),
             ),
             Positioned(
-              right: 10,
+              right: AppSizes.size10,
               top: 0,
               bottom: 0,
               child: Center(
                 child: InkWell(
                   onTap: onNext,
                   child: CircleAvatar(
-                    backgroundColor: Colors.white.withOpacity(0.8),
-                    radius: 18,
+                    backgroundColor: AppColors.lightBlue,
+                    radius: AppSizes.borderRadius18,
                     child: const Icon(
                       Icons.chevron_right,
-                      color: Colors.black54,
+                      color: AppColors.black,
                     ),
                   ),
                 ),

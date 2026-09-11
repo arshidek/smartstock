@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smartstock_inventory/core/constants/app_colors.dart';
+import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import '../../../core/responsive/responsive.dart';
 import '../../../data/models/brand_model.dart';
 import '../../../data/models/category_model.dart';
@@ -28,22 +30,24 @@ class ProductDetailInfoCard extends StatelessWidget {
         Text(
           product.name,
           style: const TextStyle(
-            fontSize: 28,
+            fontSize: AppSizes.font26,
             fontWeight: FontWeight.bold,
-            color: Color(0xFF1E293B),
+            color: AppColors.black,
           ),
         ),
-        const SizedBox(height: 8),
+        const SizedBox(height: AppSizes.size8),
         Text(
           brand?.name ?? "Unknown",
-          style: const TextStyle(fontSize: 16, color: Colors.black54),
+          style: const TextStyle(
+            fontSize: AppSizes.font16,
+            color: AppColors.grey,
+          ),
         ),
 
-        const SizedBox(height: 24),
-        const Divider(color: Color(0xFFE2E8F0)),
-        const SizedBox(height: 24),
+        const SizedBox(height: AppSizes.size24),
+        const Divider(color: AppColors.lightGrey),
+        const SizedBox(height: AppSizes.size24),
 
-        // 2x2 Grid Info
         Row(
           children: [
             Expanded(
@@ -64,7 +68,7 @@ class ProductDetailInfoCard extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 24),
+        const SizedBox(height: AppSizes.size24),
         Row(
           children: [
             Expanded(
@@ -86,7 +90,7 @@ class ProductDetailInfoCard extends StatelessWidget {
           ],
         ),
 
-        const SizedBox(height: 32),
+        const SizedBox(height: AppSizes.size30),
 
         // Bottom Cards
         ProductPriceStockCards(product: product),
@@ -103,8 +107,8 @@ class ProductDetailInfoCard extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(icon, color: Colors.blueAccent, size: 22),
-        const SizedBox(width: 12),
+        Icon(icon, color: AppColors.blue, size: AppSizes.size22),
+        const SizedBox(width: AppSizes.size12),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,17 +116,21 @@ class ProductDetailInfoCard extends StatelessWidget {
               Text(
                 title,
                 style: TextStyle(
-                  color: Colors.black54,
-                  fontSize: Responsive.isMobile(context) ? 14 : 16,
+                  color: AppColors.grey,
+                  fontSize: Responsive.isMobile(context)
+                      ? AppSizes.font14
+                      : AppSizes.font16,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: AppSizes.size5),
               Text(
                 value,
                 style: TextStyle(
-                  color: const Color(0xFF1E293B),
-                  fontSize: Responsive.isMobile(context) ? 16 : 18,
+                  color: AppColors.black,
+                  fontSize: Responsive.isMobile(context)
+                      ? AppSizes.font16
+                      : AppSizes.font18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -130,6 +138,6 @@ class ProductDetailInfoCard extends StatelessWidget {
           ),
         ),
       ],
-    );
+     );
   }
 }

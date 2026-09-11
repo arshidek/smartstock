@@ -88,7 +88,13 @@ class _BrandDetailsAppBarState extends State<BrandDetailsAppBar> {
           fontSize: AppSizes.font24,
         ),
       ),
-      actions: [AppPopupMenu(onEdit: _editBrand, onDelete: _deleteBrand)],
+      actions: [
+        AppPopupMenu(
+          onEdit: _editBrand,
+          onDelete: _deleteBrand,
+          iconColor: AppColors.black,
+        ),
+      ],
     );
   }
 }

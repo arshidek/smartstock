@@ -99,7 +99,7 @@ class _SaleHistoryScreenState extends State<SaleHistoryScreen> {
           children: [
             /// Search Bar
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.all(AppSizes.font16),
               child: AppSearchBar(
                 controller: searchController,
                 hintText: "Search by invoice or product...",

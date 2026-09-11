@@ -5,9 +5,7 @@ import '../../../core/constants/app_sizes.dart';
 import '../../../core/responsive/responsive.dart';
 import '../../../core/services/sale_service.dart';
 import '../../../core/widgets/bottom_nav/app_bottom_navigation_bar.dart';
-import '../../../core/widgets/search/app_search_bar.dart';
 import '../../../data/models/sale_model.dart';
-
 import 'add_sale_screen.dart';
 import 'mobile/mobile_sales_screen.dart';
 import 'web/web_sales_screen.dart';
@@ -111,15 +109,15 @@ class _SalesScreenState extends State<SalesScreen> {
     return Scaffold(
       backgroundColor: AppColors.background.colors[0],
       appBar: AppBar(
-        backgroundColor: AppColors.appBarColor,
+        backgroundColor: AppColors.blue,
         elevation: 0,
         automaticallyImplyLeading: false,
-        title: const Text(
+        title:  Text(
           'Sales Management',
           style: TextStyle(
-            color: AppColors.black,
+            color: AppColors.white,
             fontWeight: FontWeight.bold,
-            fontSize: AppSizes.size25,
+            fontSize: AppSizes.font24,
           ),
         ),
       ),
@@ -130,20 +128,7 @@ class _SalesScreenState extends State<SalesScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              // Search Bar
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppSizes.padding16,
-                  vertical: AppSizes.padding10,
-                ),
-                child: AppSearchBar(
-                  controller: TextEditingController(),
-                  hintText: "Search sales by invoice, customer...",
-                  onChanged: (value) {
-                    // Search implemented in SaleHistoryScreen instead
-                  },
-                ),
-              ),
+
 
               if (_isLoading)
                 const Padding(

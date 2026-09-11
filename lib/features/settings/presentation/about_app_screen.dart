@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smartstock_inventory/app/app_navigation.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
-import '../../../core/responsive/responsive.dart';
 
 class AboutAppScreen extends StatelessWidget {
   const AboutAppScreen({super.key});
@@ -9,14 +9,18 @@ class AboutAppScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.lightBlue,
+      backgroundColor: AppColors.background.colors[0],
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: AppColors.appBarColor,
         elevation: 0,
         centerTitle: false,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.black),
-          onPressed: () => Navigator.pop(context),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: AppColors.black,
+            size: AppSizes.size30,
+          ),
+          onPressed: () => AppNavigation.goBack(context),
         ),
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -25,13 +29,13 @@ class AboutAppScreen extends StatelessWidget {
               "About App",
               style: TextStyle(
                 color: AppColors.black,
-                fontSize: 20,
+                fontSize: AppSizes.font24,
                 fontWeight: FontWeight.bold,
               ),
             ),
             Text(
               "Know more about SmartStock",
-              style: TextStyle(color: AppColors.grey, fontSize: 12),
+              style: TextStyle(color: AppColors.grey, fontSize: AppSizes.font12),
             ),
           ],
         ),
@@ -58,26 +62,21 @@ class AboutAppScreen extends StatelessWidget {
               child: Column(
                 children: [
                   const SizedBox(height: AppSizes.size10),
-                  Container(
-                    width: 80,
-                    height: 80,
-                    decoration: BoxDecoration(
-                      color: AppColors.blue,
-                      borderRadius: BorderRadius.circular(
-                        AppSizes.borderRadius20,
-                      ),
-                    ),
-                    child: Icon(
-                      Icons.widgets_outlined,
-                      color: AppColors.white,
-                      size: 40,
+                  // App logo image
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(AppSizes.borderRadius20),
+                    child: Image.asset(
+                      'assets/images/app_logo.png',
+                      width: AppSizes.size80,
+                      height: AppSizes.size80,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   const SizedBox(height: AppSizes.size15),
                   const Text(
                     "SmartStock",
                     style: TextStyle(
-                      fontSize: 22,
+                      fontSize: AppSizes.font22,
                       fontWeight: FontWeight.bold,
                       color: AppColors.black,
                     ),
@@ -85,18 +84,18 @@ class AboutAppScreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 4,
+                      horizontal: AppSizes.padding10,
+                      vertical: AppSizes.size5,
                     ),
                     decoration: BoxDecoration(
                       color: AppColors.blue.withValues(alpha: 0.1),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(AppSizes.size20),
                     ),
                     child: Text(
                       "Version 1.0.0",
                       style: TextStyle(
                         color: AppColors.blue,
-                        fontSize: 10,
+                        fontSize: AppSizes.font10,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -107,7 +106,7 @@ class AboutAppScreen extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: AppColors.grey,
-                      fontSize: 13,
+                      fontSize: AppSizes.font13,
                       height: 1.5,
                     ),
                   ),
@@ -195,12 +194,16 @@ class AboutAppScreen extends StatelessWidget {
               child: Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(12),
+                    padding: const EdgeInsets.all(AppSizes.padding12),
                     decoration: BoxDecoration(
                       color: AppColors.blue.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(Icons.favorite_border, color: AppColors.blue),
+                    child: Icon(
+                      Icons.favorite_border,
+                      color: AppColors.blue,
+                      size: AppSizes.size22,
+                    ),
                   ),
                   const SizedBox(width: AppSizes.size15),
                   Expanded(
@@ -230,17 +233,17 @@ class AboutAppScreen extends StatelessWidget {
                       foregroundColor: AppColors.white,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
+                        borderRadius: BorderRadius.circular(AppSizes.borderRadius8),
                       ),
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 12,
-                        vertical: 8,
+                        horizontal: AppSizes.padding12,
+                        vertical: AppSizes.padding8,
                       ),
                     ),
-                    icon: const Icon(Icons.star_border, size: 16),
+                    icon: const Icon(Icons.star_border, size: AppSizes.size16),
                     label: const Text(
                       "Rate App",
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontSize: AppSizes.font12),
                     ),
                   ),
                 ],
@@ -271,7 +274,7 @@ class AboutAppScreen extends StatelessWidget {
               color: iconBgColor,
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, size: 18, color: iconColor),
+            child: Icon(icon, size: AppSizes.size18, color: iconColor),
           ),
           const SizedBox(width: AppSizes.size15),
           Text(
@@ -284,7 +287,7 @@ class AboutAppScreen extends StatelessWidget {
           const Spacer(),
           Text(
             value,
-            style: const TextStyle(color: AppColors.grey, fontSize: 13),
+          style: const TextStyle(color: AppColors.grey, fontSize: AppSizes.font13),
           ),
         ],
       ),

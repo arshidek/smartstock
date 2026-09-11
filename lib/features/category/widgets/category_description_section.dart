@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
-
 import 'package:flutter/material.dart';
-
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 import '../../../data/models/category_model.dart';
@@ -24,7 +22,6 @@ class CategoryDescriptionSection extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        /// Category Image
         ClipRRect(
           borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
           child: category.imagePath != null && category.imagePath!.isNotEmpty
@@ -98,7 +95,6 @@ class CategoryDescriptionSection extends StatelessWidget {
 
         const SizedBox(width: AppSizes.size20),
 
-        /// Description
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

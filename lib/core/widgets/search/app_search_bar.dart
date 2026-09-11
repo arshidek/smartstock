@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
 
@@ -22,7 +21,7 @@ class AppSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 55,
+      height: AppSizes.size55,
       decoration: BoxDecoration(
         color: AppColors.white,
         borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
@@ -30,11 +29,11 @@ class AppSearchBar extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const SizedBox(width: 12),
+          const SizedBox(width: AppSizes.size12),
 
           const Icon(Icons.search, color: AppColors.grey),
 
-          const SizedBox(width: 10),
+          const SizedBox(width: AppSizes.size10),
 
           Expanded(
             child: TextField(
@@ -53,7 +52,11 @@ class AppSearchBar extends StatelessWidget {
           ),
 
           if (showFilter) ...[
-            Container(width: 1, height: 28, color: Colors.grey.shade300),
+            Container(
+              width: 1,
+              height: AppSizes.size28,
+              color: AppColors.lightGrey,
+            ),
             IconButton(
               onPressed: onFilterTap,
               icon: const Icon(Icons.tune, color: AppColors.blue),

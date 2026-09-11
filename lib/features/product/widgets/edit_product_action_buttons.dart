@@ -4,7 +4,6 @@ import '../../../core/constants/app_sizes.dart';
 import '../../../core/responsive/responsive.dart';
 import '../../../core/widgets/buttons/app_button.dart';
 
-/// Action buttons for the Edit Product screen.
 class EditProductActionButtons extends StatelessWidget {
   final VoidCallback onUpdateProduct;
   final VoidCallback onUpdateStock;

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smartstock_inventory/core/widgets/cards/app_card_widget.dart';
-
 import '../../../app/app_navigation.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
@@ -63,7 +62,7 @@ class _SaleDetailsScreenState extends State<SaleDetailsScreen> {
         decoration: BoxDecoration(gradient: AppColors.background),
         child: ListView(
           children: [
-            const SizedBox(height: 15),
+            const SizedBox(height: AppSizes.size15),
             AppCardWidget(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,18 +79,19 @@ class _SaleDetailsScreenState extends State<SaleDetailsScreen> {
                     "Note",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: AppSizes.size10),
                   Text(
                     sale.note.isEmpty ? "No note provided." : sale.note,
                     style: TextStyle(
-                      color:
-                          sale.note.isEmpty ? Colors.grey : AppColors.black,
+                      color: sale.note.isEmpty
+                          ? AppColors.grey
+                          : AppColors.black,
                     ),
                   ),
                 ],
               ),
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: AppSizes.size25),
           ],
         ),
       ),

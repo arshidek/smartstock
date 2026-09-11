@@ -134,7 +134,7 @@ class _UpdateSaleScreenState extends State<UpdateSaleScreen> {
         backgroundColor: AppColors.appBarColor,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.black, size: 30),
+          icon: const Icon(Icons.arrow_back, color: AppColors.black, size: AppSizes.size30),
           onPressed: () => AppNavigation.goBack(context),
         ),
         title: const Text(
@@ -142,7 +142,7 @@ class _UpdateSaleScreenState extends State<UpdateSaleScreen> {
           style: TextStyle(
             color: AppColors.black,
             fontWeight: FontWeight.bold,
-            fontSize: AppSizes.size25,
+            fontSize: AppSizes.font24,
           ),
         ),
       ),

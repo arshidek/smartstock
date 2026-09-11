@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-
 import '../../../app/app_navigation.dart';
 import '../../../core/services/product_service.dart';
 import '../../../core/services/sale_service.dart';

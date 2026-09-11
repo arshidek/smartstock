@@ -3,6 +3,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/widgets/buttons/app_button.dart';
 import '../../../../core/widgets/cards/app_card_widget.dart';
+import '../../../../core/widgets/filters/app_date_picker_bottom_sheet.dart';
 import '../../../../data/models/sale_item_model.dart';
 import '../../function/sale_functions.dart';
 import 'web_add_sale_cart.dart';
@@ -202,7 +203,7 @@ class WebAddSaleScreen extends StatelessWidget {
           InkWell(
             borderRadius: BorderRadius.circular(8),
             onTap: () async {
-              final pickedDate = await showDatePicker(
+              final pickedDate = await showAppDatePicker(
                 context: context,
                 initialDate: selectedSaleDate,
                 firstDate: DateTime(2024),
@@ -211,7 +212,10 @@ class WebAddSaleScreen extends StatelessWidget {
               if (pickedDate != null) onDateChanged(pickedDate);
             },
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSizes.padding10,
+                vertical: AppSizes.padding10,
+              ),
               decoration: BoxDecoration(
                 color: AppColors.blue.withOpacity(.08),
                 borderRadius: BorderRadius.circular(8),
@@ -230,13 +234,13 @@ class WebAddSaleScreen extends StatelessWidget {
                             size: AppSizes.size15,
                             color: AppColors.blue,
                           ),
-                          const SizedBox(width: 6),
+                          const SizedBox(width: AppSizes.size5),
                           Text(
                             "${selectedSaleDate.day} ${["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"][selectedSaleDate.month - 1]} ${selectedSaleDate.year}",
                             style: const TextStyle(
                               color: AppColors.blue,
                               fontWeight: FontWeight.w600,
-                              fontSize: 13,
+                              fontSize: AppSizes.font13,
                             ),
                           ),
                         ],

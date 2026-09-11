@@ -1,7 +1,7 @@
 import 'package:hive/hive.dart';
 import 'sale_item_model.dart';
 
-part 'sale_model.g.dart';
+part '../adapters/sale_model.g.dart';
 
 @HiveType(typeId: 4)
 class SaleModel extends HiveObject {

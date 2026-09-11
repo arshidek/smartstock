@@ -1,9 +1,7 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:smartstock_inventory/app/app_navigation.dart';
 import 'package:smartstock_inventory/core/constants/app_sizes.dart';
-
 import '../../constants/app_colors.dart';
 
 class AppInfoDialog {
@@ -50,9 +48,7 @@ class AppInfoDialog {
                     height: AppSizes.size100,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                        colors: [Color(0xffFFD54F), Color(0xffF9A825)],
-                      ),
+                      gradient: AppColors.infoGradient,
                     ),
                     child: Icon(
                       Icons.info_outline_rounded,

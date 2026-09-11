@@ -14,7 +14,7 @@ class AuthService {
     await _box.put("isLoggedIn", false);
     await _box.delete("currentUserId");
   }
-//
+
   bool isLoggedIn() {
     return _box.get("isLoggedIn", defaultValue: false);
   }

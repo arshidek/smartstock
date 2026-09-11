@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-part 'product_model.g.dart';
+part '../adapters/product_model.g.dart';
 
 @HiveType(typeId: 3)
 class ProductModel extends HiveObject {

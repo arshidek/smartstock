@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 
@@ -33,27 +31,74 @@ class ProductListItemCard extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Product Image
         ClipRRect(
           borderRadius: BorderRadius.circular(12),
           child: imagePath != null && imagePath!.isNotEmpty
-              ? kIsWeb
+              ? imagePath!.startsWith('data:image')
+                  ? Image.memory(
+                      UriData.parse(imagePath!).contentAsBytes(),
+                      width: AppSizes.size90,
+                      height: AppSizes.size90,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return Container(
+                          width: AppSizes.size90,
+                          height: AppSizes.size90,
+                          color: AppColors.lightGrey.withOpacity(0.2),
+                          child: const Icon(
+                            Icons.image_not_supported_outlined,
+                            size: AppSizes.size40,
+                            color: AppColors.grey,
+                          ),
+                        );
+                      },
+                    )
+                  : kIsWeb
                     ? Image.network(
                         imagePath!,
-                        width: 90,
-                        height: 90,
+                        width: AppSizes.size90,
+                        height: AppSizes.size90,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            width: AppSizes.size90,
+                            height: AppSizes.size90,
+                            color: AppColors.lightGrey.withOpacity(0.2),
+                            child: const Icon(
+                              Icons.image_not_supported_outlined,
+                              size: AppSizes.size40,
+                              color: AppColors.grey,
+                            ),
+                          );
+                        },
                       )
                     : Image.file(
                         File(imagePath!),
-                        width: 90,
-                        height: 90,
+                        width: AppSizes.size90,
+                        height: AppSizes.size90,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            width: AppSizes.size90,
+                            height: AppSizes.size90,
+                            color: AppColors.lightGrey.withOpacity(0.2),
+                            child: const Icon(
+                              Icons.image_not_supported_outlined,
+                              size: AppSizes.size40,
+                              color: AppColors.grey,
+                            ),
+                          );
+                        },
                       )
-              : const Icon(
-                  Icons.image_outlined,
-                  size: 40,
-                  color: AppColors.grey,
+              : Container(
+                  width: AppSizes.size90,
+                  height: AppSizes.size90,
+                  color: AppColors.lightGrey.withOpacity(0.2),
+                  child: const Icon(
+                    Icons.image_outlined,
+                    size: AppSizes.size40,
+                    color: AppColors.grey,
+                  ),
                 ),
         ),
 
@@ -64,7 +109,6 @@ class ProductListItemCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              /// Left Side
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,27 +116,27 @@ class ProductListItemCard extends StatelessWidget {
                     Text(
                       productName,
                       style: const TextStyle(
-                        fontSize: 18, // Slightly larger
+                        fontSize: AppSizes.font18,
                         fontWeight: FontWeight.bold,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 6),
+                    const SizedBox(height: AppSizes.size5),
                     Text(
                       brandName,
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: AppSizes.font14,
                         color: AppColors.grey,
                       ),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: AppSizes.size5),
                     Text(
                       categoryName,
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: AppSizes.font14,
                         color: AppColors.grey,
                       ),
                       maxLines: 1,
@@ -104,49 +148,45 @@ class ProductListItemCard extends StatelessWidget {
 
               const SizedBox(width: AppSizes.size12),
 
-              /// Right Side
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  // 1. Stock Banner (top right)
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
+                      horizontal: AppSizes.padding10,
                       vertical: 4,
                     ),
                     decoration: BoxDecoration(
                       color: stockColor.withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(AppSizes.borderRadius20),
                     ),
                     child: Text(
                       stockStatus,
                       style: TextStyle(
                         color: stockColor,
                         fontWeight: FontWeight.bold,
-                        fontSize: 12,
+                        fontSize: AppSizes.font12,
                       ),
                     ),
                   ),
 
-                  const SizedBox(height: 10),
+                  const SizedBox(height: AppSizes.size10),
 
-                  // 2. Stock Count (middle)
                   Text(
                     "Stock : $stock",
                     style: const TextStyle(
                       fontWeight: FontWeight.w600,
-                      fontSize: 13,
+                      fontSize: AppSizes.font13,
                       color: AppColors.grey,
                     ),
                   ),
 
-                  const SizedBox(height: 10),
+                  const SizedBox(height: AppSizes.size10),
 
-                  // 3. Price (bottom)
                   Text(
                     "₹$sellingPrice",
                     style: const TextStyle(
-                      fontSize: 18,
+                      fontSize: AppSizes.font18,
                       fontWeight: FontWeight.bold,
                       color: AppColors.blue,
                     ),

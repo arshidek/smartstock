@@ -50,7 +50,6 @@ class _CreateScreenState extends State<CreateScreen> {
 
             const SizedBox(height: AppSizes.size30),
 
-            /// Username
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -68,7 +67,6 @@ class _CreateScreenState extends State<CreateScreen> {
 
             const SizedBox(height: AppSizes.size20),
 
-            /// Email
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -87,7 +85,6 @@ class _CreateScreenState extends State<CreateScreen> {
 
             const SizedBox(height: AppSizes.size20),
 
-            /// Password
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -114,7 +111,6 @@ class _CreateScreenState extends State<CreateScreen> {
 
             const SizedBox(height: AppSizes.size30),
 
-            /// Create Button
             AppButton(
               text: "Create Account",
               icon: Icons.person_add,

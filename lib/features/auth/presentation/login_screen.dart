@@ -119,6 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
             AppOutlineButton(
               text: "Create Account",
               icon: Icons.person_add,
+              expandText: false,
               onPressed: () {
                 AppNavigation.goToScreen(context, const CreateScreen());
               },

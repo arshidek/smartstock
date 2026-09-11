@@ -11,7 +11,7 @@ class AddProductAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColors.appBarColor,
-      elevation: 0,
+      elevation: 1,
       leading: IconButton(
         icon: const Icon(
           Icons.arrow_back,
@@ -30,14 +30,7 @@ class AddProductAppBar extends StatelessWidget implements PreferredSizeWidget {
             style: TextStyle(
               color: AppColors.black,
               fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            'Add product information and details',
-            style: TextStyle(
-              color: AppColors.grey,
-              fontSize: AppSizes.font14,
-              fontWeight: FontWeight.w400,
+              fontSize: AppSizes.font24
             ),
           ),
         ],

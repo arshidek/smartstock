@@ -1,5 +1,8 @@
+import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:uuid/uuid.dart';
 import '../../../app/app_navigation.dart';
 import '../../../core/services/brand_service.dart';
@@ -32,7 +35,7 @@ class ProductFunction {
     required TextEditingController descriptionController,
     required String? brandId,
     required String? categoryId,
-    required List<File> images, // Changed to support multi-images
+    required List<File> images,
     required String createdBy,
     required bool status,
   }) async {
@@ -53,6 +56,21 @@ class ProductFunction {
       return ProductSaveResult.duplicateBarcode;
     }
 
+    List<String> finalImagePaths = [];
+    if (kIsWeb) {
+      for (var file in images) {
+        try {
+          final bytes = await XFile(file.path).readAsBytes();
+          final base64String = base64Encode(bytes);
+          finalImagePaths.add('data:image/jpeg;base64,$base64String');
+        } catch (e) {
+          debugPrint('Failed to convert image to base64: $e');
+        }
+      }
+    } else {
+      finalImagePaths = images.map((e) => e.path).toList();
+    }
+
     final product = ProductModel(
       id: const Uuid().v4(),
       productId: const Uuid().v4().substring(0, 8),
@@ -64,12 +82,8 @@ class ProductFunction {
       stock: int.parse(stockController.text),
       barcode: barcodeController.text.trim(),
       description: descriptionController.text.trim(),
-      imagePath: images.isNotEmpty
-          ? images.first.path
-          : "", // Keep first for backward compat
-      imagePaths: images
-          .map((e) => e.path)
-          .toList(), // Added to support multi-images
+      imagePath: finalImagePaths.isNotEmpty ? finalImagePaths.first : "",
+      imagePaths: finalImagePaths,
       createdBy: createdBy,
       createdAt: DateTime.now(),
       isActive: status,
@@ -95,7 +109,7 @@ class ProductFunction {
     required TextEditingController descriptionController,
     required String? brandId,
     required String? categoryId,
-    required List<File> images, // Changed to support multi-images
+    required List<File> images,
     required bool status,
   }) async {
     if (!formKey.currentState!.validate()) {
@@ -116,10 +130,26 @@ class ProductFunction {
     product.barcode = barcodeController.text.trim();
     product.description = descriptionController.text.trim();
     if (images.isNotEmpty) {
-      product.imagePath = images.first.path; // Update main image
-      product.imagePaths = images
-          .map((e) => e.path)
-          .toList(); // Added to support multi-images
+      List<String> finalImagePaths = [];
+      if (kIsWeb) {
+        for (var file in images) {
+          if (file.path.startsWith('data:image')) {
+            finalImagePaths.add(file.path);
+          } else {
+            try {
+              final bytes = await XFile(file.path).readAsBytes();
+              final base64String = base64Encode(bytes);
+              finalImagePaths.add('data:image/jpeg;base64,$base64String');
+            } catch (e) {
+              debugPrint('Failed to convert image to base64: $e');
+            }
+          }
+        }
+      } else {
+        finalImagePaths = images.map((e) => e.path).toList();
+      }
+      product.imagePath = finalImagePaths.isNotEmpty ? finalImagePaths.first : "";
+      product.imagePaths = finalImagePaths;
     }
     product.isActive = status;
     debugPrint("Saving product...");

@@ -5,7 +5,6 @@ import 'package:image_picker/image_picker.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 
-/// A reusable widget for selecting and displaying a Brand image.
 class BrandImagePickerWidget extends StatelessWidget {
   final XFile? image;
   final String? imageError;

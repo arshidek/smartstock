@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../app/app_navigation.dart';
+import '../../dashboard/presentation/dashboard_screen.dart';
 
 class DrawerDashboardCard extends StatelessWidget {
-  const DrawerDashboardCard({super.key});
+  final bool isCollapsed;
+
+  const DrawerDashboardCard({super.key, this.isCollapsed = false});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    final cardContent = Container(
       decoration: BoxDecoration(
         color: AppColors.white.withOpacity(0.9),
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
         boxShadow: [
           BoxShadow(
             color: AppColors.blackShadow,
@@ -18,26 +23,67 @@ class DrawerDashboardCard extends StatelessWidget {
           ),
         ],
       ),
-      child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-        leading: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: AppColors.glassIconBackground,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Icon(Icons.home, color: AppColors.blue, size: 24),
-        ),
-        title: Text(
-          "Dashboard",
-          style: TextStyle(
-            color: AppColors.blue,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-        ),
-        onTap: () => Navigator.pop(context),
-      ),
+      child: isCollapsed
+          ? InkWell(
+              onTap: () => AppNavigation.goToScreenAndRemoveAll(
+                context,
+                const DashboardScreen(),
+              ),
+              borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: AppSizes.padding12,
+                ),
+                child: Container(
+                  padding: const EdgeInsets.all(AppSizes.padding8),
+                  decoration: BoxDecoration(
+                    color: AppColors.glassIconBackground,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.home,
+                    color: AppColors.blue,
+                    size: AppSizes.size24,
+                  ),
+                ),
+              ),
+            )
+          : ListTile(
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: AppSizes.padding16,
+                vertical: 4,
+              ),
+              leading: Container(
+                padding: const EdgeInsets.all(AppSizes.padding8),
+                decoration: BoxDecoration(
+                  color: AppColors.glassIconBackground,
+                  borderRadius: BorderRadius.circular(AppSizes.borderRadius8),
+                ),
+                child: Icon(
+                  Icons.home,
+                  color: AppColors.blue,
+                  size: AppSizes.size24,
+                ),
+              ),
+              title: Text(
+                "Dashboard",
+                style: TextStyle(
+                  color: AppColors.blue,
+                  fontWeight: FontWeight.bold,
+                  fontSize: AppSizes.font16,
+                ),
+              ),
+              onTap: () => AppNavigation.goToScreenAndRemoveAll(
+                context,
+                const DashboardScreen(),
+              ),
+            ),
     );
+
+    if (isCollapsed) {
+      return Tooltip(message: "Dashboard", child: cardContent);
+    }
+
+    return cardContent;
   }
 }

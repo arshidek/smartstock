@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'sale_model.dart';
+part of '../models/sale_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator

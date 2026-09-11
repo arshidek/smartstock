@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smartstock_inventory/core/constants/app_sizes.dart';
+
+import '../../../core/constants/app_colors.dart';
 
 class TodaySummaryCard extends StatelessWidget {
   final String title;
@@ -18,13 +21,13 @@ class TodaySummaryCard extends StatelessWidget {
         Text(
           title,
           style: const TextStyle(
-            color: Colors.grey,
+            color: AppColors.grey,
             fontWeight: FontWeight.w600,
-            fontSize: 13,
+            fontSize: AppSizes.font13,
           ),
         ),
 
-        const SizedBox(height: 6),
+        const SizedBox(height: AppSizes.size5),
 
         FittedBox(
           fit: BoxFit.scaleDown,
@@ -33,7 +36,7 @@ class TodaySummaryCard extends StatelessWidget {
             style: TextStyle(
               color: valueColor,
               fontWeight: FontWeight.bold,
-              fontSize: 18,
+              fontSize: AppSizes.font18,
             ),
           ),
         ),

@@ -1,18 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:smartstock_inventory/core/constants/app_sizes.dart';
+import '../../../core/constants/app_colors.dart';
 
 class DrawerFooterCard extends StatelessWidget {
-  const DrawerFooterCard({super.key});
+  final bool isCollapsed;
+
+  const DrawerFooterCard({super.key, this.isCollapsed = false});
 
   @override
   Widget build(BuildContext context) {
+    if (isCollapsed) {
+      return Tooltip(
+        message: "SmartStock v1.0.0",
+        child: Container(
+          width: AppSizes.size48,
+          height: AppSizes.size48,
+          decoration: BoxDecoration(
+            color: AppColors.white,
+            borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.05),
+                blurRadius: 5,
+                spreadRadius: 1,
+              ),
+            ],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
+            child: Image.asset(
+              'assets/images/app_logo.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+        ),
+      );
+    }
+
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.9),
-        borderRadius: BorderRadius.circular(16),
+        color: AppColors.white.withOpacity(0.9),
+        borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.02),
-            blurRadius: 10,
+            color: AppColors.black.withOpacity(0.02),
+            blurRadius: AppSizes.borderRadius8,
             offset: const Offset(0, 4),
           ),
         ],
@@ -21,11 +53,11 @@ class DrawerFooterCard extends StatelessWidget {
       child: Row(
         children: [
           Container(
-            width: 48,
-            height: 48,
+            width: AppSizes.size48,
+            height: AppSizes.size48,
             decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+              color: AppColors.white,
+              borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
               boxShadow: [
                 BoxShadow(
                   color: Colors.black.withOpacity(0.05),
@@ -42,47 +74,49 @@ class DrawerFooterCard extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 16),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  const Text(
-                    "SmartStock",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: Color(0xFF1F2937),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 6,
-                      vertical: 2,
-                    ),
-                    decoration: BoxDecoration(
-                      color: const Color(0xFFE0E7FF),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Text(
-                      "v1.0.0",
+          const SizedBox(width: AppSizes.size15),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    const Text(
+                      "SmartStock",
                       style: TextStyle(
-                        color: Color(0xFF4338CA),
-                        fontSize: 10,
                         fontWeight: FontWeight.bold,
+                        fontSize: AppSizes.font16,
+                        color: AppColors.black,
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 4),
-              const Text(
-                "© 2026 All rights reserved",
-                style: TextStyle(color: Color(0xFF9CA3AF), fontSize: 12),
-              ),
-            ],
+                    const SizedBox(width: AppSizes.size8),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 6,
+                        vertical: 2,
+                      ),
+                      decoration: BoxDecoration(
+                        color: AppColors.lightBlue,
+                        borderRadius: BorderRadius.circular(AppSizes.borderRadius8),
+                      ),
+                      child: const Text(
+                        "v1.0",
+                        style: TextStyle(
+                          color: AppColors.blue,
+                          fontSize: AppSizes.font10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppSizes.size5),
+                const Text(
+                  "© 2026",
+                  style: TextStyle(color: AppColors.grey, fontSize: AppSizes.font12),
+                ),
+              ],
+            ),
           ),
         ],
       ),

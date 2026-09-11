@@ -1,20 +1,11 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import '../widgets/barcode_scanner_dialog.dart';
-
 import '../../../app/app_navigation.dart';
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_sizes.dart';
 import '../../../core/services/brand_service.dart';
 import '../../../core/services/category_service.dart';
 import '../../../core/services/product_service.dart';
 import '../../../core/utils/image_picker_helper.dart';
-import '../../../data/models/brand_model.dart';
-import '../../../data/models/category_model.dart';
 import '../../../data/models/product_model.dart';
-
-import '../../stock/functions/ stock_functions.dart';
 import '../../stock/presentation/update_stock_screen.dart';
 import '../function/product_function.dart';
 import '../widgets/edit_product_app_bar.dart';
@@ -45,8 +36,6 @@ class _EditProductScreenState extends State<EditProductScreen> {
     _state.brands = _state.brandService.getAllBrands();
     _state.categories = _state.categoryService.getAllCategories();
   }
-
-  // Intentionally blank as it's moved to state class
 
   Future<void> _pickImages() async {
     final images = await ImagePickerHelper.pickMultiImages();

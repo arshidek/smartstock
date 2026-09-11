@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import '../../../../app/app_navigation.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../../core/services/sale_service.dart';
 import '../../../../core/utils/app_snack_bar.dart';
 import '../../../../core/widgets/dialogs/app_delete_dialog.dart';
@@ -27,21 +29,21 @@ class MobileSaleHistoryList extends StatelessWidget {
           children: [
             Icon(
               Icons.receipt_long_outlined,
-              size: 80,
-              color: Colors.grey,
+              size: AppSizes.size80,
+              color: AppColors.grey,
             ),
-            SizedBox(height: 15),
+            SizedBox(height: AppSizes.size15),
             Text(
               "No Sales Found",
               style: TextStyle(
-                fontSize: 22,
+                fontSize: AppSizes.font22,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 5),
+            SizedBox(height: AppSizes.size5),
             Text(
               "Try searching with another product or invoice.",
-              style: TextStyle(color: Colors.grey),
+              style: TextStyle(color: AppColors.grey),
             ),
           ],
         ),
@@ -49,9 +51,13 @@ class MobileSaleHistoryList extends StatelessWidget {
     }
 
     return ListView.separated(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSizes.padding16,
+        vertical: AppSizes.padding8,
+      ),
       itemCount: sales.length,
-      separatorBuilder: (context, index) => const SizedBox(height: 8),
+      separatorBuilder: (context, index) =>
+          const SizedBox(height: AppSizes.size8),
       itemBuilder: (context, index) {
         final sale = sales[index];
         final item = sale.items.first;
@@ -79,10 +85,7 @@ class MobileSaleHistoryList extends StatelessWidget {
             }
           },
           onTap: () {
-            AppNavigation.goToScreen(
-              context,
-              SaleDetailsScreen(sale: sale),
-            );
+            AppNavigation.goToScreen(context, SaleDetailsScreen(sale: sale));
           },
           onDelete: () async {
             final confirm = await AppDeleteDialog.show(

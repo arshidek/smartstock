@@ -15,36 +15,39 @@ class AppPopupMenu extends StatelessWidget {
   final bool isSaleMenu;
   final bool isReportMenu;
   final bool compact;
+  final Color iconColor;
 
   const AppPopupMenu({
     super.key,
     this.onEdit,
     this.onDelete,
     this.compact = false,
-  })  : onRestock = null,
-        onUpdate = null,
-        onRefresh = null,
-        onShare = null,
-        onExport = null,
-        onView = null,
-        isRestockMenu = false,
-        isSaleMenu = false,
-        isReportMenu = false;
+    this.iconColor = Colors.white,
+  }) : onRestock = null,
+       onUpdate = null,
+       onRefresh = null,
+       onShare = null,
+       onExport = null,
+       onView = null,
+       isRestockMenu = false,
+       isSaleMenu = false,
+       isReportMenu = false;
 
   const AppPopupMenu.restock({
     super.key,
     required this.onRestock,
     this.compact = false,
-  })  : onEdit = null,
-        onDelete = null,
-        onUpdate = null,
-        onRefresh = null,
-        onShare = null,
-        onExport = null,
-        onView = null,
-        isSaleMenu = false,
-        isReportMenu = false,
-        isRestockMenu = true;
+    this.iconColor = Colors.white,
+  }) : onEdit = null,
+       onDelete = null,
+       onUpdate = null,
+       onRefresh = null,
+       onShare = null,
+       onExport = null,
+       onView = null,
+       isSaleMenu = false,
+       isReportMenu = false,
+       isRestockMenu = true;
 
   const AppPopupMenu.report({
     super.key,
@@ -52,14 +55,15 @@ class AppPopupMenu extends StatelessWidget {
     required this.onShare,
     required this.onExport,
     this.compact = false,
-  })  : onEdit = null,
-        onDelete = null,
-        onRestock = null,
-        onUpdate = null,
-        onView = null,
-        isRestockMenu = false,
-        isSaleMenu = false,
-        isReportMenu = true;
+    this.iconColor = Colors.white,
+  }) : onEdit = null,
+       onDelete = null,
+       onRestock = null,
+       onUpdate = null,
+       onView = null,
+       isRestockMenu = false,
+       isSaleMenu = false,
+       isReportMenu = true;
 
   const AppPopupMenu.sale({
     super.key,
@@ -67,35 +71,38 @@ class AppPopupMenu extends StatelessWidget {
     this.onView,
     required this.onDelete,
     this.compact = false,
-  })  : onEdit = null,
-        onRestock = null,
-        onRefresh = null,
-        onShare = null,
-        onExport = null,
-        isRestockMenu = false,
-        isReportMenu = false,
-        isSaleMenu = true;
+    this.iconColor = Colors.white,
+  }) : onEdit = null,
+       onRestock = null,
+       onRefresh = null,
+       onShare = null,
+       onExport = null,
+       isRestockMenu = false,
+       isReportMenu = false,
+       isSaleMenu = true;
 
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton<String>(
-      padding: compact ? EdgeInsets.zero : const EdgeInsets.all(8.0),
+      padding: compact
+          ? EdgeInsets.zero
+          : const EdgeInsets.all(AppSizes.padding8),
       elevation: AppSizes.size12,
       color: AppColors.white,
       shadowColor: AppColors.black.withOpacity(0.25),
       surfaceTintColor: AppColors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppSizes.borderRadius20),
-        side:  BorderSide(color: AppColors.white),
+        side: BorderSide(color: AppColors.white),
       ),
       constraints: const BoxConstraints(minWidth: AppSizes.size220),
       offset: const Offset(0, AppSizes.size55),
       icon: compact
-          ? const Icon(Icons.more_vert, color: Colors.black87)
-          : const Icon(
+          ? Icon(Icons.more_vert, color: iconColor, size: AppSizes.size24)
+          : Icon(
               Icons.more_vert_rounded,
               size: AppSizes.size30,
-              color: Colors.black87,
+              color: iconColor,
             ),
       onSelected: (value) {
         switch (value) {

@@ -9,7 +9,6 @@ import '../../../data/models/product_model.dart';
 import '../../../core/services/product_service.dart';
 import '../presentation/edit_product_screen.dart';
 
-/// App bar for the product detail screen, providing Edit and Delete actions.
 class ProductDetailAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   final ProductModel product;
@@ -71,6 +70,7 @@ class ProductDetailAppBar extends StatelessWidget
               }
             }
           },
+          iconColor: AppColors.black,
         ),
         const SizedBox(width: AppSizes.size12),
       ],

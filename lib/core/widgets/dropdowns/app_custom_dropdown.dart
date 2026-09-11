@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
 
@@ -21,18 +20,18 @@ class AppCustomDropdown {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: 68,
+              height: AppSizes.size60,
               decoration: BoxDecoration(
                 color: AppColors.white,
-                borderRadius: BorderRadius.circular(AppSizes.borderRadius20),
+                borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
                 border: Border.all(
                   color: state.hasError
                       ? AppColors.error
-                      : const Color(0xFFD6E4FF),
+                      :  AppColors.textFieldBlue,
                   width: state.hasError ? 2.0 : 1.5,
                 ),
               ),
-              padding: const EdgeInsets.only(left: 10, right: 14),
+              padding: const EdgeInsets.only(left: AppSizes.padding10, right: AppSizes.padding12),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<T>(
                   dropdownColor: AppColors.white,
@@ -42,10 +41,10 @@ class AppCustomDropdown {
                   icon: const Icon(
                     Icons.keyboard_arrow_down_rounded,
                     color: AppColors.blue,
-                    size: 28,
+                    size: AppSizes.size28,
                   ),
                   isExpanded: true,
-                  itemHeight: 68,
+                  itemHeight: AppSizes.size60,
                   onChanged: (T? newValue) {
                     state.didChange(newValue);
                     onChanged(newValue);
@@ -57,7 +56,7 @@ class AppCustomDropdown {
                         itemLabel(item),
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
-                          fontSize: 16,
+                          fontSize: AppSizes.font16,
                         ),
                       ),
                     );
@@ -65,24 +64,27 @@ class AppCustomDropdown {
                   hint: Row(
                     children: [
                       Container(
-                        width: 42,
-                        height: 42,
+                        width: AppSizes.size40,
+                        height: AppSizes.size40,
                         decoration: BoxDecoration(
                           color: AppColors.lightBlue,
-                          borderRadius: BorderRadius.circular(12),
+                          borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
                         ),
-                        child: Icon(icon, color: AppColors.blue, size: 22),
+                        child: Icon(icon, color: AppColors.blue, size: AppSizes.size22),
                       ),
-                      const SizedBox(width: 10),
+                      const SizedBox(width: AppSizes.size10),
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
                               label,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
-                                fontSize: 13,
+                                fontSize: AppSizes.font13,
                                 color: AppColors.grey,
                                 fontWeight: FontWeight.w500,
                               ),
@@ -91,7 +93,7 @@ class AppCustomDropdown {
                             const Text(
                               "Select",
                               style: TextStyle(
-                                fontSize: 15,
+                                fontSize: AppSizes.font15,
                                 color: AppColors.black,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -106,24 +108,27 @@ class AppCustomDropdown {
                       return Row(
                         children: [
                           Container(
-                            width: 42,
-                            height: 42,
+                            width: AppSizes.size40,
+                            height: AppSizes.size40,
                             decoration: BoxDecoration(
                               color: AppColors.lightBlue,
-                              borderRadius: BorderRadius.circular(12),
+                              borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
                             ),
-                            child: Icon(icon, color: AppColors.blue, size: 22),
+                            child: Icon(icon, color: AppColors.blue, size: AppSizes.size22),
                           ),
-                          const SizedBox(width: 10),
+                          const SizedBox(width: AppSizes.size10),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
                                   label,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
-                                    fontSize: 13,
+                                    fontSize: AppSizes.font13,
                                     color: AppColors.grey,
                                     fontWeight: FontWeight.w500,
                                   ),
@@ -132,7 +137,7 @@ class AppCustomDropdown {
                                 Text(
                                   itemLabel(item),
                                   style: const TextStyle(
-                                    fontSize: 15,
+                                    fontSize: AppSizes.font15,
                                     color: AppColors.black,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -151,10 +156,10 @@ class AppCustomDropdown {
             ),
             if (state.hasError)
               Padding(
-                padding: const EdgeInsets.only(top: 6, left: 12),
+                padding: const EdgeInsets.only(top: 6, left: AppSizes.padding12),
                 child: Text(
                   state.errorText!,
-                  style: const TextStyle(color: AppColors.error, fontSize: 12),
+                  style: const TextStyle(color: AppColors.error, fontSize: AppSizes.font12),
                 ),
               ),
           ],

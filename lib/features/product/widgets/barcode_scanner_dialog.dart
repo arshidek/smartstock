@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:smartstock_inventory/app/app_navigation.dart';
+import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 import '../../../core/responsive/responsive.dart';
 
@@ -50,31 +52,35 @@ class _BarcodeScannerDialogState extends State<BarcodeScannerDialog> {
                     final String? code = barcodes.first.rawValue;
                     if (code != null) {
                       _isScanned = true;
-                      Navigator.of(context).pop(code);
+                      AppNavigation.goBackWithResult(context, code);
                     }
                   }
                 },
               ),
               Positioned(
-                top: 10,
-                right: 10,
+                top: AppSizes.size10,
+                right: AppSizes.size10,
                 child: IconButton(
-                  icon: const Icon(Icons.close, color: Colors.white, size: 30),
-                  onPressed: () => Navigator.of(context).pop(),
+                  icon: Icon(
+                    Icons.close,
+                    color: AppColors.white,
+                    size: AppSizes.size40,
+                  ),
+                  onPressed: () => AppNavigation.goBack(context),
                 ),
               ),
-              const Positioned(
-                bottom: 20,
+              Positioned(
+                bottom: AppSizes.size20,
                 left: 0,
                 right: 0,
                 child: Center(
                   child: Text(
                     "Align barcode within frame",
                     style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
+                      color: AppColors.white,
+                      fontSize: AppSizes.font16,
                       fontWeight: FontWeight.w600,
-                      backgroundColor: Colors.black54,
+                      backgroundColor: AppColors.black,
                     ),
                   ),
                 ),

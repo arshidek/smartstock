@@ -15,7 +15,6 @@ class SplashContent extends StatelessWidget {
         children: [
           const Spacer(),
 
-          // Your Custom Logo Image
           ScaleTransition(
             scale: scaleAnimation,
             child: Center(
@@ -34,7 +33,7 @@ class SplashContent extends StatelessWidget {
                   ],
                 ),
                 child: Image.asset(
-                  'assets/images/app_logo.png', // ← Change to your image path
+                  'assets/images/app_logo.png',
                   fit: BoxFit.contain,
                 ),
               ),
@@ -43,7 +42,6 @@ class SplashContent extends StatelessWidget {
 
           const SizedBox(height: AppSizes.size40),
 
-          // App Name
           RichText(
             text: const TextSpan(
               children: [
@@ -69,7 +67,6 @@ class SplashContent extends StatelessWidget {
 
           const SizedBox(height: AppSizes.size10),
 
-          // Subtitle
           const Text(
             "Manage your mobile shop \n inventory easily",
             textAlign: TextAlign.center,
@@ -81,7 +78,6 @@ class SplashContent extends StatelessWidget {
 
           const Spacer(),
 
-          // Loading Section
           Column(
             children: [
               const Text(

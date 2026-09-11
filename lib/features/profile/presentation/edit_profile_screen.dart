@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import '../../../app/app_navigation.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
@@ -134,7 +133,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
               const SizedBox(height: AppSizes.size40),
 
-              // Profile Information
+
               AppCardWidget(
                 child: Form(
                   key: _formKey,
@@ -203,7 +202,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               const SizedBox(height: AppSizes.size25),
 
-              // Security Note
+
               Container(
                 padding: const EdgeInsets.all(AppSizes.padding16),
                 decoration: BoxDecoration(
@@ -227,7 +226,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
               const SizedBox(height: AppSizes.size20),
 
-              // Update Profile Button
               AppButton(
                 text: "Save Profile",
                 icon: Icons.update,

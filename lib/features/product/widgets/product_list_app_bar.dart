@@ -3,7 +3,6 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 import '../../../app/app_navigation.dart';
 
-/// App bar for the product list screen.
 class ProductListAppBar extends StatelessWidget implements PreferredSizeWidget {
   const ProductListAppBar({super.key});
 
@@ -11,7 +10,7 @@ class ProductListAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: AppColors.appBarColor,
-      elevation: 0,
+      elevation: 1,
       leading: IconButton(
         icon: const Icon(
           Icons.arrow_back,
@@ -24,18 +23,12 @@ class ProductListAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       title: const Text(
         'Products',
-        style: TextStyle(fontWeight: FontWeight.bold, color: AppColors.black),
-      ),
-      actions: const [
-        Padding(
-          padding: EdgeInsets.only(right: AppSizes.size12),
-          child: Icon(
-            Icons.shopping_cart_outlined,
-            color: AppColors.black,
-            size: 26,
-          ),
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: AppColors.black,
+          fontSize: AppSizes.font24,
         ),
-      ],
+      ),
     );
   }
 

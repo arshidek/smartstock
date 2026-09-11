@@ -1,9 +1,7 @@
-import 'package:flutter/cupertino.dart';
-import 'package:hive/hive.dart';
-
+import 'package:flutter/foundation.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import '../../data/models/product_model.dart';
 import '../constants/hive_boxes.dart';
-
 import 'auth_service.dart';
 
 class ProductService {
@@ -13,9 +11,7 @@ class ProductService {
     return Hive.box<ProductModel>("${HiveBoxes.products}_$userId");
   }
 
-  // ============================
-  // CRUD Operations
-  // ============================
+  ValueListenable<Box<ProductModel>> get listenable => _box.listenable();
 
   // Add Product
   Future<void> addProduct(ProductModel product) async {
@@ -47,9 +43,6 @@ class ProductService {
     await _box.clear();
   }
 
-  // ============================
-  // Validation
-  // ============================
 
   // Product Already Exists
   bool productExists(String productName) {
@@ -67,9 +60,6 @@ class ProductService {
     );
   }
 
-  // ============================
-  // Brand Operations
-  // ============================
 
   // Brand Already Used
   bool isBrandUsed(String brandId) {
@@ -110,9 +100,6 @@ class ProductService {
     );
   }
 
-  // ============================
-  // Category Operations
-  // ============================
 
   // Category Already Used
   bool isCategoryUsed(String categoryId) {

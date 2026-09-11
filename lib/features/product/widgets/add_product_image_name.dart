@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 import '../../../core/utils/validator.dart';
-import '../../../core/widgets/cards/app_card_widget.dart';
 import '../../../core/widgets/textfields/app_custom_text_field.dart';
 import 'add_product_image_picker.dart';
 
@@ -35,7 +33,6 @@ class AddProductImageName extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            /// Left Side: Big Image OR Big Add Button
             Padding(
               padding: const EdgeInsets.only(top: AppSizes.padding20),
               child: Column(
@@ -53,7 +50,6 @@ class AddProductImageName extends StatelessWidget {
 
             const SizedBox(width: AppSizes.size20),
 
-            /// Right Side: Product Name and Small Images
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

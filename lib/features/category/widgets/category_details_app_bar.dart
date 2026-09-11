@@ -75,8 +75,8 @@ class CategoryDetailsAppBar extends StatelessWidget
               AppNavigation.goBack(context);
             }
           },
+          iconColor: AppColors.black,
         ),
-
         const SizedBox(width: AppSizes.size12),
       ],
     );

@@ -9,6 +9,7 @@ class TopListItemModel {
   final String subtitle;
   final Widget? middleText; // For "ORDERS" in Top Selling
   final Widget trailing;
+  final VoidCallback? onTap;
 
   TopListItemModel({
     required this.leading,
@@ -16,6 +17,7 @@ class TopListItemModel {
     required this.subtitle,
     this.middleText,
     required this.trailing,
+    this.onTap,
   });
 }
 
@@ -128,8 +130,9 @@ class TopListWidget extends StatelessWidget {
                   ],
                 );
 
+                Widget rowWidget;
                 if (headerRow != null) {
-                  return Row(
+                  rowWidget = Row(
                     children: [
                       Expanded(flex: 2, child: productPart),
                       if (item.middleText != null)
@@ -149,18 +152,23 @@ class TopListWidget extends StatelessWidget {
                       ),
                     ],
                   );
+                } else {
+                  rowWidget = Row(
+                    children: [
+                      Expanded(child: productPart),
+                      if (item.middleText != null) ...[
+                        const SizedBox(width: 8),
+                        item.middleText!,
+                      ],
+                      const SizedBox(width: 8),
+                      item.trailing,
+                    ],
+                  );
                 }
 
-                return Row(
-                  children: [
-                    Expanded(child: productPart),
-                    if (item.middleText != null) ...[
-                      const SizedBox(width: 8),
-                      item.middleText!,
-                    ],
-                    const SizedBox(width: 8),
-                    item.trailing,
-                  ],
+                return InkWell(
+                  onTap: item.onTap,
+                  child: rowWidget,
                 );
               },
             ),

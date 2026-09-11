@@ -1,9 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'dart:io';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-
 import '../../../app/app_navigation.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
@@ -75,7 +73,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         BackdropFilter(
                           filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
                           child: Container(
-                            color: Colors.black.withOpacity(0.2),
+                            color: AppColors.black.withOpacity(0.2),
                           ),
                         ),
                       ],
@@ -96,8 +94,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       },
                       icon: const Icon(
                         Icons.arrow_back_ios_new,
-                        color: Colors.black,
-                        size: AppSizes.size25,
+                        color: AppColors.black,
+                        size: AppSizes.size30,
                       ),
                     ),
                   ),
@@ -123,7 +121,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       },
                       icon: const Icon(
                         Icons.edit,
-                        color: Colors.black,
+                        color: AppColors.black,
                         size: AppSizes.size25,
                       ),
                     ),
@@ -155,7 +153,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ? "No Shop Name"
                   : currentUser!.shopName,
               style: const TextStyle(
-                color: Colors.grey,
+                color: AppColors.grey,
                 fontWeight: FontWeight.w500,
                 fontSize: AppSizes.font16,
               ),

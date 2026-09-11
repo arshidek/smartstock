@@ -1,7 +1,6 @@
 import 'package:hive/hive.dart';
 import '../../data/models/brand_model.dart';
 import '../constants/hive_boxes.dart';
-
 import 'auth_service.dart';
 
 class BrandService {

@@ -1,21 +1,14 @@
 import 'package:flutter/material.dart';
-
 import '../../../app/app_navigation.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
-import '../../../core/services/brand_service.dart';
-import '../../../core/services/category_service.dart';
-import '../../../core/services/product_service.dart';
 import '../../../core/widgets/filters/app_filter_bottom_sheet.dart';
 import '../../../core/widgets/search/app_search_bar.dart';
-import '../../../data/models/product_model.dart';
-import '../function/product_validation_helper.dart';
 import 'add_product_screen.dart';
 import '../widgets/product_empty_state.dart';
 import '../widgets/product_grid_list.dart';
 import '../widgets/product_list_app_bar.dart';
 import 'product_list_state.dart';
-import '../../../core/widgets/bottom_nav/app_bottom_navigation_bar.dart';
 
 class ProductListScreen extends StatefulWidget {
   const ProductListScreen({super.key});
@@ -61,9 +54,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
         child: Column(
           children: [
-            // Search Bar i will finish later
             Padding(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.all(AppSizes.padding12),
               child: AppSearchBar(
                 controller: _state.searchController,
                 hintText: "Search by name, brand, product ID...",
@@ -88,6 +80,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
                             selectedCategories: List<String>.from(
                               result["categories"],
                             ),
+                            sort: result["sort"],
+                            startDate: result["startDate"],
+                            endDate: result["endDate"],
                           );
                     });
                   }
@@ -95,7 +90,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
               ),
             ),
 
-            // Results Header
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: AppSizes.padding16,
@@ -141,9 +135,8 @@ class _ProductListScreenState extends State<ProductListScreen> {
           }
         },
         backgroundColor: AppColors.blue,
-        child: const Icon(Icons.add, size: AppSizes.size30),
+        child:  Icon(Icons.add, size: AppSizes.size30,color: AppColors.white,),
       ),
-      bottomNavigationBar: const AppBottomNavigationBar(currentIndex: 1),
     );
   }
 }

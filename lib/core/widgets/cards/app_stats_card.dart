@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import 'package:smartstock_inventory/core/responsive/responsive.dart';
-
 import '../../constants/app_colors.dart';
 
 class AppStatsCard extends StatelessWidget {
@@ -36,7 +35,7 @@ class AppStatsCard extends StatelessWidget {
         onTap: onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
-          padding: const EdgeInsets.all(12), // reduced from 16
+          padding: const EdgeInsets.all(AppSizes.padding12),
           decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(AppSizes.borderRadius25),
@@ -62,8 +61,8 @@ class AppStatsCard extends StatelessWidget {
                     : MainAxisAlignment.start,
                 children: [
                   Container(
-                    width: 40,
-                    height: 40,
+                    width: AppSizes.size40,
+                    height: AppSizes.size40,
                     decoration: BoxDecoration(
                       color: iconBackgroundColor,
                       borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
@@ -71,7 +70,7 @@ class AppStatsCard extends StatelessWidget {
                     child: Icon(icon, color: iconColor, size: AppSizes.size25),
                   ),
 
-                  const SizedBox(height: 8),
+                  const SizedBox(height: AppSizes.size8),
 
                   FittedBox(
                     fit: BoxFit.scaleDown,
@@ -87,7 +86,7 @@ class AppStatsCard extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(height: 4),
+                  const SizedBox(height: AppSizes.size5),
 
                   FittedBox(
                     fit: BoxFit.scaleDown,
@@ -102,7 +101,7 @@ class AppStatsCard extends StatelessWidget {
                   ),
 
                   if (subtitle.isNotEmpty) ...[
-                    const SizedBox(height: 4),
+                    const SizedBox(height: AppSizes.size5),
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       alignment: Alignment.centerLeft,

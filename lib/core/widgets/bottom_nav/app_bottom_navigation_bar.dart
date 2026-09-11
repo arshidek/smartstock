@@ -1,9 +1,8 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import '../../../app/app_navigation.dart';
 import '../../constants/app_colors.dart';
 import '../../../features/dashboard/presentation/dashboard_screen.dart';
-import '../../../features/product/presentation/product_list_screen.dart';
 import '../../../features/report/presentation/report_screen.dart';
 import '../../../features/settings/presentation/settings_screen.dart';
 import 'package:smartstock_inventory/features/sales/presentation/sales_screen.dart';
@@ -34,18 +33,18 @@ class AppBottomNavigationBar extends StatelessWidget {
         targetScreen = const DashboardScreen();
     }
 
-    AppNavigation.goToScreen(context, targetScreen);
+    AppNavigation.goToReplacementScreen(context, targetScreen);
   }
 
   Widget _buildIcon(IconData iconData, Color iconColor, Color bgColor) {
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.all(AppSizes.padding8),
       margin: const EdgeInsets.only(bottom: 4),
       decoration: BoxDecoration(
         color: bgColor,
         borderRadius: BorderRadius.circular(10),
       ),
-      child: Icon(iconData, color: iconColor, size: 24),
+      child: Icon(iconData, color: iconColor, size: AppSizes.size24),
     );
   }
 
@@ -55,7 +54,7 @@ class AppBottomNavigationBar extends StatelessWidget {
       currentIndex: currentIndex,
       onTap: (index) => _onTap(context, index),
       selectedItemColor: AppColors.black,
-      unselectedItemColor: Colors.grey,
+      unselectedItemColor: AppColors.grey,
       type: BottomNavigationBarType.fixed,
       showUnselectedLabels: true,
       elevation: 8,
@@ -77,13 +76,13 @@ class AppBottomNavigationBar extends StatelessWidget {
         BottomNavigationBarItem(
           icon: _buildIcon(
             Icons.shopping_cart_outlined,
-            const Color(0xFF06B6D4),
-            const Color(0xFFCFFAFE),
+            AppColors.darkGreen,
+            AppColors.lightDarkGreen,
           ),
           activeIcon: _buildIcon(
             Icons.shopping_cart,
-            const Color(0xFF06B6D4),
-            const Color(0xFFCFFAFE),
+            AppColors.darkGreen,
+            AppColors.lightDarkGreen,
           ),
           label: "Sales",
         ),

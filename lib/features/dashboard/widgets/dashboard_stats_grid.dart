@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartstock_inventory/core/constants/app_colors.dart';
 import '../../report/widgets/summary_card_grid.dart';
 
 class DashboardStatsGrid extends StatelessWidget {
@@ -25,8 +26,9 @@ class DashboardStatsGrid extends StatelessWidget {
           value: productsCount.toString(),
           percentage: 0.0,
           isPositive: true,
-          iconColor: const Color(0xFF2563EB),
-          iconBackgroundColor: const Color(0xFF2563EB).withValues(alpha: 0.1),
+          iconColor: AppColors.blue,
+          iconBackgroundColor: AppColors.blue.withValues(alpha: 0.1),
+          subtitle: "Items in Inventory",
         ),
         SummaryMetric(
           icon: Icons.warning_amber_rounded,
@@ -34,8 +36,9 @@ class DashboardStatsGrid extends StatelessWidget {
           value: lowStock.toString(),
           percentage: 0.0,
           isPositive: false,
-          iconColor: const Color(0xFFFF9800),
-          iconBackgroundColor: const Color(0xFFFF9800).withValues(alpha: 0.1),
+          iconColor: AppColors.warning,
+          iconBackgroundColor: AppColors.warning.withValues(alpha: 0.1),
+          subtitle: "Items Running Low",
         ),
         SummaryMetric(
           icon: Icons.block,
@@ -43,8 +46,9 @@ class DashboardStatsGrid extends StatelessWidget {
           value: outOfStock.toString(),
           percentage: 0.0,
           isPositive: false,
-          iconColor: Colors.red,
-          iconBackgroundColor: Colors.red.withValues(alpha: 0.1),
+          iconColor: AppColors.error,
+          iconBackgroundColor: AppColors.error.withValues(alpha: 0.1),
+          subtitle: "Needs Restocking",
         ),
         SummaryMetric(
           icon: Icons.local_offer_outlined,
@@ -52,8 +56,9 @@ class DashboardStatsGrid extends StatelessWidget {
           value: categoriesCount.toString(),
           percentage: 0.0,
           isPositive: true,
-          iconColor: const Color(0xFF8B5CF6),
-          iconBackgroundColor: const Color(0xFF8B5CF6).withValues(alpha: 0.1),
+          iconColor: AppColors.purple,
+          iconBackgroundColor: AppColors.purple.withValues(alpha: 0.1),
+          subtitle: "Product Types",
         ),
       ],
     );

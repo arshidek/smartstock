@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../app/app_navigation.dart';
 import '../../../core/services/user_service.dart';
 import '../../../core/utils/app_snack_bar.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:smartstock_inventory/app/app_navigation.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
 
@@ -17,84 +17,100 @@ class LogoutDialog extends StatelessWidget {
         padding: const EdgeInsets.all(AppSizes.padding25),
         decoration: BoxDecoration(
           color: AppColors.white,
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(AppSizes.borderRadius30),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              width: 90,
-              height: 90,
+              width: AppSizes.size90,
+              height: AppSizes.size90,
               decoration: BoxDecoration(
-                color: Colors.red.shade50,
+                color: AppColors.lightRed,
                 shape: BoxShape.circle,
               ),
               child: Center(
                 child: Container(
-                  width: 60,
-                  height: 60,
+                  width: AppSizes.size60,
+                  height: AppSizes.size60,
                   decoration: BoxDecoration(
-                    color: Colors.red.shade100,
+                    color: AppColors.lightError,
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
                     Icons.logout_rounded,
-                    color: Colors.red,
-                    size: 30,
+                    color: AppColors.error,
+                    size: AppSizes.size30,
                   ),
                 ),
               ),
             ),
 
-            const SizedBox(height: 25),
+            const SizedBox(height: AppSizes.size25),
 
             const Text(
               "Logout",
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: AppSizes.font24,
+                fontWeight: FontWeight.bold,
+              ),
             ),
 
-            const SizedBox(height: 12),
+            const SizedBox(height: AppSizes.size12),
 
             const Text(
               "Are you sure you want to logout?",
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.grey, fontSize: 16),
+              style: TextStyle(
+                color: AppColors.grey,
+                fontSize: AppSizes.font16,
+              ),
             ),
 
-            const SizedBox(height: 30),
+            const SizedBox(height: AppSizes.size30),
 
             Row(
               children: [
                 Expanded(
                   child: OutlinedButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      AppNavigation.goBack(context);
                     },
                     style: OutlinedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(55),
+                      minimumSize: const Size.fromHeight(AppSizes.size55),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(
+                          AppSizes.borderRadius16,
+                        ),
                       ),
                     ),
-                    child: const Text("Cancel", style: TextStyle(fontSize: 16)),
+                    child: const Text(
+                      "Cancel",
+                      style: TextStyle(fontSize: AppSizes.font16),
+                    ),
                   ),
                 ),
 
-                const SizedBox(width: 15),
+                const SizedBox(width: AppSizes.size15),
 
                 Expanded(
                   child: ElevatedButton(
                     onPressed: onLogout,
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.red,
-                      minimumSize: const Size.fromHeight(55),
+                      backgroundColor: AppColors.error,
+                      minimumSize: const Size.fromHeight(AppSizes.size55),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(
+                          AppSizes.borderRadius16,
+                        ),
                       ),
                     ),
-                    child: const Text(
+                    child: Text(
                       "Logout",
-                      style: TextStyle(fontSize: 16, color: Colors.white),
+                      style: TextStyle(
+                        fontSize: AppSizes.font16,
+                        color: AppColors.white,
+                      ),
                     ),
                   ),
                 ),

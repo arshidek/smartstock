@@ -16,7 +16,6 @@ class AuthResponsiveLayout extends StatelessWidget {
     bool isSmallTablet = MediaQuery.of(context).size.width < 800;
 
     if (isMobile) {
-      // Mobile size: scrollable, image in upper the form fields
       return Scaffold(
         body: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -49,7 +48,6 @@ class AuthResponsiveLayout extends StatelessWidget {
         ),
       );
     } else {
-      // Tap size / Web size: separate (side-by-side), not scrollable
       return Scaffold(
         body: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -59,7 +57,6 @@ class AuthResponsiveLayout extends StatelessWidget {
             decoration: BoxDecoration(gradient: AppColors.background),
             child: Row(
               children: [
-                // LEFT SIDE (Logo and Words)
                 Expanded(
                   flex: 1,
                   child: Center(
@@ -68,14 +65,14 @@ class AuthResponsiveLayout extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const AppLogoWidget(),
-                          const SizedBox(height: 50),
+                          const SizedBox(height: AppSizes.size50),
                           _buildFeatures(context, isMobile: false),
                         ],
                       ),
                     ),
                   ),
                 ),
-                // RIGHT SIDE (Form Fields)
+
                 Expanded(
                   flex: 1,
                   child: Center(
@@ -90,7 +87,7 @@ class AuthResponsiveLayout extends StatelessWidget {
                               child: formWidget,
                             ),
                           ),
-                          const SizedBox(height: 40),
+                          const SizedBox(height: AppSizes.size40),
                           _buildFooter(),
                         ],
                       ),
@@ -112,7 +109,7 @@ class AuthResponsiveLayout extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: isMobile ? 20 : 40),
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start, // Align features nicely
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _feature(
             Icons.widgets_outlined,
@@ -138,12 +135,11 @@ class AuthResponsiveLayout extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
-        mainAxisSize:
-            MainAxisSize.min, // This makes the block tight and center perfectly
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(icon, color: Colors.blue, size: isSmallTablet ? 20 : 28),
-          const SizedBox(width: 15),
+          Icon(icon, color: AppColors.blue, size: isSmallTablet ? 20 : 28),
+          const SizedBox(width: AppSizes.size15),
           Flexible(
             child: Text(
               title,

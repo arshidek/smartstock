@@ -3,7 +3,6 @@ import '../../../app/app_navigation.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 
-/// App bar for the Edit Product screen.
 class EditProductAppBar extends StatelessWidget implements PreferredSizeWidget {
   const EditProductAppBar({super.key});
 
@@ -30,14 +29,7 @@ class EditProductAppBar extends StatelessWidget implements PreferredSizeWidget {
             style: TextStyle(
               color: AppColors.black,
               fontWeight: FontWeight.bold,
-            ),
-          ),
-          Text(
-            'Update product information and details',
-            style: TextStyle(
-              color: AppColors.grey,
-              fontSize: AppSizes.font14,
-              fontWeight: FontWeight.w400,
+              fontSize: AppSizes.font24,
             ),
           ),
         ],

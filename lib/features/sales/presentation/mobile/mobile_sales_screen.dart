@@ -55,7 +55,7 @@ class MobileSalesScreen extends StatelessWidget {
               const Text(
                 "Recent Sales",
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: AppSizes.font18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -88,23 +88,23 @@ class MobileSalesScreen extends StatelessWidget {
     if (sales.isEmpty) {
       return Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 45),
+        padding: const EdgeInsets.symmetric(vertical: AppSizes.padding48),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(18),
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(AppSizes.borderRadius18),
         ),
         child: const Column(
           children: [
             Icon(
               Icons.receipt_long_outlined,
-              size: 60,
-              color: Colors.grey,
+              size: AppSizes.size60,
+              color: AppColors.grey,
             ),
             SizedBox(height: 12),
             Text(
               "No Sales Found",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: AppSizes.font18,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -120,7 +120,7 @@ class MobileSalesScreen extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemCount: recentSales.length,
-      separatorBuilder: (_, _) => const SizedBox(height: 8),
+      separatorBuilder: (_, _) => const SizedBox(height: AppSizes.size8),
       itemBuilder: (context, index) {
         final sale = recentSales[index];
         final item = sale.items.first;
@@ -181,8 +181,8 @@ class MobileSalesScreen extends StatelessWidget {
             children: [
               const Icon(
                 Icons.analytics_outlined,
-                color: Colors.deepPurple,
-                size: 26,
+                color: AppColors.purple,
+                size: AppSizes.size25,
               ),
               const SizedBox(width: AppSizes.size10),
               const Expanded(

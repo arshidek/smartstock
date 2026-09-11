@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:smartstock_inventory/core/constants/app_colors.dart';
+import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 
 class DrawerMenuItem extends StatelessWidget {
   final IconData icon;
@@ -7,6 +9,7 @@ class DrawerMenuItem extends StatelessWidget {
   final String title;
   final String? subtitle;
   final VoidCallback onTap;
+  final bool isCollapsed;
 
   const DrawerMenuItem({
     super.key,
@@ -16,40 +19,65 @@ class DrawerMenuItem extends StatelessWidget {
     required this.title,
     this.subtitle,
     required this.onTap,
+    this.isCollapsed = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      leading: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: bgColor,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Icon(icon, color: iconColor, size: 24),
-      ),
-      title: Text(
-        title,
-        style: const TextStyle(
-          fontWeight: FontWeight.w600,
-          color: Color(0xFF1F2937),
-          fontSize: 16,
-        ),
-      ),
-      subtitle: subtitle != null
-          ? Text(
-              subtitle!,
-              style: const TextStyle(fontSize: 12, color: Color(0xFF6B7280)),
-            )
-          : null,
-      trailing: const Icon(
-        Icons.chevron_right,
-        size: 20,
-        color: Color(0xFF9CA3AF),
-      ),
-      onTap: onTap,
-    );
+    final itemContent = isCollapsed
+        ? InkWell(
+            onTap: onTap,
+            borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: AppSizes.padding12),
+              child: Container(
+                padding: const EdgeInsets.all(AppSizes.padding8),
+                decoration: BoxDecoration(
+                  color: bgColor,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(icon, color: iconColor, size: AppSizes.size24),
+              ),
+            ),
+          )
+        : ListTile(
+            contentPadding: const EdgeInsets.symmetric(horizontal: AppSizes.padding16, vertical: 4),
+            leading: Container(
+              padding: const EdgeInsets.all(AppSizes.padding8),
+              decoration: BoxDecoration(
+                color: bgColor,
+                borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
+              ),
+              child: Icon(icon, color: iconColor, size: AppSizes.size24),
+            ),
+            title: Text(
+              title,
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                color: AppColors.black,
+                fontSize: AppSizes.font16,
+              ),
+            ),
+            subtitle: subtitle != null
+                ? Text(
+                    subtitle!,
+                    style: const TextStyle(fontSize: AppSizes.font12, color:AppColors.grey),
+                  )
+                : null,
+            trailing: const Icon(
+              Icons.chevron_right,
+              size: AppSizes.size20,
+              color: AppColors.grey,
+            ),
+            onTap: onTap,
+          );
+
+    if (isCollapsed) {
+      return Tooltip(
+        message: title,
+        child: itemContent,
+      );
+    }
+    return itemContent;
   }
 }

@@ -100,7 +100,6 @@ class _BrandDetailsScreenState extends State<BrandDetailsScreen> {
                     ProductDetailScreen(product: product),
                   );
 
-                  // Reload products if the product was edited or deleted
                   if (result == true) {
                     _loadProducts();
                   }

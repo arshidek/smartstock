@@ -94,7 +94,11 @@ class _AddSaleScreenState extends State<AddSaleScreen> {
         backgroundColor: AppColors.appBarColor,
         elevation: 0,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: AppColors.black, size: 30),
+          icon: const Icon(
+            Icons.arrow_back,
+            color: AppColors.black,
+            size: AppSizes.size30,
+          ),
           onPressed: () => AppNavigation.goBack(context),
         ),
         title: const Text(
@@ -102,7 +106,7 @@ class _AddSaleScreenState extends State<AddSaleScreen> {
           style: TextStyle(
             color: AppColors.black,
             fontWeight: FontWeight.bold,
-            fontSize: AppSizes.size25,
+            fontSize: AppSizes.font24,
           ),
         ),
       ),
@@ -127,7 +131,8 @@ class _AddSaleScreenState extends State<AddSaleScreen> {
                 discountAmount: discountAmount,
                 grandTotal: grandTotal,
                 onAddProduct: _onAddProduct,
-                onDateChanged: (date) => setState(() => selectedSaleDate = date),
+                onDateChanged: (date) =>
+                    setState(() => selectedSaleDate = date),
                 onPaymentMethodChanged: (method) =>
                     setState(() => selectedPaymentMethod = method),
                 onDiscountChanged: () => setState(() {}),
@@ -151,7 +156,8 @@ class _AddSaleScreenState extends State<AddSaleScreen> {
                 discountAmount: discountAmount,
                 grandTotal: grandTotal,
                 onAddProduct: _onAddProduct,
-                onDateChanged: (date) => setState(() => selectedSaleDate = date),
+                onDateChanged: (date) =>
+                    setState(() => selectedSaleDate = date),
                 onPaymentMethodChanged: (method) =>
                     setState(() => selectedPaymentMethod = method),
                 onDiscountChanged: () => setState(() {}),

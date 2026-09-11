@@ -55,16 +55,13 @@ class WebSalesScreen extends StatelessWidget {
               const Text(
                 "Recent Sales",
                 style: TextStyle(
-                  fontSize: 18,
+                  fontSize: AppSizes.font18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               TextButton(
                 onPressed: () {
-                  AppNavigation.goToScreen(
-                    context,
-                    const SaleHistoryScreen(),
-                  );
+                  AppNavigation.goToScreen(context, const SaleHistoryScreen());
                 },
                 child: const Text(
                   "View All",
@@ -90,21 +87,21 @@ class WebSalesScreen extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 45),
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(18),
+          color: AppColors.white,
+          borderRadius: BorderRadius.circular(AppSizes.borderRadius18),
         ),
         child: const Column(
           children: [
             Icon(
               Icons.receipt_long_outlined,
-              size: 60,
-              color: Colors.grey,
+              size: AppSizes.size60,
+              color: AppColors.grey,
             ),
-            SizedBox(height: 12),
+            SizedBox(height: AppSizes.size12),
             Text(
               "No Sales Found",
               style: TextStyle(
-                fontSize: 18,
+                fontSize: AppSizes.size18,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -166,10 +163,7 @@ class WebSalesScreen extends StatelessWidget {
             }
           },
           onTap: () {
-            AppNavigation.goToScreen(
-              context,
-              SaleDetailsScreen(sale: sale),
-            );
+            AppNavigation.goToScreen(context, SaleDetailsScreen(sale: sale));
           },
         );
       },
@@ -186,8 +180,8 @@ class WebSalesScreen extends StatelessWidget {
             children: [
               const Icon(
                 Icons.analytics_outlined,
-                color: Colors.deepPurple,
-                size: 26,
+                color: AppColors.purple,
+                size: AppSizes.size25,
               ),
               const SizedBox(width: AppSizes.size10),
               const Expanded(
@@ -223,8 +217,7 @@ class WebSalesScreen extends StatelessWidget {
               Expanded(
                 child: TodaySummaryCard(
                   title: "AMOUNT",
-                  value:
-                      "₹${(todaySummary["amount"] ?? 0).toStringAsFixed(0)}",
+                  value: "₹${(todaySummary["amount"] ?? 0).toStringAsFixed(0)}",
                   valueColor: AppColors.black,
                 ),
               ),
@@ -238,8 +231,7 @@ class WebSalesScreen extends StatelessWidget {
               Expanded(
                 child: TodaySummaryCard(
                   title: "PROFIT",
-                  value:
-                      "₹${(todaySummary["profit"] ?? 0).toStringAsFixed(0)}",
+                  value: "₹${(todaySummary["profit"] ?? 0).toStringAsFixed(0)}",
                   valueColor: AppColors.success,
                 ),
               ),

@@ -1,6 +1,6 @@
 import 'package:hive/hive.dart';
 
-part 'brand_model.g.dart'; // ← This will be generated
+part '../adapters/brand_model.g.dart'; // ← This will be generated
 
 @HiveType(typeId: 1) // Unique typeId for Brand
 class BrandModel extends HiveObject {

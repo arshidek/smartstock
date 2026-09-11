@@ -100,10 +100,10 @@ class WebAddSalePayment extends StatelessWidget {
                 icon: Icons.currency_rupee_rounded,
                 keyboardType: TextInputType.number,
                 contentPadding: const EdgeInsets.symmetric(
-                  vertical: 24.5,
-                  horizontal: 16,
+                  vertical: AppSizes.padding25,
+                  horizontal: AppSizes.padding16,
                 ),
-                borderColor: const Color(0xFFD6E4FF),
+                borderColor: AppColors.lightBlue,
                 borderRadius: AppSizes.borderRadius20,
                 inputFormatters: [
                   FilteringTextInputFormatter.digitsOnly,

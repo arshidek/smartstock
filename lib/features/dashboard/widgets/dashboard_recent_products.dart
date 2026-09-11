@@ -26,7 +26,6 @@ class DashboardRecentProducts extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // Today's Added Products Header
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -53,7 +52,7 @@ class DashboardRecentProducts extends StatelessWidget {
           ],
         ),
         const SizedBox(height: AppSizes.size16),
-        // Products
+
         if (topRecent.isEmpty)
           Container(
             width: double.infinity,
@@ -81,32 +80,50 @@ class DashboardRecentProducts extends StatelessWidget {
             ),
           )
         else
-          ...topRecent.map((p) {
-            final cat = categories.firstWhere(
-              (c) => c.id == p.categoryId,
-              orElse: () => categories.first,
-            );
-            final brand = brandService.getBrandById(p.brandId);
+          Builder(
+            builder: (context) {
+              final isWide = MediaQuery.of(context).size.width > 600;
+              return GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: EdgeInsets.zero,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: isWide ? 2 : 1,
+                  crossAxisSpacing: AppSizes.size12,
+                  mainAxisSpacing: AppSizes.size12,
+                  mainAxisExtent: AppSizes.size110,
+                ),
+                itemCount: topRecent.length,
+                itemBuilder: (context, index) {
+                  final p = topRecent[index];
+                  final cat = categories.firstWhere(
+                    (c) => c.id == p.categoryId,
+                    orElse: () => categories.first,
+                  );
+                  final brand = brandService.getBrandById(p.brandId);
 
-            return ProductCardList(
-              productName: p.name,
-              productId: p.productId,
-              brandName: brand?.name ?? 'Unknown Brand',
-              categoryName: cat.name,
-              sellingPrice: p.sellingPrice,
-              stock: p.stock,
-              stockStatus: p.stockStatus,
-              stockColor: p.stockColor,
-              imagePath: p.allImages.isNotEmpty ? p.allImages.first : null,
-              margin: const EdgeInsets.only(bottom: AppSizes.size12),
-              onTap: () {
-                AppNavigation.goToScreen(
-                  context,
-                  ProductDetailScreen(product: p),
-                );
-              },
-            );
-          }),
+                  return ProductCardList(
+                    productName: p.name,
+                    productId: p.productId,
+                    brandName: brand?.name ?? 'Unknown Brand',
+                    categoryName: cat.name,
+                    sellingPrice: p.sellingPrice,
+                    stock: p.stock,
+                    stockStatus: p.stockStatus,
+                    stockColor: p.stockColor,
+                    imagePath: p.allImages.isNotEmpty ? p.allImages.first : null,
+                    margin: EdgeInsets.zero,
+                    onTap: () {
+                      AppNavigation.goToScreen(
+                        context,
+                        ProductDetailScreen(product: p),
+                      );
+                    },
+                  );
+                },
+              );
+            },
+          ),
       ],
     );
   }

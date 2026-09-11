@@ -1,8 +1,6 @@
 import 'package:hive/hive.dart';
-
 import '../../data/models/sale_model.dart';
 import '../constants/hive_boxes.dart';
-
 import 'auth_service.dart';
 
 class SaleService {

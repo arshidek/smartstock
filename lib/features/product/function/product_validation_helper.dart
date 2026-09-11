@@ -12,8 +12,11 @@ class ProductValidationHelper {
     String? stockStatus,
     List<String> selectedBrands = const [],
     List<String> selectedCategories = const [],
+    String? sort,
+    DateTime? startDate,
+    DateTime? endDate,
   }) {
-    return products.where((product) {
+    List<ProductModel> filteredList = products.where((product) {
       // Search
       final brandName = _brandService.getBrandById(product.brandId)?.name ?? "";
 
@@ -38,8 +41,9 @@ class ProductValidationHelper {
           !selectedCategories.contains(categoryName)) {
         return false;
       }
+      
       // Stock Filter
-      if (stockStatus != null) {
+      if (stockStatus != null && stockStatus != "All") {
         switch (stockStatus) {
           case "In Stock":
             if (product.stock <= 5) return false;
@@ -55,7 +59,43 @@ class ProductValidationHelper {
         }
       }
 
+      // Date Filter
+      if (startDate != null && endDate != null) {
+        final productDate = DateTime(product.createdAt.year, product.createdAt.month, product.createdAt.day);
+        final start = DateTime(startDate.year, startDate.month, startDate.day);
+        final end = DateTime(endDate.year, endDate.month, endDate.day);
+        if (productDate.isBefore(start) || productDate.isAfter(end)) {
+          return false;
+        }
+      }
+
       return true;
     }).toList();
+
+    // Sort
+    if (sort != null) {
+      switch (sort) {
+        case "A - Z":
+          filteredList.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+          break;
+        case "Z - A":
+          filteredList.sort((a, b) => b.name.toLowerCase().compareTo(a.name.toLowerCase()));
+          break;
+        case "Price: Low to High":
+          filteredList.sort((a, b) => a.sellingPrice.compareTo(b.sellingPrice));
+          break;
+        case "Price: High to Low":
+          filteredList.sort((a, b) => b.sellingPrice.compareTo(a.sellingPrice));
+          break;
+        case "Stock: Low to High":
+          filteredList.sort((a, b) => a.stock.compareTo(b.stock));
+          break;
+        case "Recently Added":
+          filteredList.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+          break;
+      }
+    }
+
+    return filteredList;
   }
 }

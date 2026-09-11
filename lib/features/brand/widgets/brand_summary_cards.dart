@@ -3,7 +3,6 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 import '../../../core/responsive/responsive.dart';
 
-/// A reusable widget to display brand summary (name and product count)
 class BrandSummaryCards extends StatelessWidget {
   final String brandName;
   final int productsCount;
@@ -22,7 +21,6 @@ class BrandSummaryCards extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(AppSizes.padding10),
             decoration: BoxDecoration(
-              // ignore: deprecated_member_use
               color: AppColors.lightGrey.withOpacity(.25),
               borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
             ),
@@ -73,7 +71,6 @@ class BrandSummaryCards extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(AppSizes.padding10),
             decoration: BoxDecoration(
-              // ignore: deprecated_member_use
               color: AppColors.lightGrey.withOpacity(.25),
               borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
             ),

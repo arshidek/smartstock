@@ -6,7 +6,6 @@ import '../../../core/widgets/cards/app_card_list.dart';
 import '../../../data/models/category_model.dart';
 import '../presentation/category_details_screen.dart';
 
-/// A reusable widget to display a list or grid of categories
 class CategoryListView extends StatelessWidget {
   final List<CategoryModel> categories;
   final bool isTabletOrWeb;

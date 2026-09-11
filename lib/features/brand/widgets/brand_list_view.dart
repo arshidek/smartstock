@@ -6,7 +6,6 @@ import '../../../core/widgets/cards/app_card_list.dart';
 import '../../../data/models/brand_model.dart';
 import '../presentation/brand_details_screen.dart';
 
-/// A reusable widget to display a list or grid of brands
 class BrandListView extends StatelessWidget {
   final List<BrandModel> brands;
   final bool isTabletOrWeb;

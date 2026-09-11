@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import '../../../core/responsive/responsive.dart';
 import '../../../core/services/brand_service.dart';
 import '../../../core/services/category_service.dart';
@@ -7,7 +8,6 @@ import '../presentation/product_detail_screen.dart';
 import '../../../app/app_navigation.dart';
 import 'product_card_list.dart';
 
-/// A widget that displays a list or grid of products depending on the screen size.
 class ProductGridList extends StatelessWidget {
   final List<ProductModel> products;
   final BrandService brandService;
@@ -58,13 +58,13 @@ class ProductGridList extends StatelessWidget {
       return GridView.builder(
         padding: const EdgeInsets.only(
           bottom: 120,
-          left: 12,
-          right: 12,
-          top: 12,
+          left: AppSizes.padding12,
+          right: AppSizes.padding12,
+          top: AppSizes.padding12,
         ),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
-          mainAxisExtent: 140, // Adapted for new padding
+          mainAxisExtent: 140,
           crossAxisSpacing: 8,
           mainAxisSpacing: 8,
         ),

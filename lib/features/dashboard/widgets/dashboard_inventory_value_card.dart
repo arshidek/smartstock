@@ -4,7 +4,7 @@ import '../../../core/constants/app_sizes.dart';
 
 class DashboardInventoryValueCard extends StatelessWidget {
   final String formattedInvValue;
-  final IconData growthIcon;
+  final IconData? growthIcon;
   final Color growthColor;
   final String growthSign;
   final double invGrowth;
@@ -12,7 +12,7 @@ class DashboardInventoryValueCard extends StatelessWidget {
   const DashboardInventoryValueCard({
     super.key,
     required this.formattedInvValue,
-    required this.growthIcon,
+    this.growthIcon,
     required this.growthColor,
     required this.growthSign,
     required this.invGrowth,
@@ -49,8 +49,10 @@ class DashboardInventoryValueCard extends StatelessWidget {
           const SizedBox(height: AppSizes.size8),
           Row(
             children: [
-              Icon(growthIcon, color: growthColor, size: AppSizes.size18),
-              const SizedBox(width: AppSizes.size4),
+              if (growthIcon != null) ...[
+                Icon(growthIcon, color: growthColor, size: AppSizes.size18),
+                const SizedBox(width: AppSizes.size4),
+              ],
               Text(
                 "$growthSign${invGrowth.abs().toStringAsFixed(1)}% vs last month",
                 style: const TextStyle(color: AppColors.white70),

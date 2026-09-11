@@ -1,8 +1,4 @@
-import 'package:flutter/foundation.dart';
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 import 'product_list_item_card.dart';
@@ -45,7 +41,12 @@ class ProductCardList extends StatelessWidget {
       onTap: onTap,
       child: Container(
         margin:
-            margin ?? const EdgeInsets.only(left: 12, right: 12, bottom: 12),
+            margin ??
+            const EdgeInsets.only(
+              left: AppSizes.padding12,
+              right: AppSizes.padding12,
+              bottom: AppSizes.padding12,
+            ),
         padding: const EdgeInsets.all(AppSizes.padding10),
         decoration: BoxDecoration(
           color: AppColors.white,

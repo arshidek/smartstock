@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../../app/app_navigation.dart';
 import '../../../core/constants/app_colors.dart';
@@ -83,7 +84,9 @@ class _AddProductToSaleScreenState extends State<AddProductToSaleScreen> {
     if (index != -1) {
       if (saleItems[index].quantity + quantity > selectedProduct!.stock) {
         AppSnackBar.warning(
-            context, "Only ${selectedProduct!.stock} items available.");
+          context,
+          "Only ${selectedProduct!.stock} items available.",
+        );
         return;
       }
       saleItems[index].quantity += quantity;
@@ -99,8 +102,8 @@ class _AddProductToSaleScreenState extends State<AddProductToSaleScreen> {
           sellingPrice: selectedProduct!.sellingPrice,
           quantity: quantity,
           totalPrice: selectedProduct!.sellingPrice * quantity,
-          profit: (selectedProduct!.sellingPrice -
-                  selectedProduct!.purchasePrice) *
+          profit:
+              (selectedProduct!.sellingPrice - selectedProduct!.purchasePrice) *
               quantity,
         ),
       );
@@ -125,8 +128,8 @@ class _AddProductToSaleScreenState extends State<AddProductToSaleScreen> {
       status: product.stock == 0
           ? "Out of Stock"
           : product.stock <= 5
-              ? "Low Stock"
-              : "In Stock",
+          ? "Low Stock"
+          : "In Stock",
       price: "₹${product.sellingPrice}",
       isSelected: selectedProduct?.id == product.id,
       onTap: () {
@@ -152,7 +155,7 @@ class _AddProductToSaleScreenState extends State<AddProductToSaleScreen> {
         title: const Text(
           'Add Product ',
           style: TextStyle(
-            fontSize: AppSizes.size25,
+            fontSize: AppSizes.font24,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -190,15 +193,18 @@ class _AddProductToSaleScreenState extends State<AddProductToSaleScreen> {
                   });
                 },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: AppSizes.size20),
               const Padding(
                 padding: EdgeInsets.symmetric(horizontal: AppSizes.padding16),
                 child: Text(
                   "Products",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(
+                    fontSize: AppSizes.font18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-              const SizedBox(height: 10),
+              const SizedBox(height: AppSizes.size10),
               ProductListGrid(
                 filteredProducts: filteredProducts,
                 buildProductCard: _buildProductCard,
@@ -216,7 +222,7 @@ class _AddProductToSaleScreenState extends State<AddProductToSaleScreen> {
               Padding(
                 padding: const EdgeInsets.symmetric(
                   horizontal: AppSizes.padding16,
-                  vertical: 10,
+                  vertical: AppSizes.padding10,
                 ),
                 child: Row(
                   children: [
@@ -231,16 +237,16 @@ class _AddProductToSaleScreenState extends State<AddProductToSaleScreen> {
                               fontWeight: FontWeight.w600,
                             ),
                           ),
-                          const SizedBox(height: 8),
+                          const SizedBox(height: AppSizes.size8),
                           Text(
                             "₹${totalPrice.toStringAsFixed(2)}",
                             style: const TextStyle(
-                              fontSize: 26,
+                              fontSize: AppSizes.font26,
                               fontWeight: FontWeight.bold,
                               color: AppColors.success,
                             ),
                           ),
-                          const SizedBox(height: 4),
+                          const SizedBox(height: AppSizes.size5),
                           Text(
                             "$quantity × ₹${ratePerUnit.toStringAsFixed(2)}",
                             style: const TextStyle(color: AppColors.grey),
@@ -249,16 +255,28 @@ class _AddProductToSaleScreenState extends State<AddProductToSaleScreen> {
                       ),
                     ),
                     const SizedBox(width: AppSizes.size20),
-                    Expanded(
-                      child: AppButton(
-                        text: "Add to List",
-                        icon: Icons.add_circle,
-                        backgroundColor: AppColors.blue,
-                        textColor: AppColors.white,
-                        iconColor: AppColors.white,
-                        onPressed: _onAddToListPressed,
-                      ),
-                    ),
+                    kIsWeb
+                        ? SizedBox(
+                            width: 180,
+                            child: AppButton(
+                              text: "Add to List",
+                              icon: Icons.add_circle,
+                              backgroundColor: AppColors.blue,
+                              textColor: AppColors.white,
+                              iconColor: AppColors.white,
+                              onPressed: _onAddToListPressed,
+                            ),
+                          )
+                        : Expanded(
+                            child: AppButton(
+                              text: "Add to List",
+                              icon: Icons.add_circle,
+                              backgroundColor: AppColors.blue,
+                              textColor: AppColors.white,
+                              iconColor: AppColors.white,
+                              onPressed: _onAddToListPressed,
+                            ),
+                          ),
                   ],
                 ),
               ),

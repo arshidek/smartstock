@@ -12,6 +12,7 @@ class SummaryMetric {
   final bool isPositive;
   final Color iconColor;
   final Color iconBackgroundColor;
+  final String? subtitle;
 
   SummaryMetric({
     required this.icon,
@@ -21,6 +22,7 @@ class SummaryMetric {
     required this.isPositive,
     required this.iconColor,
     required this.iconBackgroundColor,
+    this.subtitle,
   });
 }
 
@@ -54,11 +56,13 @@ class SummaryCardGrid extends StatelessWidget {
 
   Widget _buildCard(SummaryMetric metric) {
     // Format the subtitle for AppStatsCard
-    final String subtitleText = metric.percentage == 0.0 
-        ? "➖ unchanged" 
-        : metric.isPositive 
-            ? "📈 increased by ${metric.percentage}%" 
-            : "📉 decreased by ${metric.percentage}%";
+    final String subtitleText = metric.subtitle != null
+        ? metric.subtitle!
+        : metric.percentage == 0.0 
+            ? "" 
+            : metric.isPositive 
+                ? "📈 increased by ${metric.percentage}%" 
+                : "📉 decreased by ${metric.percentage}%";
 
     return AppStatsCard(
       title: metric.title,

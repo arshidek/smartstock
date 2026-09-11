@@ -1,17 +1,22 @@
+import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
-import '../../features/report/function/report_functions.dart';
+import 'package:smartstock_inventory/core/constants/app_sizes.dart';
+import '../../features/report/function/revenue_report_logic.dart';
 import '../../features/report/widgets/summary_card_grid.dart';
 import '../services/sale_service.dart';
 
 class PdfReportService {
   final SaleService _saleService = SaleService();
 
-  Future<Uint8List> generateReportPdf(ReportFunctions functions) async {
-    final pdf = pw.Document();
+  // ─── PDF Generation ───────────────────────────────────────────────────────
 
+  Future<Uint8List> generateReportPdf(RevenueReportLogic functions) async {
+    final pdf = pw.Document();
     final summaryMetrics = functions.getRevenueSummaryMetrics();
     final topProducts = _getTopSellingProductsRawData();
 
@@ -19,15 +24,13 @@ class PdfReportService {
       pw.MultiPage(
         pageFormat: PdfPageFormat.a4,
         margin: const pw.EdgeInsets.all(32),
-        build: (pw.Context context) {
-          return [
-            _buildHeader(),
-            pw.SizedBox(height: 20),
-            _buildSummaryMetrics(summaryMetrics),
-            pw.SizedBox(height: 30),
-            _buildTopProductsTable(topProducts),
-          ];
-        },
+        build: (pw.Context context) => [
+          _buildHeader(),
+          pw.SizedBox(height: AppSizes.size20),
+          _buildSummaryMetrics(summaryMetrics),
+          pw.SizedBox(height: AppSizes.size30),
+          _buildTopProductsTable(topProducts),
+        ],
       ),
     );
 
@@ -41,12 +44,12 @@ class PdfReportService {
         pw.Text(
           'SmartStock Inventory Report',
           style: pw.TextStyle(
-            fontSize: 24,
+            fontSize: AppSizes.font24,
             fontWeight: pw.FontWeight.bold,
             color: PdfColors.blue900,
           ),
         ),
-        pw.SizedBox(height: 8),
+        pw.SizedBox(height: AppSizes.size8),
         pw.Text(
           'Generated on: ${DateTime.now().toLocal().toString().split('.')[0]}',
           style: const pw.TextStyle(fontSize: 12, color: PdfColors.grey700),
@@ -58,10 +61,12 @@ class PdfReportService {
 
   pw.Widget _buildSummaryMetrics(List<SummaryMetric> metrics) {
     return pw.Container(
-      padding: const pw.EdgeInsets.all(10),
+      padding: const pw.EdgeInsets.all(AppSizes.padding10),
       decoration: pw.BoxDecoration(
         color: PdfColors.grey100,
-        borderRadius: const pw.BorderRadius.all(pw.Radius.circular(8)),
+        borderRadius: const pw.BorderRadius.all(
+          pw.Radius.circular(AppSizes.borderRadius8),
+        ),
         border: pw.Border.all(color: PdfColors.grey300),
       ),
       child: pw.Column(
@@ -69,14 +74,17 @@ class PdfReportService {
         children: [
           pw.Text(
             'Revenue Summary',
-            style: pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold),
+            style: pw.TextStyle(
+              fontSize: AppSizes.font16,
+              fontWeight: pw.FontWeight.bold,
+            ),
           ),
-          pw.SizedBox(height: 10),
+          pw.SizedBox(height: AppSizes.size10),
           pw.Wrap(
-            spacing: 20,
-            runSpacing: 10,
+            spacing: AppSizes.size20,
+            runSpacing: AppSizes.size10,
             children: metrics.map((m) {
-              return pw.Container(
+              return pw.SizedBox(
                 width: 150,
                 child: pw.Column(
                   crossAxisAlignment: pw.CrossAxisAlignment.start,
@@ -84,14 +92,14 @@ class PdfReportService {
                     pw.Text(
                       m.title.replaceAll('₹', 'INR '),
                       style: const pw.TextStyle(
-                        fontSize: 10,
+                        fontSize: AppSizes.font10,
                         color: PdfColors.grey700,
                       ),
                     ),
                     pw.Text(
                       m.value.replaceAll('₹', 'INR '),
                       style: pw.TextStyle(
-                        fontSize: 14,
+                        fontSize: AppSizes.font14,
                         fontWeight: pw.FontWeight.bold,
                         color: PdfColors.black,
                       ),
@@ -115,23 +123,28 @@ class PdfReportService {
     }
 
     final tableHeaders = ['Product', 'Category', 'Orders', 'Revenue (INR)'];
-    final tableData = topProducts.map((p) {
-      return [
-        p['name'],
-        p['category'],
-        p['quantity'].toString(),
-        p['revenue'].toStringAsFixed(0),
-      ];
-    }).toList();
+    final tableData = topProducts
+        .map(
+          (p) => [
+            p['name'],
+            p['category'],
+            p['quantity'].toString(),
+            (p['revenue'] as double).toStringAsFixed(0),
+          ],
+        )
+        .toList();
 
     return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
         pw.Text(
           'Top Selling Products',
-          style: pw.TextStyle(fontSize: 16, fontWeight: pw.FontWeight.bold),
+          style: pw.TextStyle(
+            fontSize: AppSizes.font16,
+            fontWeight: pw.FontWeight.bold,
+          ),
         ),
-        pw.SizedBox(height: 10),
+        pw.SizedBox(height: AppSizes.size10),
         pw.TableHelper.fromTextArray(
           headers: tableHeaders,
           data: tableData,
@@ -153,7 +166,7 @@ class PdfReportService {
 
   List<Map<String, dynamic>> _getTopSellingProductsRawData() {
     final sales = _saleService.getAllSales();
-    Map<String, Map<String, dynamic>> productSales = {};
+    final Map<String, Map<String, dynamic>> productSales = {};
 
     for (var sale in sales) {
       for (var item in sale.items) {
@@ -171,18 +184,46 @@ class PdfReportService {
       }
     }
 
-    List<Map<String, dynamic>> sortedProducts = productSales.values.toList();
-    sortedProducts.sort(
-      (a, b) => (b['revenue'] as double).compareTo(a['revenue'] as double),
-    );
-    return sortedProducts.take(5).toList();
+    final sorted = productSales.values.toList()
+      ..sort((a, b) =>
+          (b['revenue'] as double).compareTo(a['revenue'] as double));
+    return sorted.take(5).toList();
   }
 
+  // ─── Export (Download) ────────────────────────────────────────────────────
+
+  /// Saves PDF to the device Downloads folder and opens the system viewer.
+  Future<String> downloadPdf(Uint8List bytes, String filename) async {
+    if (kIsWeb) {
+      await Printing.layoutPdf(onLayout: (_) async => bytes);
+      return 'Opened print dialog';
+    }
+
+    // Resolve save directory
+    Directory saveDir;
+    if (Platform.isAndroid) {
+      final downloads = Directory('/storage/emulated/0/Download');
+      saveDir = await downloads.exists()
+          ? downloads
+          : (await getExternalStorageDirectory())!;
+    } else {
+      saveDir = await getApplicationDocumentsDirectory();
+    }
+
+    // Write file
+    final filePath = '${saveDir.path}/$filename';
+    await File(filePath).writeAsBytes(bytes);
+
+    // Open via system print / viewer dialog
+    await Printing.layoutPdf(onLayout: (_) async => bytes);
+
+    return filePath;
+  }
+
+  // ─── Share ─────────────────────────────────────────────────────────────────
+
+  /// Triggers the native share sheet with the PDF attached.
   Future<void> sharePdf(Uint8List bytes, String filename) async {
     await Printing.sharePdf(bytes: bytes, filename: filename);
-  }
-
-  Future<void> downloadPdf(Uint8List bytes, String filename) async {
-    await Printing.layoutPdf(onLayout: (PdfPageFormat format) async => bytes);
   }
 }

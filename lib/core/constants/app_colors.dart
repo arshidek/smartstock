@@ -20,18 +20,39 @@ class AppColors {
   static const Color lightPurple = Color(0xFFE3CDFA);
 
   static const Color blue = Color(0xFF1248F6);
+  static const Color bannerBlue = Colors.blueAccent;
   static const Color lightBlue = Color(0xFFF2F4FB);
   static const Color textFieldBlue = Color(0xFF6A8AF1);
   static const Color black = Color(0xFF00040B);
   static const Color lightBlack = Color(0xFF474749);
   static const Color grey = Color(0xFF90949A);
+  static const Color darkGreen =  Color(0xFF06B6D4,);
+  static const Color lightDarkGreen =  Color(0xFFCFFAFE);
+
   static const Color lightGrey = Color(0x73ACAAAA);
   static const Color success = Color(0xFF22C55E);
   static const Color lightGreen = Color(0xFFD1FBE1);
   static const Color warning = Color(0xFFF59E0B);
+  static const Color yellow = Colors.yellow;
   static const Color lightWarning = Color(0xFFF8EDDD);
   static const Color error = Color(0xFFF34141);
-  static const Color lightRed = Color(0x89E6B5B5);
+
+  // Delete / Danger Gradient
+  static const LinearGradient deleteGradient = LinearGradient(
+    colors: [
+      Color(0xFFFF6B6B),
+      Color(0xFFE53935),
+    ],
+  );
+
+  static const LinearGradient infoGradient = LinearGradient(
+    colors: [
+      Color(0xFFFFD54F),
+      Color(0xFFF9A825),
+    ],
+  );
+  static const Color lightRed = Color(0xFFFFEBEE);
+  static const Color lightError = Color(0xFFFFCDD2);
 
   //image background
   static Color logoBackground = Colors.white;

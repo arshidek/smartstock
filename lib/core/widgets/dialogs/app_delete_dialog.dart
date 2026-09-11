@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:smartstock_inventory/app/app_navigation.dart';
 import '../../constants/app_colors.dart';
@@ -50,9 +49,7 @@ class AppDeleteDialog {
                     height: AppSizes.size100,
                     decoration: const BoxDecoration(
                       shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                        colors: [Color(0xffFF6B6B), Color(0xffE53935)],
-                      ),
+                      gradient: AppColors.deleteGradient,
                     ),
                     child: Icon(
                       Icons.delete_forever_rounded,

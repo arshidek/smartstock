@@ -14,7 +14,6 @@ class ResponsiveRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // If the screen is very small, switch to a vertical layout to prevent overflow
     final bool isSmallScreen = Responsive.isMobile(context);
 
     if (isSmallScreen) {
@@ -22,16 +21,12 @@ class ResponsiveRow extends StatelessWidget {
 
       for (final child in children) {
         if (child is SizedBox && child.width != null) {
-          // Convert horizontal spacing to vertical spacing
           columnChildren.add(const SizedBox(height: AppSizes.size15));
         } else if (child is Expanded) {
-          // Unwrap Expanded widgets since they will throw errors inside unbounded Columns
           columnChildren.add(child.child);
         } else if (child is Flexible) {
-          // Unwrap Flexible widgets as well
           columnChildren.add(child.child);
         } else {
-          // Keep other widgets as they are
           columnChildren.add(child);
         }
       }
@@ -42,7 +37,6 @@ class ResponsiveRow extends StatelessWidget {
       );
     }
 
-    // Standard Row layout for larger screens
     return Row(crossAxisAlignment: crossAxisAlignment, children: children);
   }
 }

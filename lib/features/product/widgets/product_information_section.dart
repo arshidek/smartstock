@@ -23,19 +23,26 @@ class ProductInformationSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Row(
+        Row(
           children: [
-            Icon(Icons.info_outline, color: AppColors.blue, size: 25),
-            SizedBox(width: 10),
+            Icon(
+              Icons.info_outline,
+              color: AppColors.blue,
+              size: AppSizes.size25,
+            ),
+            SizedBox(width: AppSizes.size10),
             Text(
               "Product Information",
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: AppSizes.font20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: AppSizes.size10),
         const Divider(),
-        const SizedBox(height: 10),
+        const SizedBox(height: AppSizes.size10),
         _infoRow(
           context,
           "Barcode",
@@ -46,9 +53,7 @@ class ProductInformationSection extends StatelessWidget {
         _infoRow(
           context,
           "Description",
-          product.description.isEmpty
-              ? "No Description"
-              : product.description,
+          product.description.isEmpty ? "No Description" : product.description,
         ),
         _infoRow(
           context,
@@ -61,17 +66,19 @@ class ProductInformationSection extends StatelessWidget {
 
   Widget _infoRow(BuildContext context, String title, String value) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      padding: const EdgeInsets.symmetric(vertical: AppSizes.padding8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 130,
+            width: AppSizes.size130,
             child: Text(
               title,
               style: TextStyle(
                 color: AppColors.grey,
-                fontSize: Responsive.isMobile(context) ? 14 : 16,
+                fontSize: Responsive.isMobile(context)
+                    ? AppSizes.font14
+                    : AppSizes.font16,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -81,7 +88,9 @@ class ProductInformationSection extends StatelessWidget {
               value,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: Responsive.isMobile(context) ? 14 : 16,
+                fontSize: Responsive.isMobile(context)
+                    ? AppSizes.font14
+                    : AppSizes.font16,
               ),
             ),
           ),

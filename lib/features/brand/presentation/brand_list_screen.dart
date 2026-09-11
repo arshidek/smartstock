@@ -24,7 +24,6 @@ class _BrandListScreenState extends State<BrandListScreen> {
   final BrandFunctions _brandFunctions = BrandFunctions();
   final ProductService _productService = ProductService();
 
-  /// get all brands in hive
 
   @override
   void initState() {
@@ -39,7 +38,6 @@ class _BrandListScreenState extends State<BrandListScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Use Responsive helper to determine if it is web/tablet or mobile
     final bool isTabletOrWeb = !Responsive.isMobile(context);
 
     return Scaffold(
@@ -48,7 +46,6 @@ class _BrandListScreenState extends State<BrandListScreen> {
               onPressed: () async {
                 final result = await _brandFunctions.openAddBrand(context);
                 if (result) {
-                  // SnackBar handled by BrandFunctions
                 }
               },
               backgroundColor: AppColors.blue,
@@ -83,7 +80,7 @@ class _BrandListScreenState extends State<BrandListScreen> {
               style: TextStyle(
                 color: AppColors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: AppSizes.font26,
+                fontSize: AppSizes.font24,
               ),
             ),
           ],
@@ -109,7 +106,6 @@ class _BrandListScreenState extends State<BrandListScreen> {
 
               const SizedBox(height: AppSizes.size20),
 
-              // Brands List or Grid
               Expanded(
                 child: ValueListenableBuilder<Box<BrandModel>>(
                   valueListenable: BrandService().box.listenable(),
@@ -121,7 +117,6 @@ class _BrandListScreenState extends State<BrandListScreen> {
                       query: _searchController.text,
                     );
 
-                    // Extracted brand list view to reduce lines
                     return BrandListView(
                       brands: searchBrands,
                       isTabletOrWeb: isTabletOrWeb,
@@ -143,7 +138,6 @@ class _BrandListScreenState extends State<BrandListScreen> {
                       );
 
                       if (result) {
-                        // SnackBar handled by BrandFunctions
                       }
                     },
                     backgroundColor: AppColors.blue,

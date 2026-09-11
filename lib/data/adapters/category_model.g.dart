@@ -1,52 +1,43 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'user_model.dart';
+part of '../models/category_model.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class UserModelAdapter extends TypeAdapter<UserModel> {
+class CategoryModelAdapter extends TypeAdapter<CategoryModel> {
   @override
-  final int typeId = 0;
+  final int typeId = 2;
 
   @override
-  UserModel read(BinaryReader reader) {
+  CategoryModel read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return UserModel(
+    return CategoryModel(
       id: fields[0] as String,
-      username: fields[1] as String,
-      email: fields[2] as String,
-      phone: fields[3] as String,
-      shopName: fields[4] as String,
-      password: fields[5] as String,
-      profileImagePath: fields[6] as String?,
-      createdAt: fields[7] as DateTime?,
+      name: fields[1] as String,
+      description: fields[2] as String?,
+      imagePath: fields[3] as String?,
+      createdAt: fields[4] as DateTime?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, UserModel obj) {
+  void write(BinaryWriter writer, CategoryModel obj) {
     writer
-      ..writeByte(8)
+      ..writeByte(5)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
-      ..write(obj.username)
+      ..write(obj.name)
       ..writeByte(2)
-      ..write(obj.email)
+      ..write(obj.description)
       ..writeByte(3)
-      ..write(obj.phone)
+      ..write(obj.imagePath)
       ..writeByte(4)
-      ..write(obj.shopName)
-      ..writeByte(5)
-      ..write(obj.password)
-      ..writeByte(6)
-      ..write(obj.profileImagePath)
-      ..writeByte(7)
       ..write(obj.createdAt);
   }
 
@@ -56,7 +47,7 @@ class UserModelAdapter extends TypeAdapter<UserModel> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is UserModelAdapter &&
+      other is CategoryModelAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }
