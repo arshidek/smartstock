@@ -6,7 +6,7 @@ import '../../../core/widgets/dialogs/app_delete_dialog.dart';
 import '../../../core/widgets/popup/app_popup_menu.dart';
 import '../../../data/models/category_model.dart';
 import '../function/category_functions.dart';
-import '../presentation/edit_category_bottom_sheet.dart';
+import '../presentation/edit_category/edit_category_bottom_sheet.dart';
 
 class CategoryDetailsAppBar extends StatelessWidget
     implements PreferredSizeWidget {

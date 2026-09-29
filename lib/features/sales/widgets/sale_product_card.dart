@@ -1,8 +1,8 @@
-import 'package:flutter/foundation.dart';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
+import 'sale_product_image.dart';
+import 'sale_product_details.dart';
 
 class SaleProductCard extends StatelessWidget {
   final String? imagePath;
@@ -83,184 +83,21 @@ class SaleProductCard extends StatelessWidget {
               final row = Row(
                 children: [
                   /// IMAGE
-                  Container(
-                    width: AppSizes.size85,
-                    height: AppSizes.size85,
-                    decoration: BoxDecoration(
-                      color: AppColors.lightGrey,
-                      borderRadius: BorderRadius.circular(
-                        AppSizes.borderRadius16,
-                      ),
-                    ),
-                    child: Container(
-                      width: AppSizes.size90,
-                      height: AppSizes.size90,
-                      decoration: BoxDecoration(
-                        color: AppColors.lightGrey,
-                        borderRadius: BorderRadius.circular(
-                          AppSizes.borderRadius16,
-                        ),
-                        border: Border.all(color: AppColors.lightBlue),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(
-                          AppSizes.borderRadius16,
-                        ),
-                        child: imagePath != null && imagePath!.isNotEmpty
-                            ? imagePath!.startsWith('data:image')
-                                  ? Image.memory(
-                                      UriData.parse(
-                                        imagePath!,
-                                      ).contentAsBytes(),
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (
-                                            context,
-                                            error,
-                                            stackTrace,
-                                          ) => const Icon(
-                                            Icons.image_not_supported_outlined,
-                                            color: AppColors.grey,
-                                            size: AppSizes.size32,
-                                          ),
-                                    )
-                                  : kIsWeb
-                                  ? Image.network(
-                                      imagePath!,
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (
-                                            context,
-                                            error,
-                                            stackTrace,
-                                          ) => const Icon(
-                                            Icons.image_not_supported_outlined,
-                                            color: AppColors.grey,
-                                            size: AppSizes.size32,
-                                          ),
-                                    )
-                                  : Image.file(
-                                      File(imagePath!),
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (
-                                            context,
-                                            error,
-                                            stackTrace,
-                                          ) => const Icon(
-                                            Icons.image_not_supported_outlined,
-                                            color: AppColors.grey,
-                                            size: AppSizes.size32,
-                                          ),
-                                    )
-                            : const Icon(
-                                Icons.image_outlined,
-                                color: AppColors.grey,
-                                size: AppSizes.size32,
-                              ),
-                      ),
-                    ),
-                  ),
-
+                  SaleProductImage(imagePath: imagePath),
                   const SizedBox(width: AppSizes.size15),
 
                   /// DETAILS
-                  Expanded(
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        /// LEFT COLUMN
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                name,
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontSize: AppSizes.font18,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: AppSizes.size8),
-                              Text(
-                                "$brand • $category",
-                                style: const TextStyle(
-                                  color: AppColors.grey,
-                                  fontSize: AppSizes.font14,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        const SizedBox(width: AppSizes.size8),
-
-                        /// RIGHT COLUMN
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            showStatus
-                                ? Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: AppSizes.padding10,
-                                      vertical: 5,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      color: statusColor.withOpacity(.15),
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    child: Text(
-                                      status,
-                                      style: TextStyle(
-                                        color: statusColor,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: AppSizes.font12,
-                                      ),
-                                    ),
-                                  )
-                                : Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      Text(
-                                        trailingTop ?? "",
-                                        style: const TextStyle(
-                                          color: AppColors.success,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: AppSizes.font13,
-                                        ),
-                                      ),
-                                      const SizedBox(height: AppSizes.size5),
-                                      Text(
-                                        trailingBottom ?? "",
-                                        style: const TextStyle(
-                                          color: AppColors.grey,
-                                          fontSize: AppSizes.font12,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                            const SizedBox(height: AppSizes.size8),
-                            Text(
-                              "Stock : $stock",
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(height: AppSizes.size8),
-                            Text(
-                              price,
-                              style: const TextStyle(
-                                fontSize: AppSizes.font20,
-                                color: AppColors.success,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  SaleProductDetails(
+                    name: name,
+                    brand: brand,
+                    category: category,
+                    status: status,
+                    stock: stock,
+                    price: price,
+                    statusColor: statusColor,
+                    showStatus: showStatus,
+                    trailingTop: trailingTop,
+                    trailingBottom: trailingBottom,
                   ),
                 ],
               );

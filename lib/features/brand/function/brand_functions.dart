@@ -8,8 +8,8 @@ import '../../../core/utils/app_snack_bar.dart';
 import '../../../core/utils/image_picker_helper.dart';
 import '../../../core/widgets/dialogs/app_info_dialog.dart';
 import '../../../data/models/brand_model.dart';
-import '../presentation/add_brand_bottom_sheet.dart';
-import '../presentation/brand_details_screen.dart';
+import '../presentation/add_brand/add_brand_bottom_sheet.dart';
+import '../presentation/brand_details/brand_details_screen.dart';
 
 class BrandFunctions {
   final BrandService _brandService = BrandService();

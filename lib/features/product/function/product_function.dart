@@ -21,8 +21,8 @@ enum ProductSaveResult {
 class ProductFunction {
   ProductFunction();
   final ProductService _productService = ProductService();
-  final brandService = BrandService();
-  final categoryService = CategoryService();
+  final BrandService _brandService = BrandService();
+  final CategoryService _categoryService = CategoryService();
 
   Future<ProductSaveResult> saveProduct({
     required BuildContext context,
@@ -113,11 +113,9 @@ class ProductFunction {
     required bool status,
   }) async {
     if (!formKey.currentState!.validate()) {
-      debugPrint("Form validation failed");
       return;
     }
     if (brandId == null || categoryId == null) {
-      debugPrint("Brand or Category is null");
       AppSnackBar.error(context, "Please select Brand and Category");
       return;
     }
@@ -148,13 +146,13 @@ class ProductFunction {
       } else {
         finalImagePaths = images.map((e) => e.path).toList();
       }
-      product.imagePath = finalImagePaths.isNotEmpty ? finalImagePaths.first : "";
+      product.imagePath = finalImagePaths.isNotEmpty
+          ? finalImagePaths.first
+          : "";
       product.imagePaths = finalImagePaths;
     }
     product.isActive = status;
-    debugPrint("Saving product...");
     await product.save();
-    debugPrint("Product saved");
 
     AppSnackBar.success(context, "Product updated successfully!");
     AppNavigation.goBackWithResult(context, true);

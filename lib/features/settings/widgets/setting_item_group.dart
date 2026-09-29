@@ -63,7 +63,11 @@ class SettingItemGroup extends StatelessWidget {
                           color: item.iconBackgroundColor,
                           shape: BoxShape.circle,
                         ),
-                        child: Icon(item.icon, size: 20, color: item.iconColor),
+                        child: Icon(
+                          item.icon,
+                          size: AppSizes.size20,
+                          color: item.iconColor,
+                        ),
                       ),
                       const SizedBox(width: AppSizes.size15),
                       Expanded(
@@ -76,7 +80,7 @@ class SettingItemGroup extends StatelessWidget {
                               child: Text(
                                 item.title,
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: AppSizes.font16,
                                   fontWeight: FontWeight.bold,
                                   color: item.isDestructive
                                       ? AppColors.error
@@ -84,14 +88,14 @@ class SettingItemGroup extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 4),
+                            const SizedBox(height: AppSizes.size5),
                             FittedBox(
                               fit: BoxFit.scaleDown,
                               alignment: Alignment.centerLeft,
                               child: Text(
                                 item.subtitle,
                                 style: const TextStyle(
-                                  fontSize: 12,
+                                  fontSize: AppSizes.font12,
                                   color: AppColors.grey,
                                 ),
                               ),
@@ -102,7 +106,7 @@ class SettingItemGroup extends StatelessWidget {
                       const Icon(
                         Icons.chevron_right,
                         color: AppColors.lightGrey,
-                        size: 24,
+                        size: AppSizes.size24,
                       ),
                     ],
                   ),
@@ -112,8 +116,8 @@ class SettingItemGroup extends StatelessWidget {
                 const Divider(
                   height: 1,
                   thickness: 1,
-                  color: Color(0xFFF1F5F9), // Very faint divider
-                  indent: AppSizes.size15, // Indent from left
+                  color: AppColors.lightBlue,
+                  indent: AppSizes.size15,
                   endIndent: AppSizes.size15,
                 ),
             ],

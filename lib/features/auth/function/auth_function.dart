@@ -6,7 +6,7 @@ import '../../../core/services/hive_service.dart';
 import '../../../core/services/user_service.dart';
 import '../../../core/utils/app_snack_bar.dart';
 import '../../../data/models/user_model.dart';
-import '../../dashboard/presentation/dashboard_screen.dart';
+import '../../dashboard/presentation/dashboard_screen/dashboard_screen.dart';
 
 class AuthFunction {
   final AuthService _authService = AuthService();

@@ -4,8 +4,8 @@ import '../../../app/app_navigation.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/services/auth_service.dart';
 import '../../../core/services/hive_service.dart';
-import '../../auth/presentation/login_screen.dart';
-import '../../dashboard/presentation/dashboard_screen.dart';
+import '../../auth/presentation/login/login_screen.dart';
+import '../../dashboard/presentation/dashboard_screen/dashboard_screen.dart';
 import '../widgets/splash_background_gadgets.dart';
 import '../widgets/splash_content.dart';
 

@@ -3,9 +3,9 @@ import 'core/services/hive_service.dart';
 import 'features/splash/presentation/splash_screen.dart';
 
 Future<void> main() async {
-  final HiveService _hiveService = HiveService();
+  final HiveService hiveService = HiveService();
   WidgetsFlutterBinding.ensureInitialized();
-  await _hiveService.init();
+  await hiveService.init();
 
   runApp(MyApp());
 }

@@ -23,7 +23,7 @@ class SettingSectionHeader extends StatelessWidget {
           title.toUpperCase(),
           style: const TextStyle(
             color: AppColors.grey,
-            fontSize: 12,
+            fontSize: AppSizes.font12,
             fontWeight: FontWeight.bold,
             letterSpacing: 1.2,
           ),

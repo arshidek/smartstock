@@ -7,7 +7,7 @@ import '../../../core/widgets/dialogs/app_delete_dialog.dart';
 import '../../../core/widgets/popup/app_popup_menu.dart';
 import '../../../data/models/product_model.dart';
 import '../../../core/services/product_service.dart';
-import '../presentation/edit_product_screen.dart';
+import '../presentation/edit_product/edit_product_screen.dart';
 
 class ProductDetailAppBar extends StatelessWidget
     implements PreferredSizeWidget {

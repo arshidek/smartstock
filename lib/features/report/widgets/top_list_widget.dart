@@ -7,7 +7,7 @@ class TopListItemModel {
   final Widget leading;
   final String title;
   final String subtitle;
-  final Widget? middleText; // For "ORDERS" in Top Selling
+  final Widget? middleText;
   final Widget trailing;
   final VoidCallback? onTap;
 
@@ -25,8 +25,8 @@ class TopListWidget extends StatelessWidget {
   final String title;
   final List<TopListItemModel> items;
   final VoidCallback onViewAll;
-  final Widget? headerRow; // Used for "PRODUCT   ORDERS   REVENUE% OF TOTAL"
-  final Widget? bottomButton; // Used for "VIEW DETAILED SALES"
+  final Widget? headerRow;
+  final Widget? bottomButton;
 
   const TopListWidget({
     super.key,
@@ -51,7 +51,7 @@ class TopListWidget extends StatelessWidget {
                 title,
                 style: const TextStyle(
                   color: AppColors.black,
-                  fontSize: 18,
+                  fontSize: AppSizes.font18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -62,8 +62,8 @@ class TopListWidget extends StatelessWidget {
                   child: const Text(
                     "View All",
                     style: TextStyle(
-                      color: Color(0xFF4C2DB3), // Purple from mockup
-                      fontSize: 12,
+                      color: AppColors.purple,
+                      fontSize: AppSizes.font12,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -71,33 +71,32 @@ class TopListWidget extends StatelessWidget {
             ],
           ),
           if (headerRow != null && items.isNotEmpty) ...[
-            const SizedBox(height: 16),
+            const SizedBox(height: AppSizes.padding16),
             headerRow!,
           ],
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSizes.padding16),
           if (items.isEmpty)
             const Center(
               child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 20),
+                padding: EdgeInsets.symmetric(vertical: AppSizes.padding20),
                 child: Text(
                   "No data available.",
-                  style: TextStyle(color: AppColors.grey, fontSize: 14),
+                  style: TextStyle(
+                    color: AppColors.grey,
+                    fontSize: AppSizes.font14,
+                  ),
                 ),
               ),
             )
           else
-            ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemCount: items.length,
-              separatorBuilder: (context, index) =>
-                  const Divider(color: Color(0xFFF1F5F9), height: 32),
-              itemBuilder: (context, index) {
-                final item = items[index];
+            Column(
+              children: items.take(5).toList().asMap().entries.map((entry) {
+                final index = entry.key;
+                final item = entry.value;
                 Widget productPart = Row(
                   children: [
                     item.leading,
-                    const SizedBox(width: 12),
+                    const SizedBox(width: AppSizes.padding12),
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +105,7 @@ class TopListWidget extends StatelessWidget {
                             item.title,
                             style: const TextStyle(
                               color: AppColors.black,
-                              fontSize: 16,
+                              fontSize: AppSizes.font16,
                               fontWeight: FontWeight.bold,
                             ),
                             maxLines: 1,
@@ -118,7 +117,7 @@ class TopListWidget extends StatelessWidget {
                               item.subtitle,
                               style: const TextStyle(
                                 color: AppColors.grey,
-                                fontSize: 13,
+                                fontSize: AppSizes.font12,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -157,23 +156,29 @@ class TopListWidget extends StatelessWidget {
                     children: [
                       Expanded(child: productPart),
                       if (item.middleText != null) ...[
-                        const SizedBox(width: 8),
+                        const SizedBox(width: AppSizes.padding8),
                         item.middleText!,
                       ],
-                      const SizedBox(width: 8),
+                      const SizedBox(width: AppSizes.padding8),
                       item.trailing,
                     ],
                   );
                 }
 
-                return InkWell(
-                  onTap: item.onTap,
-                  child: rowWidget,
+                return Column(
+                  children: [
+                    InkWell(onTap: item.onTap, child: rowWidget),
+                    if (index < (items.length > 5 ? 5 : items.length) - 1)
+                      const Divider(
+                        color: AppColors.lightBlue,
+                        height: AppSizes.padding30,
+                      ),
+                  ],
                 );
-              },
+              }).toList(),
             ),
           if (bottomButton != null) ...[
-            const SizedBox(height: 16),
+            const SizedBox(height: AppSizes.padding16),
             bottomButton!,
           ],
         ],

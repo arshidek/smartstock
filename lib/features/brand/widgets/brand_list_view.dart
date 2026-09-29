@@ -4,7 +4,7 @@ import '../../../core/constants/app_sizes.dart';
 import '../../../core/services/product_service.dart';
 import '../../../core/widgets/cards/app_card_list.dart';
 import '../../../data/models/brand_model.dart';
-import '../presentation/brand_details_screen.dart';
+import '../presentation/brand_details/brand_details_screen.dart';
 
 class BrandListView extends StatelessWidget {
   final List<BrandModel> brands;

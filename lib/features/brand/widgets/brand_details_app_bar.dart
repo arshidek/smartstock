@@ -7,7 +7,7 @@ import '../../../core/widgets/dialogs/app_delete_dialog.dart';
 import '../../../core/widgets/popup/app_popup_menu.dart';
 import '../../../data/models/brand_model.dart';
 import '../function/brand_functions.dart';
-import '../presentation/edit_brand_bottom_sheet.dart';
+import '../presentation/edit_brand/edit_brand_bottom_sheet.dart';
 
 class BrandDetailsAppBar extends StatefulWidget implements PreferredSizeWidget {
   final BrandModel brand;

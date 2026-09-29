@@ -8,6 +8,7 @@ class AppSearchBar extends StatelessWidget {
   final ValueChanged<String>? onChanged;
   final VoidCallback? onFilterTap;
   final bool showFilter;
+  final int filterCount;
 
   const AppSearchBar({
     super.key,
@@ -16,6 +17,7 @@ class AppSearchBar extends StatelessWidget {
     this.onChanged,
     this.onFilterTap,
     this.showFilter = true,
+    this.filterCount = 0,
   });
 
   @override
@@ -57,9 +59,36 @@ class AppSearchBar extends StatelessWidget {
               height: AppSizes.size28,
               color: AppColors.lightGrey,
             ),
-            IconButton(
-              onPressed: onFilterTap,
-              icon: const Icon(Icons.tune, color: AppColors.blue),
+
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                IconButton(
+                  onPressed: onFilterTap,
+                  icon: const Icon(Icons.tune, color: AppColors.blue),
+                ),
+
+                if (filterCount > 0)
+                  Positioned(
+                    right: 3,
+                    top: 3,
+                    child: Container(
+                      padding: const EdgeInsets.all(5),
+                      decoration: const BoxDecoration(
+                        color: AppColors.error,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Text(
+                        '$filterCount',
+                        style: TextStyle(
+                          color: AppColors.white,
+                          fontSize: AppSizes.font12,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ],
         ],

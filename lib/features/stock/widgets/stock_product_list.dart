@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import '../../../app/app_navigation.dart';
 import '../../../core/responsive/responsive.dart';
 import '../../../core/services/brand_service.dart';
 import '../../../core/services/category_service.dart';
 import '../../../data/models/product_model.dart';
-import '../../product/presentation/product_detail_screen.dart';
-import '../presentation/update_stock_screen.dart';
+import '../../product/presentation/product_detail/product_detail_screen.dart';
+import '../presentation/update_stock_screen/update_stock_screen.dart';
 import 'stock_management_card.dart';
 
 class StockProductList extends StatelessWidget {
@@ -66,12 +67,12 @@ class StockProductList extends StatelessWidget {
 
     return Responsive.isMobile(context)
         ? ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: AppSizes.padding16),
             itemCount: products.length,
             itemBuilder: buildItem,
           )
         : GridView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.symmetric(horizontal: AppSizes.padding16),
             gridDelegate:
                 const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,

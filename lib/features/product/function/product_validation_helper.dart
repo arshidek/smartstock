@@ -41,7 +41,7 @@ class ProductValidationHelper {
           !selectedCategories.contains(categoryName)) {
         return false;
       }
-      
+
       // Stock Filter
       if (stockStatus != null && stockStatus != "All") {
         switch (stockStatus) {
@@ -61,7 +61,11 @@ class ProductValidationHelper {
 
       // Date Filter
       if (startDate != null && endDate != null) {
-        final productDate = DateTime(product.createdAt.year, product.createdAt.month, product.createdAt.day);
+        final productDate = DateTime(
+          product.createdAt.year,
+          product.createdAt.month,
+          product.createdAt.day,
+        );
         final start = DateTime(startDate.year, startDate.month, startDate.day);
         final end = DateTime(endDate.year, endDate.month, endDate.day);
         if (productDate.isBefore(start) || productDate.isAfter(end)) {
@@ -76,10 +80,14 @@ class ProductValidationHelper {
     if (sort != null) {
       switch (sort) {
         case "A - Z":
-          filteredList.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+          filteredList.sort(
+            (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()),
+          );
           break;
         case "Z - A":
-          filteredList.sort((a, b) => b.name.toLowerCase().compareTo(a.name.toLowerCase()));
+          filteredList.sort(
+            (a, b) => b.name.toLowerCase().compareTo(a.name.toLowerCase()),
+          );
           break;
         case "Price: Low to High":
           filteredList.sort((a, b) => a.sellingPrice.compareTo(b.sellingPrice));

@@ -28,10 +28,7 @@ class DrawerFooterCard extends StatelessWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
-            child: Image.asset(
-              'assets/images/app_logo.png',
-              fit: BoxFit.cover,
-            ),
+            child: Image.asset('assets/images/app_logo.png', fit: BoxFit.cover),
           ),
         ),
       );
@@ -97,7 +94,9 @@ class DrawerFooterCard extends StatelessWidget {
                       ),
                       decoration: BoxDecoration(
                         color: AppColors.lightBlue,
-                        borderRadius: BorderRadius.circular(AppSizes.borderRadius8),
+                        borderRadius: BorderRadius.circular(
+                          AppSizes.borderRadius8,
+                        ),
                       ),
                       child: const Text(
                         "v1.0",
@@ -113,7 +112,10 @@ class DrawerFooterCard extends StatelessWidget {
                 const SizedBox(height: AppSizes.size5),
                 const Text(
                   "© 2026",
-                  style: TextStyle(color: AppColors.grey, fontSize: AppSizes.font12),
+                  style: TextStyle(
+                    color: AppColors.grey,
+                    fontSize: AppSizes.font12,
+                  ),
                 ),
               ],
             ),

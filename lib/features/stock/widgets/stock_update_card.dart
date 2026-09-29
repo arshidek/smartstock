@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
+import '../../../core/utils/app_snack_bar.dart';
 import '../../../core/widgets/buttons/app_outline_button.dart';
 import '../../../core/widgets/cards/app_card_widget.dart';
 
 class StockUpdateCard extends StatelessWidget {
   final bool isAddStock;
   final int quantity;
+  final int currentStock;
   final ValueChanged<bool> onActionChanged;
   final ValueChanged<int> onQuantityChanged;
 
@@ -14,6 +16,7 @@ class StockUpdateCard extends StatelessWidget {
     super.key,
     required this.isAddStock,
     required this.quantity,
+    required this.currentStock,
     required this.onActionChanged,
     required this.onQuantityChanged,
   });
@@ -79,7 +82,15 @@ class StockUpdateCard extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-                  if (quantity > 1) {
+
+                  if (!isAddStock && currentStock <= 0) {
+                    AppSnackBar.warning(
+                      context,
+                      "⚠️ Product is already Out of Stock. Cannot remove more.",
+                    );
+                    return;
+                  }
+                  if (quantity > 0) {
                     onQuantityChanged(quantity - 1);
                   }
                 },
@@ -120,6 +131,15 @@ class StockUpdateCard extends StatelessWidget {
 
               IconButton(
                 onPressed: () {
+                  if (!isAddStock && quantity >= currentStock) {
+                    AppSnackBar.warning(
+                      context,
+                      currentStock <= 0
+                          ? "⚠️ Product is already Out of Stock. Cannot remove more."
+                          : "⚠️ Cannot remove more than current stock ($currentStock units).",
+                    );
+                    return;
+                  }
                   onQuantityChanged(quantity + 1);
                 },
                 icon: const Icon(
@@ -150,7 +170,18 @@ class StockUpdateCard extends StatelessWidget {
               return AppOutlineButton(
                 text: "$q",
                 icon: Icons.add,
-                onPressed: () => onQuantityChanged(quantity + q),
+                onPressed: () {
+                  if (!isAddStock && quantity + q > currentStock) {
+                    AppSnackBar.warning(
+                      context,
+                      currentStock <= 0
+                          ? "⚠️ Product is already Out of Stock. Cannot remove more."
+                          : "⚠️ Cannot remove more than current stock ($currentStock units).",
+                    );
+                    return;
+                  }
+                  onQuantityChanged(quantity + q);
+                },
                 width: AppSizes.size60,
                 height: AppSizes.size40,
                 fontSize: AppSizes.font18,

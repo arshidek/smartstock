@@ -23,7 +23,20 @@ class ProductHeaderCard extends StatelessWidget {
   });
 
   String _formatDate(DateTime date) {
-    final monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    final monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
     final month = monthNames[date.month - 1];
     return "$month ${date.day}, ${date.year}";
   }
@@ -124,13 +137,17 @@ class ProductHeaderCard extends StatelessWidget {
 
                   InkWell(
                     onTap: onEditDate,
-                    borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
+                    borderRadius: BorderRadius.circular(
+                      AppSizes.borderRadius12,
+                    ),
                     child: Builder(
                       builder: (context) {
                         final isMobile = Responsive.isMobile(context);
                         return Container(
                           padding: EdgeInsets.symmetric(
-                            horizontal: isMobile ? AppSizes.padding8 : AppSizes.padding10,
+                            horizontal: isMobile
+                                ? AppSizes.padding8
+                                : AppSizes.padding10,
                             vertical: isMobile ? 4.0 : AppSizes.padding8,
                           ),
                           decoration: BoxDecoration(
@@ -156,13 +173,15 @@ class ProductHeaderCard extends StatelessWidget {
                                 style: TextStyle(
                                   color: AppColors.blue,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: isMobile ? AppSizes.font12 : AppSizes.font16,
+                                  fontSize: isMobile
+                                      ? AppSizes.font12
+                                      : AppSizes.font16,
                                 ),
                               ),
                             ],
                           ),
                         );
-                      }
+                      },
                     ),
                   ),
 

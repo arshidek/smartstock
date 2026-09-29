@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:smartstock_inventory/core/constants/app_sizes.dart';
-
 import '../../../core/constants/app_colors.dart';
 
 class TodaySummaryCard extends StatelessWidget {

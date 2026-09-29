@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
 import '../../../core/widgets/popup/app_popup_menu.dart';
@@ -177,6 +175,7 @@ class StockManagementCard extends StatelessWidget {
                                     child: AppPopupMenu.restock(
                                       onRestock: onRestock,
                                       compact: true,
+                                      iconColor: AppColors.black,
                                     ),
                                   ),
                                 ],
@@ -214,10 +213,7 @@ class StockManagementCard extends StatelessWidget {
                 return FittedBox(
                   fit: BoxFit.scaleDown,
                   alignment: Alignment.centerLeft,
-                  child: SizedBox(
-                    width: constraints.maxWidth,
-                    child: row,
-                  ),
+                  child: SizedBox(width: constraints.maxWidth, child: row),
                 );
               },
             ),

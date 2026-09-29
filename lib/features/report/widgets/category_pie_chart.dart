@@ -8,7 +8,7 @@ class PieChartDataPoint {
   final String label;
   final double value;
   final Color color;
-  final String suffix; // e.g. " (32%)" or "₹3,06,250"
+  final String suffix;
 
   PieChartDataPoint({
     required this.label,
@@ -23,7 +23,7 @@ class CategoryPieChart extends StatelessWidget {
   final List<PieChartDataPoint> data;
   final String centerTitle;
   final String centerSubtitle;
-  final Widget? trailing; // e.g. "VIEW DETAILS" button
+  final Widget? trailing;
 
   const CategoryPieChart({
     super.key,
@@ -52,7 +52,7 @@ class CategoryPieChart extends StatelessWidget {
                 title,
                 style: const TextStyle(
                   color: AppColors.black,
-                  fontSize: 18,
+                  fontSize: AppSizes.font18,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -82,9 +82,7 @@ class CategoryPieChart extends StatelessWidget {
                                 ),
                               ]
                             : data.map((point) {
-                                final percentage = total == 0
-                                    ? 0
-                                    : (point.value / total) * 100;
+
                                 return PieChartSectionData(
                                   color: point.color,
                                   value: total == 0

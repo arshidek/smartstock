@@ -5,8 +5,8 @@ import '../../../core/constants/app_sizes.dart';
 import '../../../data/models/product_model.dart';
 import '../../../data/models/category_model.dart';
 import '../../../core/services/brand_service.dart';
-import '../../product/presentation/product_list_screen.dart';
-import '../../product/presentation/product_detail_screen.dart';
+import '../../product/presentation/product_list/product_list_screen.dart';
+import '../../product/presentation/product_detail/product_detail_screen.dart';
 import '../../product/widgets/product_card_list.dart';
 
 class DashboardRecentProducts extends StatelessWidget {

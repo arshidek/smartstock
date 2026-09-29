@@ -6,7 +6,7 @@ import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:smartstock_inventory/core/constants/app_sizes.dart';
-import '../../features/report/function/revenue_report_logic.dart';
+import '../../features/report/function/revenue_report_functions.dart';
 import '../../features/report/widgets/summary_card_grid.dart';
 import '../services/sale_service.dart';
 
@@ -15,7 +15,7 @@ class PdfReportService {
 
   // ─── PDF Generation ───────────────────────────────────────────────────────
 
-  Future<Uint8List> generateReportPdf(RevenueReportLogic functions) async {
+  Future<Uint8List> generateReportPdf(RevenueReportFunctions functions) async {
     final pdf = pw.Document();
     final summaryMetrics = functions.getRevenueSummaryMetrics();
     final topProducts = _getTopSellingProductsRawData();

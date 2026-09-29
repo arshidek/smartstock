@@ -22,7 +22,9 @@ class DrawerProfileHeader extends StatelessWidget {
         vertical: AppSizes.padding10,
       ),
       child: Row(
-        mainAxisAlignment: isCollapsed ? MainAxisAlignment.center : MainAxisAlignment.start,
+        mainAxisAlignment: isCollapsed
+            ? MainAxisAlignment.center
+            : MainAxisAlignment.start,
         children: [
           Container(
             width: AppSizes.size70,
@@ -39,32 +41,37 @@ class DrawerProfileHeader extends StatelessWidget {
               ],
             ),
             child: ClipOval(
-              child: currentUser.profileImagePath != null &&
+              child:
+                  currentUser.profileImagePath != null &&
                       currentUser.profileImagePath!.isNotEmpty
                   ? kIsWeb
-                      ? Image.network(
-                          currentUser.profileImagePath!,
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Icon(
-                              Icons.person,
-                              color: AppColors.blue,
-                              size: AppSizes.size40,
-                            );
-                          },
-                        )
-                      : Image.file(
-                          File(currentUser.profileImagePath!),
-                          fit: BoxFit.cover,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Icon(
-                              Icons.person,
-                              color: AppColors.blue,
-                              size: AppSizes.size40,
-                            );
-                          },
-                        )
-                  : Icon(Icons.person, color: AppColors.blue, size: AppSizes.size40),
+                        ? Image.network(
+                            currentUser.profileImagePath!,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Icon(
+                                Icons.person,
+                                color: AppColors.blue,
+                                size: AppSizes.size40,
+                              );
+                            },
+                          )
+                        : Image.file(
+                            File(currentUser.profileImagePath!),
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Icon(
+                                Icons.person,
+                                color: AppColors.blue,
+                                size: AppSizes.size40,
+                              );
+                            },
+                          )
+                  : Icon(
+                      Icons.person,
+                      color: AppColors.blue,
+                      size: AppSizes.size40,
+                    ),
             ),
           ),
           if (!isCollapsed) ...[
@@ -77,7 +84,7 @@ class DrawerProfileHeader extends StatelessWidget {
                     currentUser.username,
                     style: TextStyle(
                       color: AppColors.white,
-                      fontSize:AppSizes.font22,
+                      fontSize: AppSizes.font22,
                       fontWeight: FontWeight.bold,
                     ),
                     maxLines: 1,

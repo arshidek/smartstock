@@ -42,6 +42,8 @@ class AppSizes {
   static const double size130 = 130;
   static const double size160 = 160;
   static const double size240 = 240;
+  static const double size360 = 360;
+  static const double size450 = 450;
 
   // Border Radius
   static const double logoRadius = 23;

@@ -11,7 +11,7 @@ class SecurityNoticeCard extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: AppSizes.size20),
       padding: const EdgeInsets.all(AppSizes.size15),
       decoration: BoxDecoration(
-        color: AppColors.lightBlue, // Faint blueish background typically
+        color: AppColors.lightBlue,
         borderRadius: BorderRadius.circular(AppSizes.borderRadius12),
         border: Border.all(
           color: AppColors.blue.withValues(alpha: 0.1),
@@ -24,7 +24,7 @@ class SecurityNoticeCard extends StatelessWidget {
           const Icon(
             Icons.verified_user_outlined,
             color: AppColors.blue,
-            size: 24,
+            size: AppSizes.size24,
           ),
           const SizedBox(width: AppSizes.size15),
           Expanded(
@@ -34,15 +34,18 @@ class SecurityNoticeCard extends StatelessWidget {
                 Text(
                   "Your data is safe with us",
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: AppSizes.font14,
                     fontWeight: FontWeight.bold,
                     color: AppColors.black,
                   ),
                 ),
-                SizedBox(height: 4),
+                SizedBox(height: AppSizes.size5),
                 Text(
                   "We take security and privacy seriously.",
-                  style: TextStyle(fontSize: 12, color: AppColors.grey),
+                  style: TextStyle(
+                    fontSize: AppSizes.font12,
+                    color: AppColors.grey,
+                  ),
                 ),
               ],
             ),

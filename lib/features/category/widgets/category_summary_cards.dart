@@ -105,7 +105,7 @@ class CategorySummaryCards extends StatelessWidget {
                   "$productsCount Items",
                   style: TextStyle(
                     fontSize: Responsive.isMobile(context)
-                        ? 14
+                        ? AppSizes.font14
                         : AppSizes.font18,
                     fontWeight: FontWeight.bold,
                   ),

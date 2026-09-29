@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import '../../../app/app_navigation.dart';
+import '../../../features/sales/presentation/sales_main/sales_screen.dart';
+import '../../../features/settings/presentation/settings_screen/settings_screen.dart';
 import '../../constants/app_colors.dart';
-import '../../../features/dashboard/presentation/dashboard_screen.dart';
-import '../../../features/report/presentation/report_screen.dart';
-import '../../../features/settings/presentation/settings_screen.dart';
-import 'package:smartstock_inventory/features/sales/presentation/sales_screen.dart';
+import '../../../features/dashboard/presentation/dashboard_screen/dashboard_screen.dart';
+import '../../../features/report/presentation/report_screen/report_screen.dart';
 
 class AppBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
@@ -27,7 +27,7 @@ class AppBottomNavigationBar extends StatelessWidget {
         targetScreen = const ReportScreen();
         break;
       case 3:
-        targetScreen = const SettingsScreen();
+        targetScreen =  SettingsScreen();
         break;
       default:
         targetScreen = const DashboardScreen();

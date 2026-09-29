@@ -2,7 +2,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_sizes.dart';
-import 'trend_bar_chart.dart'; // For ChartDataPoint
+import 'trend_bar_chart.dart';
 
 class TrendLineChart extends StatelessWidget {
   final String title;
@@ -25,9 +25,7 @@ class TrendLineChart extends StatelessWidget {
     final double maxValue = data
         .map((e) => e.value)
         .reduce((a, b) => a > b ? a : b);
-    final double minValue = data
-        .map((e) => e.value)
-        .reduce((a, b) => a < b ? a : b);
+
 
     return Container(
       padding: const EdgeInsets.all(AppSizes.padding20),
@@ -50,7 +48,7 @@ class TrendLineChart extends StatelessWidget {
             title,
             style: const TextStyle(
               color: AppColors.black,
-              fontSize: 16,
+              fontSize: AppSizes.font16,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -63,8 +61,8 @@ class TrendLineChart extends StatelessWidget {
                   handleBuiltInTouches: true,
                   touchTooltipData: LineTouchTooltipData(
                     getTooltipColor: (group) => AppColors.black,
-                    tooltipPadding: const EdgeInsets.all(8),
-                    tooltipMargin: 8,
+                    tooltipPadding: const EdgeInsets.all(AppSizes.padding8),
+                    tooltipMargin: AppSizes.padding8,
                     getTooltipItems: (touchedSpots) {
                       return touchedSpots.map((LineBarSpot touchedSpot) {
                         return LineTooltipItem(
@@ -72,7 +70,7 @@ class TrendLineChart extends StatelessWidget {
                           TextStyle(
                             color: AppColors.white,
                             fontWeight: FontWeight.bold,
-                            fontSize: 12,
+                            fontSize: AppSizes.font12,
                           ),
                         );
                       }).toList();
@@ -85,7 +83,7 @@ class TrendLineChart extends StatelessWidget {
                   horizontalInterval: maxValue == 0 ? 1 : maxValue / 4,
                   getDrawingHorizontalLine: (value) {
                     return const FlLine(
-                      color: Color(0xFFF1F5F9), // Very light grey
+                      color: AppColors.lightGrey,
                       strokeWidth: 1,
                       dashArray: [5, 5],
                     );
@@ -108,12 +106,12 @@ class TrendLineChart extends StatelessWidget {
                             index == data.length ~/ 2 ||
                             index == data.length - 1) {
                           return Padding(
-                            padding: const EdgeInsets.only(top: 10.0),
+                            padding: const EdgeInsets.only(top: AppSizes.padding10),
                             child: Text(
                               data[index].label,
                               style: const TextStyle(
                                 color: AppColors.grey,
-                                fontSize: 11,
+                                fontSize: AppSizes.font12,
                               ),
                             ),
                           );

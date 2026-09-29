@@ -4,7 +4,7 @@ import '../../../core/constants/app_sizes.dart';
 import '../../../core/services/product_service.dart';
 import '../../../core/widgets/cards/app_card_list.dart';
 import '../../../data/models/category_model.dart';
-import '../presentation/category_details_screen.dart';
+import '../presentation/category_details/category_details_screen.dart';
 
 class CategoryListView extends StatelessWidget {
   final List<CategoryModel> categories;

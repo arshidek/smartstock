@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../app/app_navigation.dart';
-import '../../brand/presentation/brand_list_screen.dart';
-import '../../category/presentation/category_screen.dart';
-import '../../product/presentation/product_list_screen.dart';
+import '../../brand/presentation/brand_list/brand_screen.dart';
+import '../../category/presentation/category_list/category_screen.dart';
+import '../../product/presentation/product_list/product_list_screen.dart';
 
 class DrawerItemsMenu extends StatelessWidget {
   final bool isCollapsed;
@@ -32,7 +32,11 @@ class DrawerItemsMenu extends StatelessWidget {
                 color: AppColors.glassIconBackground,
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.widgets_outlined, color: AppColors.blue, size: AppSizes.size24),
+              child: Icon(
+                Icons.widgets_outlined,
+                color: AppColors.blue,
+                size: AppSizes.size24,
+              ),
             ),
           ),
         ),
@@ -42,14 +46,21 @@ class DrawerItemsMenu extends StatelessWidget {
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
-        tilePadding: const EdgeInsets.symmetric(horizontal: AppSizes.padding16, vertical: 4),
+        tilePadding: const EdgeInsets.symmetric(
+          horizontal: AppSizes.padding16,
+          vertical: 4,
+        ),
         leading: Container(
           padding: const EdgeInsets.all(AppSizes.padding8),
           decoration: BoxDecoration(
             color: AppColors.glassIconBackground,
             borderRadius: BorderRadius.circular(10),
           ),
-          child: Icon(Icons.widgets_outlined, color: AppColors.blue, size: AppSizes.size24),
+          child: Icon(
+            Icons.widgets_outlined,
+            color: AppColors.blue,
+            size: AppSizes.size24,
+          ),
         ),
         title: Text(
           "Items",
@@ -100,10 +111,8 @@ class DrawerItemsMenu extends StatelessWidget {
                     icon: Icons.workspace_premium_outlined,
                     iconColor: AppColors.success,
                     title: "Brands",
-                    onTap: () => AppNavigation.goToScreen(
-                      context,
-                      const BrandListScreen(),
-                    ),
+                    onTap: () =>
+                        AppNavigation.goToScreen(context, const BrandScreen()),
                   ),
                 ],
               ),
@@ -132,13 +141,16 @@ class DrawerSubMenuItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      contentPadding: const EdgeInsets.only(left: AppSizes.padding48, right: AppSizes.padding16),
+      contentPadding: const EdgeInsets.only(
+        left: AppSizes.padding48,
+        right: AppSizes.padding16,
+      ),
       leading: Icon(icon, color: iconColor, size: AppSizes.size22),
       title: Text(
         title,
         style: const TextStyle(
           fontSize: AppSizes.font16,
-          color:AppColors.grey,
+          color: AppColors.grey,
           fontWeight: FontWeight.w500,
         ),
       ),

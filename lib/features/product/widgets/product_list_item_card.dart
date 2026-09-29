@@ -35,25 +35,25 @@ class ProductListItemCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           child: imagePath != null && imagePath!.isNotEmpty
               ? imagePath!.startsWith('data:image')
-                  ? Image.memory(
-                      UriData.parse(imagePath!).contentAsBytes(),
-                      width: AppSizes.size90,
-                      height: AppSizes.size90,
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) {
-                        return Container(
-                          width: AppSizes.size90,
-                          height: AppSizes.size90,
-                          color: AppColors.lightGrey.withOpacity(0.2),
-                          child: const Icon(
-                            Icons.image_not_supported_outlined,
-                            size: AppSizes.size40,
-                            color: AppColors.grey,
-                          ),
-                        );
-                      },
-                    )
-                  : kIsWeb
+                    ? Image.memory(
+                        UriData.parse(imagePath!).contentAsBytes(),
+                        width: AppSizes.size90,
+                        height: AppSizes.size90,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            width: AppSizes.size90,
+                            height: AppSizes.size90,
+                            color: AppColors.lightGrey.withOpacity(0.2),
+                            child: const Icon(
+                              Icons.image_not_supported_outlined,
+                              size: AppSizes.size40,
+                              color: AppColors.grey,
+                            ),
+                          );
+                        },
+                      )
+                    : kIsWeb
                     ? Image.network(
                         imagePath!,
                         width: AppSizes.size90,
@@ -158,7 +158,9 @@ class ProductListItemCard extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: stockColor.withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(AppSizes.borderRadius20),
+                      borderRadius: BorderRadius.circular(
+                        AppSizes.borderRadius20,
+                      ),
                     ),
                     child: Text(
                       stockStatus,

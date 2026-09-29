@@ -41,7 +41,10 @@ class DrawerMenuItem extends StatelessWidget {
             ),
           )
         : ListTile(
-            contentPadding: const EdgeInsets.symmetric(horizontal: AppSizes.padding16, vertical: 4),
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: AppSizes.padding16,
+              vertical: 4,
+            ),
             leading: Container(
               padding: const EdgeInsets.all(AppSizes.padding8),
               decoration: BoxDecoration(
@@ -61,7 +64,10 @@ class DrawerMenuItem extends StatelessWidget {
             subtitle: subtitle != null
                 ? Text(
                     subtitle!,
-                    style: const TextStyle(fontSize: AppSizes.font12, color:AppColors.grey),
+                    style: const TextStyle(
+                      fontSize: AppSizes.font12,
+                      color: AppColors.grey,
+                    ),
                   )
                 : null,
             trailing: const Icon(
@@ -73,10 +79,7 @@ class DrawerMenuItem extends StatelessWidget {
           );
 
     if (isCollapsed) {
-      return Tooltip(
-        message: title,
-        child: itemContent,
-      );
+      return Tooltip(message: title, child: itemContent);
     }
     return itemContent;
   }

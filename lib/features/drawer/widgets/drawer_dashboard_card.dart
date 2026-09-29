@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../app/app_navigation.dart';
-import '../../dashboard/presentation/dashboard_screen.dart';
+import '../../dashboard/presentation/dashboard_screen/dashboard_screen.dart';
 
 class DrawerDashboardCard extends StatelessWidget {
   final bool isCollapsed;

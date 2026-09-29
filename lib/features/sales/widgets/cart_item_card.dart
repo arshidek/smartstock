@@ -1,10 +1,9 @@
-import 'package:flutter/foundation.dart';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../core/widgets/dialogs/app_delete_dialog.dart';
 import '../../../data/models/sale_item_model.dart';
+import 'sale_product_image.dart';
 
 class CartItemCard extends StatelessWidget {
   final SaleItemModel item;
@@ -40,57 +39,7 @@ class CartItemCard extends StatelessWidget {
           final row = Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              /// IMAGE
-              Container(
-                width: AppSizes.size85,
-                height: AppSizes.size85,
-                decoration: BoxDecoration(
-                  color: AppColors.lightGrey,
-                  borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
-                  border: Border.all(color: Colors.blue.shade100),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
-                  child: item.imagePath.isNotEmpty
-                      ? item.imagePath.startsWith('data:image')
-                            ? Image.memory(
-                                UriData.parse(item.imagePath).contentAsBytes(),
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(
-                                      Icons.image_not_supported_outlined,
-                                      color: AppColors.grey,
-                                      size: AppSizes.size32,
-                                    ),
-                              )
-                            : kIsWeb
-                            ? Image.network(
-                                item.imagePath,
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(
-                                      Icons.image_not_supported_outlined,
-                                      color: AppColors.grey,
-                                      size: AppSizes.size32,
-                                    ),
-                              )
-                            : Image.file(
-                                File(item.imagePath),
-                                fit: BoxFit.cover,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    const Icon(
-                                      Icons.image_not_supported_outlined,
-                                      color: AppColors.grey,
-                                      size: AppSizes.size32,
-                                    ),
-                              )
-                      : const Icon(
-                          Icons.image_outlined,
-                          color: AppColors.grey,
-                          size: AppSizes.size32,
-                        ),
-                ),
-              ),
+              SaleProductImage(imagePath: item.imagePath),
 
               const SizedBox(width: AppSizes.size12),
 
@@ -181,7 +130,7 @@ class CartItemCard extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: AppSizes.font16,
                       fontWeight: FontWeight.bold,
-                      color: AppColors.success
+                      color: AppColors.success,
                     ),
                   ),
                 ],

@@ -4,7 +4,7 @@ import '../../../core/responsive/responsive.dart';
 import '../../../core/services/brand_service.dart';
 import '../../../core/services/category_service.dart';
 import '../../../data/models/product_model.dart';
-import '../presentation/product_detail_screen.dart';
+import '../presentation/product_detail/product_detail_screen.dart';
 import '../../../app/app_navigation.dart';
 import 'product_card_list.dart';
 
