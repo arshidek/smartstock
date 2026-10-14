@@ -59,11 +59,6 @@ class _AddProductToSaleScreenState extends State<AddProductToSaleScreen>
             selectedCategory: selectedCategory,
             brands: brands,
             categories: categories,
-            filteredProducts: filteredProducts,
-            quantity: quantity,
-            selectedProduct: selectedProduct,
-            totalPrice: totalPrice,
-            ratePerUnit: ratePerUnit,
             onBrandChanged: (value) {
               setState(() {
                 selectedBrand = value;
@@ -76,6 +71,11 @@ class _AddProductToSaleScreenState extends State<AddProductToSaleScreen>
                 filterProducts();
               });
             },
+            filteredProducts: filteredProducts,
+            quantity: quantity,
+            selectedProduct: selectedProduct,
+            totalPrice: totalPrice,
+            ratePerUnit: ratePerUnit,
             buildProductCard: _buildProductCard,
             onQuantityChanged: (value) {
               setState(() {
@@ -83,17 +83,21 @@ class _AddProductToSaleScreenState extends State<AddProductToSaleScreen>
               });
             },
             onAddToListPressed: onAddToListPressed,
+            searchController: searchController,
+            onSearchChanged: (value) {
+              setState(() {
+                filterProducts();
+              });
+            },
+            filterCount: filterCount,
+            activeFilters: activeFilters,
+            applyFilters: applyFilters,
           )
         : WebAddProductToSaleScreen(
             selectedBrand: selectedBrand,
             selectedCategory: selectedCategory,
             brands: brands,
             categories: categories,
-            filteredProducts: filteredProducts,
-            quantity: quantity,
-            selectedProduct: selectedProduct,
-            totalPrice: totalPrice,
-            ratePerUnit: ratePerUnit,
             onBrandChanged: (value) {
               setState(() {
                 selectedBrand = value;
@@ -106,6 +110,11 @@ class _AddProductToSaleScreenState extends State<AddProductToSaleScreen>
                 filterProducts();
               });
             },
+            filteredProducts: filteredProducts,
+            quantity: quantity,
+            selectedProduct: selectedProduct,
+            totalPrice: totalPrice,
+            ratePerUnit: ratePerUnit,
             buildProductCard: _buildProductCard,
             onQuantityChanged: (value) {
               setState(() {
@@ -113,6 +122,15 @@ class _AddProductToSaleScreenState extends State<AddProductToSaleScreen>
               });
             },
             onAddToListPressed: onAddToListPressed,
+            searchController: searchController,
+            onSearchChanged: (value) {
+              setState(() {
+                filterProducts();
+              });
+            },
+            filterCount: filterCount,
+            activeFilters: activeFilters,
+            applyFilters: applyFilters,
           );
   }
 }

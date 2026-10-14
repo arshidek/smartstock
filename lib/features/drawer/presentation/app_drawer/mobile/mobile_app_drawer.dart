@@ -60,93 +60,115 @@ class MobileAppDrawer extends StatelessWidget {
                 ),
                 const SizedBox(height: AppSizes.size15),
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: AppSizes.padding16,
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.white.withOpacity(0.9),
-                        borderRadius: BorderRadius.circular(
-                          AppSizes.borderRadius16,
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: AppColors.blackShadow,
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppSizes.padding16,
                       ),
-                      child: ListView(
-                        padding: const EdgeInsets.symmetric(
-                          vertical: AppSizes.padding8,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(
+                            AppSizes.borderRadius16,
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: AppColors.blackShadow,
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
                         ),
-                        children: [
-                          DrawerItemsMenu(
-                            isCollapsed: false,
-                            onExpandRequested: () {},
+                        child: Material(
+                          color: AppColors.white.withOpacity(0.9),
+                          borderRadius: BorderRadius.circular(
+                            AppSizes.borderRadius16,
                           ),
-                          Padding(
+                          clipBehavior: Clip.antiAlias,
+                          child: Padding(
                             padding: const EdgeInsets.symmetric(
-                              horizontal: AppSizes.padding16,
+                              vertical: AppSizes.padding8,
                             ),
-                            child: Divider(
-                              height: 1,
-                              color: AppColors.lightGrey.withOpacity(0.2),
+                            child: Column(
+                              children: [
+                                DrawerItemsMenu(
+                                  isCollapsed: false,
+                                  onExpandRequested: () {},
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: AppSizes.padding16,
+                                  ),
+                                  child: Divider(
+                                    height: 1,
+                                    color: AppColors.lightGrey.withOpacity(0.2),
+                                  ),
+                                ),
+                                SizedBox(height: AppSizes.size10),
+                                DrawerMenuItem(
+                                  icon: Icons.shopping_cart_outlined,
+                                  iconColor: AppColors.darkGreen,
+                                  bgColor: AppColors.lightDarkGreen,
+                                  title: "Sales",
+                                  isCollapsed: false,
+                                  onTap: () =>
+                                      DrawerFunctions.navigateToSales(context),
+                                ),
+                                SizedBox(height: AppSizes.size10),
+                                DrawerMenuItem(
+                                  icon: Icons.bar_chart,
+                                  iconColor: AppColors.warning,
+                                  bgColor: AppColors.lightWarning,
+                                  title: "Reports",
+                                  isCollapsed: false,
+                                  onTap: () =>
+                                      DrawerFunctions.navigateToReports(
+                                        context,
+                                      ),
+                                ),
+                                SizedBox(height: AppSizes.size10),
+                                DrawerMenuItem(
+                                  icon: Icons.notifications_none,
+                                  iconColor: AppColors.error,
+                                  bgColor: AppColors.lightRed,
+                                  title: "Stock Management",
+                                  isCollapsed: false,
+                                  onTap: () =>
+                                      DrawerFunctions.navigateToStock(context),
+                                ),
+                                SizedBox(height: AppSizes.size10),
+                                DrawerMenuItem(
+                                  icon: Icons.person_outline,
+                                  iconColor: AppColors.purple,
+                                  bgColor: AppColors.lightPurple,
+                                  title: "Profile",
+                                  isCollapsed: false,
+                                  onTap: () =>
+                                      DrawerFunctions.navigateToProfile(
+                                        context,
+                                      ),
+                                ),
+                                SizedBox(height: AppSizes.size10),
+                                DrawerMenuItem(
+                                  icon: Icons.settings_outlined,
+                                  iconColor: AppColors.lightBlack,
+                                  bgColor: AppColors.lightGrey.withOpacity(0.2),
+                                  title: "Settings",
+                                  isCollapsed: false,
+                                  onTap: () =>
+                                      DrawerFunctions.navigateToSettings(
+                                        context,
+                                      ),
+                                ),
+                                SizedBox(height: AppSizes.size20),
+                              ],
                             ),
                           ),
-                          DrawerMenuItem(
-                            icon: Icons.shopping_cart_outlined,
-                            iconColor: AppColors.darkGreen,
-                            bgColor: AppColors.lightDarkGreen,
-                            title: "Sales",
-                            isCollapsed: false,
-                            onTap: () =>
-                                DrawerFunctions.navigateToSales(context),
-                          ),
-                          DrawerMenuItem(
-                            icon: Icons.bar_chart,
-                            iconColor: AppColors.warning,
-                            bgColor: AppColors.lightWarning,
-                            title: "Reports",
-                            isCollapsed: false,
-                            onTap: () =>
-                                DrawerFunctions.navigateToReports(context),
-                          ),
-                          DrawerMenuItem(
-                            icon: Icons.notifications_none,
-                            iconColor: AppColors.error,
-                            bgColor: AppColors.lightRed,
-                            title: "Stock Management",
-                            isCollapsed: false,
-                            onTap: () =>
-                                DrawerFunctions.navigateToStock(context),
-                          ),
-                          DrawerMenuItem(
-                            icon: Icons.person_outline,
-                            iconColor: AppColors.purple,
-                            bgColor: AppColors.lightPurple,
-                            title: "Profile",
-                            isCollapsed: false,
-                            onTap: () =>
-                                DrawerFunctions.navigateToProfile(context),
-                          ),
-                          DrawerMenuItem(
-                            icon: Icons.settings_outlined,
-                            iconColor: AppColors.lightBlack,
-                            bgColor: AppColors.lightGrey.withOpacity(0.2),
-                            title: "Settings",
-                            isCollapsed: false,
-                            onTap: () =>
-                                DrawerFunctions.navigateToSettings(context),
-                          ),
-                        ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: AppSizes.size15),
+                SizedBox(height: AppSizes.size15),
                 const Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: AppSizes.padding16,

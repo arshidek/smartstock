@@ -25,22 +25,15 @@ class StockProductList extends StatelessWidget {
       return const Center(
         child: Text(
           "No Products Found",
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       );
     }
 
     Widget buildItem(BuildContext context, int index) {
       final product = products[index];
-      final brand = BrandService().getBrandById(
-        product.brandId,
-      );
-      final category = CategoryService().getCategoryById(
-        product.categoryId,
-      );
+      final brand = BrandService().getBrandById(product.brandId);
+      final category = CategoryService().getCategoryById(product.categoryId);
 
       return StockManagementCard(
         product: product,
@@ -73,8 +66,7 @@ class StockProductList extends StatelessWidget {
           )
         : GridView.builder(
             padding: const EdgeInsets.symmetric(horizontal: AppSizes.padding16),
-            gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 16,
               mainAxisExtent: 155,

@@ -12,6 +12,7 @@ class SummaryMetric {
   final Color iconColor;
   final Color iconBackgroundColor;
   final String? subtitle;
+  final VoidCallback? onTap;
 
   SummaryMetric({
     required this.icon,
@@ -22,6 +23,7 @@ class SummaryMetric {
     required this.iconColor,
     required this.iconBackgroundColor,
     this.subtitle,
+    this.onTap,
   });
 }
 
@@ -44,8 +46,8 @@ class SummaryCardGrid extends StatelessWidget {
         childAspectRatio: Responsive.isMobile(context)
             ? 0.9
             : Responsive.isTablet(context)
-                ? 1.5
-                : 1.6,
+            ? 1.5
+            : 1.6,
       ),
       itemBuilder: (context, index) {
         return _buildCard(metrics[index]);
@@ -55,13 +57,21 @@ class SummaryCardGrid extends StatelessWidget {
 
   Widget _buildCard(SummaryMetric metric) {
     // Format the subtitle for AppStatsCard
+    final String growthText = metric.percentage == 0.0
+        ? ""
+        : metric.isPositive
+        ? "📈 +${metric.percentage}%"
+        : "📉 -${metric.percentage}%";
+
     final String subtitleText = metric.subtitle != null
-        ? metric.subtitle!
-        : metric.percentage == 0.0 
-            ? "" 
-            : metric.isPositive 
-                ? "📈 increased by ${metric.percentage}%" 
-                : "📉 decreased by ${metric.percentage}%";
+        ? (growthText.isEmpty
+              ? metric.subtitle!
+              : "${metric.subtitle!} $growthText")
+        : (growthText.isEmpty
+              ? ""
+              : (metric.isPositive
+                    ? "📈 increased by ${metric.percentage}%"
+                    : "📉 decreased by ${metric.percentage}%"));
 
     return AppStatsCard(
       title: metric.title,
@@ -70,6 +80,7 @@ class SummaryCardGrid extends StatelessWidget {
       icon: metric.icon,
       iconBackgroundColor: metric.iconBackgroundColor,
       iconColor: metric.iconColor,
+      onTap: metric.onTap,
     );
   }
 }

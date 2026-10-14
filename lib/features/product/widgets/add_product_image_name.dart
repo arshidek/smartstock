@@ -57,6 +57,10 @@ class AddProductImageName extends StatelessWidget {
                   const Text.rich(
                     TextSpan(
                       text: "Product Name ",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: AppColors.black,
+                      ),
                       children: [
                         TextSpan(
                           text: "*",

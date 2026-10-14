@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart' ;
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import '../../constants/app_sizes.dart';
@@ -221,7 +221,9 @@ class AppCardList extends StatelessWidget {
                           child: Text(
                             status!,
                             style: TextStyle(
-                              color: isOutOfStock ? AppColors.error : AppColors.warning,
+                              color: isOutOfStock
+                                  ? AppColors.error
+                                  : AppColors.warning,
                               fontWeight: FontWeight.bold,
                               fontSize: 12,
                             ),

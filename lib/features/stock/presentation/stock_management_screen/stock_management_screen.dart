@@ -28,6 +28,7 @@ class _StockManagementScreenState extends State<StockManagementScreen> {
   List<ProductModel> filteredLowStockProducts = [];
 
   int _filterCount = 0;
+  Map<String, dynamic>? activeFilters;
 
   @override
   void initState() {
@@ -76,6 +77,7 @@ class _StockManagementScreenState extends State<StockManagementScreen> {
     if (startDate != null || endDate != null) count++;
 
     setState(() {
+      activeFilters = result;
       _filterCount = count;
       filteredOutOfStockProducts = _productValidationHelper.filterProducts(
         products: outOfStockProducts,
@@ -121,6 +123,7 @@ class _StockManagementScreenState extends State<StockManagementScreen> {
         loadProducts: loadProducts,
         searchProducts: searchProducts,
         applyFilters: _applyFilters,
+        activeFilters: activeFilters,
       );
     }
 
@@ -132,6 +135,7 @@ class _StockManagementScreenState extends State<StockManagementScreen> {
       loadProducts: loadProducts,
       searchProducts: searchProducts,
       applyFilters: _applyFilters,
+      activeFilters: activeFilters,
     );
   }
 }

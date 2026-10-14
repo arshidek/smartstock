@@ -37,10 +37,21 @@ class _MobileBrandScreenState extends State<MobileBrandScreen> {
         backgroundColor: AppColors.appBarColor,
         elevation: 1,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: AppColors.black, size: AppSizes.size30),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: AppColors.black,
+            size: AppSizes.size30,
+          ),
           onPressed: () => AppNavigation.goBack(context),
         ),
-        title: const Text("Brands", style: TextStyle(color: AppColors.black, fontWeight: FontWeight.bold, fontSize: AppSizes.font24)),
+        title: const Text(
+          "Brands",
+          style: TextStyle(
+            color: AppColors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: AppSizes.font24,
+          ),
+        ),
       ),
       body: Container(
         decoration: const BoxDecoration(gradient: AppColors.background),
@@ -60,9 +71,21 @@ class _MobileBrandScreenState extends State<MobileBrandScreen> {
                 child: ValueListenableBuilder<Box<BrandModel>>(
                   valueListenable: BrandService().box.listenable(),
                   builder: (context, box, child) {
-                    final brands = box.values.toList()..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
-                    final searchBrands = _brandFunctions.searchBrands(brands: brands, query: _searchController.text);
-                    return BrandListView(brands: searchBrands, isTabletOrWeb: false, productService: _productService);
+                    final brands = box.values.toList()
+                      ..sort(
+                        (a, b) => a.name.toLowerCase().compareTo(
+                          b.name.toLowerCase(),
+                        ),
+                      );
+                    final searchBrands = _brandFunctions.searchBrands(
+                      brands: brands,
+                      query: _searchController.text,
+                    );
+                    return BrandListView(
+                      brands: searchBrands,
+                      isTabletOrWeb: false,
+                      productService: _productService,
+                    );
                   },
                 ),
               ),
@@ -72,7 +95,10 @@ class _MobileBrandScreenState extends State<MobileBrandScreen> {
                   text: "Add Brand",
                   icon: Icons.add,
                   onPressed: () async {
-                    await AppNavigation.showBottomSheet<bool>(context, const AddBrandBottomSheet());
+                    await AppNavigation.showBottomSheet<bool>(
+                      context,
+                      const AddBrandBottomSheet(),
+                    );
                   },
                   backgroundColor: AppColors.blue,
                   textColor: AppColors.white,

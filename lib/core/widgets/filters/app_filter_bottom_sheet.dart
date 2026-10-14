@@ -14,7 +14,13 @@ import 'components/filter_bottom_buttons.dart';
 
 class AppFilterBottomSheet extends StatefulWidget {
   final bool isSalesFilter;
-  const AppFilterBottomSheet({super.key, this.isSalesFilter = false});
+  final Map<String, dynamic>? initialFilters;
+
+  const AppFilterBottomSheet({
+    super.key,
+    this.isSalesFilter = false,
+    this.initialFilters,
+  });
 
   @override
   State<AppFilterBottomSheet> createState() => _AppFilterBottomSheetState();
@@ -44,6 +50,24 @@ class _AppFilterBottomSheetState extends State<AppFilterBottomSheet> {
   void initState() {
     super.initState();
     loadFilters();
+
+    if (widget.initialFilters != null) {
+      selectedSort = widget.initialFilters!['sort'];
+      stockStatus = widget.initialFilters!['stockStatus'];
+      startDate = widget.initialFilters!['uiStartDate'];
+      endDate = widget.initialFilters!['uiEndDate'];
+      selectedDateFilter = widget.initialFilters!['selectedDateFilter'] ?? "";
+
+      final initBrands = widget.initialFilters!['brands'] as List?;
+      if (initBrands != null) {
+        selectedBrands.addAll(initBrands.cast<String>());
+      }
+
+      final initCategories = widget.initialFilters!['categories'] as List?;
+      if (initCategories != null) {
+        selectedCategories.addAll(initCategories.cast<String>());
+      }
+    }
   }
 
   void loadFilters() {
@@ -55,18 +79,16 @@ class _AppFilterBottomSheetState extends State<AppFilterBottomSheet> {
   }
 
   void _resetFilters() {
-    setState(() {
-      selectedSort = null;
-      stockStatus = null;
-      selectedDateFilter = "";
-      startDate = null;
-      endDate = null;
-      selectedBrands.clear();
-      selectedCategories.clear();
-      categorySearchController.clear();
-      brandSearchController.clear();
-      filteredCategories = categories;
-      filteredBrands = brands;
+    Navigator.pop(context, {
+      "sort": null,
+      "stockStatus": null,
+      "brands": <String>[],
+      "categories": <String>[],
+      "startDate": null,
+      "endDate": null,
+      "selectedDateFilter": "",
+      "uiStartDate": null,
+      "uiEndDate": null,
     });
   }
 
@@ -90,6 +112,9 @@ class _AppFilterBottomSheetState extends State<AppFilterBottomSheet> {
       "categories": selectedCategories.toList(),
       "startDate": st,
       "endDate": en,
+      "selectedDateFilter": selectedDateFilter,
+      "uiStartDate": startDate,
+      "uiEndDate": endDate,
     });
   }
 

@@ -6,6 +6,7 @@ import '../../../../data/models/category_model.dart';
 import '../../../../data/models/product_model.dart';
 import '../../../../data/models/sale_item_model.dart';
 import '../../function/add_product_to_sale_functions.dart';
+import '../../../product/function/product_validation_helper.dart';
 import 'add_product_to_sale_screen.dart';
 
 mixin AddProductToSaleScreenStateMixin on State<AddProductToSaleScreen> {
@@ -16,12 +17,17 @@ mixin AddProductToSaleScreenStateMixin on State<AddProductToSaleScreen> {
   List<SaleItemModel> saleItems = [];
 
   final AddProductToSaleFunctions functions = AddProductToSaleFunctions();
+  final ProductValidationHelper validationHelper = ProductValidationHelper();
 
   BrandModel? selectedBrand;
   CategoryModel? selectedCategory;
   ProductModel? selectedProduct;
   int quantity = 0;
   double ratePerUnit = 0;
+
+  final TextEditingController searchController = TextEditingController();
+  Map<String, dynamic>? activeFilters;
+  int filterCount = 0;
 
   @override
   void initState() {
@@ -32,23 +38,70 @@ mixin AddProductToSaleScreenStateMixin on State<AddProductToSaleScreen> {
     categories = functions.loadCategories();
     products = functions.loadProducts();
 
-    if (brands.isNotEmpty) {
-      selectedBrand = brands.first;
-    }
-
-    if (categories.isNotEmpty) {
-      selectedCategory = categories.first;
-    }
+    // Leave selectedBrand and selectedCategory as null to default to "All"
 
     filterProducts();
   }
 
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
+
   void filterProducts() {
-    filteredProducts = functions.filterProducts(
-      products: products,
-      selectedBrand: selectedBrand,
-      selectedCategory: selectedCategory,
+    final query = searchController.text.trim().toLowerCase();
+
+    final filterBrands = List<String>.from(activeFilters?["brands"] ?? []);
+    if (selectedBrand != null && !filterBrands.contains(selectedBrand!.name)) {
+      filterBrands.add(selectedBrand!.name);
+    }
+
+    final filterCategories = List<String>.from(
+      activeFilters?["categories"] ?? [],
     );
+    if (selectedCategory != null &&
+        !filterCategories.contains(selectedCategory!.name)) {
+      filterCategories.add(selectedCategory!.name);
+    }
+
+    final stockStatus = activeFilters?["stockStatus"];
+    final sort = activeFilters?["sort"];
+    final startDate = activeFilters?["startDate"];
+    final endDate = activeFilters?["endDate"];
+
+    filteredProducts = validationHelper.filterProducts(
+      products: products,
+      search: query,
+      selectedBrands: filterBrands,
+      selectedCategories: filterCategories,
+      stockStatus: stockStatus,
+      sort: sort,
+      startDate: startDate,
+      endDate: endDate,
+    );
+  }
+
+  void applyFilters(Map<String, dynamic> result) {
+    final selectedBrands = List<String>.from(result["brands"] ?? []);
+    final selectedCategories = List<String>.from(result["categories"] ?? []);
+    final stockStatus = result["stockStatus"];
+    final sort = result["sort"];
+    final startDate = result["startDate"];
+    final endDate = result["endDate"];
+
+    int count = 0;
+    if (selectedBrands.isNotEmpty) count++;
+    if (selectedCategories.isNotEmpty) count++;
+    if (stockStatus != null) count++;
+    if (sort != null) count++;
+    if (startDate != null || endDate != null) count++;
+
+    setState(() {
+      activeFilters = result;
+      filterCount = count;
+      filterProducts();
+    });
   }
 
   void onAddToListPressed() {
@@ -79,12 +132,25 @@ mixin AddProductToSaleScreenStateMixin on State<AddProductToSaleScreen> {
       }
       saleItems[index].quantity += quantity;
     } else {
+      final brandName = brands
+          .firstWhere(
+            (b) => b.id == selectedProduct!.brandId,
+            orElse: () => BrandModel(id: '', name: 'Unknown'),
+          )
+          .name;
+      final categoryName = categories
+          .firstWhere(
+            (c) => c.id == selectedProduct!.categoryId,
+            orElse: () => CategoryModel(id: '', name: 'Unknown'),
+          )
+          .name;
+
       saleItems.add(
         SaleItemModel(
           productId: selectedProduct!.productId,
           productName: selectedProduct!.name,
-          brandName: selectedBrand!.name,
-          categoryName: selectedCategory!.name,
+          brandName: brandName,
+          categoryName: categoryName,
           imagePath: selectedProduct!.imagePath,
           purchasePrice: selectedProduct!.purchasePrice,
           sellingPrice: selectedProduct!.sellingPrice,

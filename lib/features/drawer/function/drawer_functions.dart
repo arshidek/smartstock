@@ -16,7 +16,10 @@ class DrawerFunctions {
   }
 
   static void navigateToStock(BuildContext context) {
-    AppNavigation.goToScreen(context, StockManagementScreen(stockType: StockType.lowStock));
+    AppNavigation.goToScreen(
+      context,
+      StockManagementScreen(stockType: StockType.lowStock),
+    );
   }
 
   static void navigateToProfile(BuildContext context) {
@@ -24,6 +27,6 @@ class DrawerFunctions {
   }
 
   static void navigateToSettings(BuildContext context) {
-    AppNavigation.goToScreen(context,  SettingsScreen());
+    AppNavigation.goToScreen(context, SettingsScreen());
   }
 }

@@ -36,6 +36,7 @@ class InventoryReportFunctions {
         isPositive: true,
         iconColor: AppColors.blue,
         iconBackgroundColor: AppColors.lightBlue,
+        subtitle: "Items in Inventory",
       ),
       SummaryMetric(
         icon: Icons.warning_amber_rounded,
@@ -45,6 +46,7 @@ class InventoryReportFunctions {
         isPositive: false,
         iconColor: AppColors.warning,
         iconBackgroundColor: AppColors.warning.withValues(alpha: 0.15),
+        subtitle: "Items Running Low",
       ),
       SummaryMetric(
         icon: Icons.block_outlined,
@@ -54,6 +56,7 @@ class InventoryReportFunctions {
         isPositive: false,
         iconColor: AppColors.error,
         iconBackgroundColor: AppColors.lightRed,
+        subtitle: "Needs Restocking",
       ),
       SummaryMetric(
         icon: Icons.local_offer_outlined,
@@ -63,6 +66,7 @@ class InventoryReportFunctions {
         isPositive: true,
         iconColor: AppColors.purple,
         iconBackgroundColor: AppColors.lightPurple,
+        subtitle: "Product Types",
       ),
     ];
   }

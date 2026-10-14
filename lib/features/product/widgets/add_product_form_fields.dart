@@ -77,7 +77,7 @@ class AddProductFormFields {
     required String? selectedBrandId,
     required ValueChanged<String?> onChanged,
   }) {
-    return AppCustomDropdown.dropdown<String>(
+    return AppCustomDropdown.searchable<String>(
       label: "Brand",
       icon: Icons.workspace_premium_outlined,
       value: selectedBrandId,
@@ -93,7 +93,7 @@ class AddProductFormFields {
     required String? selectedCategoryId,
     required ValueChanged<String?> onChanged,
   }) {
-    return AppCustomDropdown.dropdown<String>(
+    return AppCustomDropdown.searchable<String>(
       label: "Category",
       icon: Icons.local_offer_outlined,
       value: selectedCategoryId,

@@ -32,24 +32,26 @@ class ProductFilterDropdowns extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: AppCustomDropdown.dropdown<BrandModel>(
+            child: AppCustomDropdown.searchable<BrandModel>(
               label: "Brand",
               value: selectedBrand,
               items: brands,
               itemLabel: (b) => b.name,
               icon: Icons.workspace_premium_outlined,
               onChanged: onBrandChanged,
+              showClearOption: true,
             ),
           ),
           const SizedBox(width: AppSizes.size12),
           Expanded(
-            child: AppCustomDropdown.dropdown<CategoryModel>(
+            child: AppCustomDropdown.searchable<CategoryModel>(
               label: "Category",
               value: selectedCategory,
               items: categories,
               itemLabel: (c) => c.name,
               icon: Icons.local_offer_outlined,
               onChanged: onCategoryChanged,
+              showClearOption: true,
             ),
           ),
         ],

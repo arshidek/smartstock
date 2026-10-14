@@ -65,7 +65,9 @@ class AppStatsCard extends StatelessWidget {
                     height: AppSizes.size40,
                     decoration: BoxDecoration(
                       color: iconBackgroundColor,
-                      borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
+                      borderRadius: BorderRadius.circular(
+                        AppSizes.borderRadius16,
+                      ),
                     ),
                     child: Icon(icon, color: iconColor, size: AppSizes.size25),
                   ),

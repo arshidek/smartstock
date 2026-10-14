@@ -10,7 +10,6 @@ import '../../../widgets/add_product_action_buttons.dart';
 import '../../../widgets/add_product_image_name.dart';
 import '../../../widgets/add_product_pricing_inventory.dart';
 
-
 class WebAddProductScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final List<File> images;
@@ -69,7 +68,6 @@ class WebAddProductScreen extends StatelessWidget {
       decoration: BoxDecoration(gradient: AppColors.background),
       child: SafeArea(
         child: SingleChildScrollView(
-
           child: Form(
             key: formKey,
             child: AppCardWidget(

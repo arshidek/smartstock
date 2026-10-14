@@ -71,7 +71,9 @@ class _WebCreateScreenState extends State<WebCreateScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SizedBox(
-                          width: isSmallTablet ? AppSizes.size360 : AppSizes.size450,
+                          width: isSmallTablet
+                              ? AppSizes.size360
+                              : AppSizes.size450,
                           child: AppCardWidget(
                             margin: EdgeInsets.zero,
                             child: _buildForm(context),
@@ -131,7 +133,11 @@ class _WebCreateScreenState extends State<WebCreateScreen> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Icon(icon, color: AppColors.blue, size: isSmallTablet ? AppSizes.size20 : AppSizes.size28),
+          Icon(
+            icon,
+            color: AppColors.blue,
+            size: isSmallTablet ? AppSizes.size20 : AppSizes.size28,
+          ),
           const SizedBox(width: AppSizes.size15),
           Flexible(
             child: Text(

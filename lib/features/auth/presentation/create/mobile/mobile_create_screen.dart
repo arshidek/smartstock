@@ -53,7 +53,9 @@ class _MobileCreateScreenState extends State<MobileCreateScreen> {
                   const AppLogoWidget(),
                   const SizedBox(height: AppSizes.size30),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: AppSizes.size24),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: AppSizes.size24,
+                    ),
                     child: AppCardWidget(
                       margin: EdgeInsets.zero,
                       child: _buildForm(context),

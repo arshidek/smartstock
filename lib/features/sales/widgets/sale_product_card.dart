@@ -53,28 +53,34 @@ class SaleProductCard extends StatelessWidget {
         statusColor = AppColors.success;
     }
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: AppSizes.padding16,
-        vertical: AppSizes.size10,
-      ),
+    return Material(
+      color: Colors.transparent,
+      borderRadius: BorderRadius.circular(AppSizes.borderRadius20),
       child: InkWell(
-        borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
+        borderRadius: BorderRadius.circular(AppSizes.borderRadius20),
         onTap: onTap,
         child: Container(
           padding: const EdgeInsets.all(AppSizes.padding16),
           decoration: BoxDecoration(
             color: AppColors.white,
-            borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
+            borderRadius: BorderRadius.circular(AppSizes.borderRadius20),
             border: Border.all(
-              color: isSelected ? AppColors.blue : AppColors.lightGrey,
+              color: isSelected
+                  ? AppColors.blue
+                  : AppColors.blue.withValues(alpha: 0.08),
               width: isSelected ? 2 : 1,
             ),
             boxShadow: [
               BoxShadow(
-                color: AppColors.black.withOpacity(.06),
-                blurRadius: 8,
-                offset: const Offset(0, 4),
+                color: AppColors.black.withValues(alpha: 0.08),
+                blurRadius: AppSizes.blurRadius,
+                spreadRadius: 1,
+                offset: const Offset(0, 8),
+              ),
+              BoxShadow(
+                color: AppColors.blueShadow,
+                blurRadius: AppSizes.borderRadius12,
+                offset: const Offset(0, 6),
               ),
             ],
           ),

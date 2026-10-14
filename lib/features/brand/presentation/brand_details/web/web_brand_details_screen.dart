@@ -46,43 +46,43 @@ class _WebBrandDetailsScreenState extends State<WebBrandDetailsScreen> {
         onRefresh: () => setState(() => _loadProducts()),
       ),
       body: Container(
-        width: double.infinity, height: double.infinity,
+        width: double.infinity,
+        height: double.infinity,
         decoration: const BoxDecoration(gradient: AppColors.background),
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(AppSizes.padding25),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
-                flex: 1,
-                child: AppCardWidget(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BrandDescriptionSection(
-                        brand: widget.brand,
-                        isReadMoreExpanded: _isReadMoreExpanded,
-                        onReadMore: () => setState(() => _isReadMoreExpanded = !_isReadMoreExpanded),
+              AppCardWidget(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    BrandDescriptionSection(
+                      brand: widget.brand,
+                      isReadMoreExpanded: _isReadMoreExpanded,
+                      onReadMore: () => setState(
+                        () => _isReadMoreExpanded = !_isReadMoreExpanded,
                       ),
-                      const SizedBox(height: AppSizes.size20),
-                      BrandSummaryCards(
-                        brandName: widget.brand.name,
-                        productsCount: _products.length,
-                      ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: AppSizes.size20),
+                    BrandSummaryCards(
+                      brandName: widget.brand.name,
+                      productsCount: _products.length,
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(width: AppSizes.size24),
-              Expanded(
-                flex: 2,
-                child: BrandProductsSection(
-                  products: _products,
-                  onTap: (product) async {
-                    final result = await AppNavigation.goToScreen(context, ProductDetailScreen(product: product));
-                    if (result == true) setState(() => _loadProducts());
-                  },
-                ),
+              const SizedBox(height: AppSizes.size24),
+              BrandProductsSection(
+                products: _products,
+                onTap: (product) async {
+                  final result = await AppNavigation.goToScreen(
+                    context,
+                    ProductDetailScreen(product: product),
+                  );
+                  if (result == true) setState(() => _loadProducts());
+                },
               ),
             ],
           ),

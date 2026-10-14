@@ -81,7 +81,7 @@ class DashboardFunctions {
 
     final recentProducts = List<ProductModel>.from(products)
       ..sort((a, b) => b.createdAt.compareTo(a.createdAt));
-    final topRecent = recentProducts.take(6).toList();
+    final topRecent = recentProducts.take(5).toList();
 
     return DashboardData(
       currentInvValue: currentInvValue,

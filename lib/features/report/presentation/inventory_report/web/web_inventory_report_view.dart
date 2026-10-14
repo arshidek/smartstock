@@ -62,6 +62,7 @@ class WebInventoryReportView extends StatelessWidget {
                   title: "Top Low Stock Products",
                   items: functions
                       .getTopLowStockProducts()
+                      .take(5)
                       .map((p) => ReportUiHelpers.mapLowStock(p, context))
                       .toList(),
                   onViewAll: () {

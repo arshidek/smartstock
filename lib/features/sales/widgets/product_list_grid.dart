@@ -47,18 +47,30 @@ class ProductListGrid extends StatelessWidget {
     }
 
     return Responsive.isMobile(context)
-        ? ListView.builder(
+        ? ListView.separated(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSizes.padding16,
+              vertical: AppSizes.padding8,
+            ),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: filteredProducts.length,
+            separatorBuilder: (context, index) =>
+                const SizedBox(height: AppSizes.size8),
             itemBuilder: (context, index) => buildProductCard(index),
           )
         : GridView.builder(
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppSizes.padding16,
+              vertical: AppSizes.padding8,
+            ),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               mainAxisExtent: 150,
+              mainAxisSpacing: AppSizes.size8,
+              crossAxisSpacing: AppSizes.size8,
             ),
             itemCount: filteredProducts.length,
             itemBuilder: (context, index) => buildProductCard(index),

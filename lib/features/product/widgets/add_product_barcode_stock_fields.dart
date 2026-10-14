@@ -7,7 +7,7 @@ import '../../../core/widgets/textfields/app_custom_text_field.dart';
 
 class StockQuantitySelector extends StatefulWidget {
   final TextEditingController controller;
-  
+
   const StockQuantitySelector({super.key, required this.controller});
 
   @override
@@ -92,7 +92,11 @@ class _StockQuantitySelectorState extends State<StockQuantitySelector> {
             children: [
               IconButton(
                 onPressed: _decrement,
-                icon: const Icon(Icons.remove_circle, color: AppColors.blue, size: 28),
+                icon: const Icon(
+                  Icons.remove_circle,
+                  color: AppColors.blue,
+                  size: 28,
+                ),
               ),
               Expanded(
                 child: TextFormField(
@@ -118,7 +122,11 @@ class _StockQuantitySelectorState extends State<StockQuantitySelector> {
               ),
               IconButton(
                 onPressed: _increment,
-                icon: const Icon(Icons.add_circle, color: AppColors.blue, size: 28),
+                icon: const Icon(
+                  Icons.add_circle,
+                  color: AppColors.blue,
+                  size: 28,
+                ),
               ),
             ],
           ),
@@ -130,7 +138,33 @@ class _StockQuantitySelectorState extends State<StockQuantitySelector> {
 
 class AddProductBarcodeStockFields {
   static Widget buildStockField({required TextEditingController controller}) {
-    return StockQuantitySelector(controller: controller);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Text.rich(
+          TextSpan(
+            text: "Stock Quantity ",
+            children: [
+              TextSpan(
+                text: "*",
+                style: TextStyle(color: AppColors.error),
+              ),
+            ],
+          ),
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
+        const SizedBox(height: AppSizes.size7),
+        AppCustomTextField.textField(
+          controller: controller,
+          label: "Stock Quantity",
+          hint: "Enter Stock",
+          icon: Icons.inventory_2_outlined,
+          keyboardType: TextInputType.number,
+          textInputAction: TextInputAction.next,
+          validator: Validator.validateStock,
+        ),
+      ],
+    );
   }
 
   static Widget buildBarcodeField({

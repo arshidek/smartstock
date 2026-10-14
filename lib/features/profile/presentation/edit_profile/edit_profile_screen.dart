@@ -74,25 +74,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           style: TextStyle(color: AppColors.black, fontWeight: FontWeight.bold),
         ),
       ),
-      body: kIsWeb ? WebEditProfileScreen(
-        currentUser: currentUser!,
-        formKey: _formKey,
-        nameController: _nameController,
-        emailController: _emailController,
-        phoneController: _phoneController,
-        shopController: _shopController,
-        onPickImage: _handlePickImage,
-        onSave: _handleSave,
-      ) : MobileEditProfileScreen(
-        currentUser: currentUser!,
-        formKey: _formKey,
-        nameController: _nameController,
-        emailController: _emailController,
-        phoneController: _phoneController,
-        shopController: _shopController,
-        onPickImage: _handlePickImage,
-        onSave: _handleSave,
-      ),
+      body: kIsWeb
+          ? WebEditProfileScreen(
+              currentUser: currentUser!,
+              formKey: _formKey,
+              nameController: _nameController,
+              emailController: _emailController,
+              phoneController: _phoneController,
+              shopController: _shopController,
+              onPickImage: _handlePickImage,
+              onSave: _handleSave,
+            )
+          : MobileEditProfileScreen(
+              currentUser: currentUser!,
+              formKey: _formKey,
+              nameController: _nameController,
+              emailController: _emailController,
+              phoneController: _phoneController,
+              shopController: _shopController,
+              onPickImage: _handlePickImage,
+              onSave: _handleSave,
+            ),
     );
   }
 

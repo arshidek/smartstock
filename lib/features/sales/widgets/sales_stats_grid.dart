@@ -29,8 +29,8 @@ class SalesStatsGrid extends StatelessWidget {
       childAspectRatio: Responsive.isMobile(context)
           ? 0.9
           : Responsive.isTablet(context)
-              ? 1.5
-              : 1.6,
+          ? 1.5
+          : 1.6,
       children: [
         AppStatsCard(
           title: "TOTAL SALES",

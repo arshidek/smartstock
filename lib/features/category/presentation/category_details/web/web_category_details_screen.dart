@@ -52,44 +52,38 @@ class _WebCategoryDetailsScreenState extends State<WebCategoryDetailsScreen> {
         decoration: const BoxDecoration(gradient: AppColors.background),
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(AppSizes.padding25),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
-                flex: 1,
-                child: AppCardWidget(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CategoryDescriptionSection(
-                        category: widget.category,
-                        isReadMoreExpanded: _isReadMoreExpanded,
-                        onReadMore: () => setState(
-                          () => _isReadMoreExpanded = !_isReadMoreExpanded,
-                        ),
+              AppCardWidget(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CategoryDescriptionSection(
+                      category: widget.category,
+                      isReadMoreExpanded: _isReadMoreExpanded,
+                      onReadMore: () => setState(
+                        () => _isReadMoreExpanded = !_isReadMoreExpanded,
                       ),
-                      const SizedBox(height: AppSizes.size20),
-                      CategorySummaryCards(
-                        categoryName: widget.category.name,
-                        productsCount: _products.length,
-                      ),
-                    ],
-                  ),
+                    ),
+                    const SizedBox(height: AppSizes.size20),
+                    CategorySummaryCards(
+                      categoryName: widget.category.name,
+                      productsCount: _products.length,
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(width: AppSizes.size24),
-              Expanded(
-                flex: 2,
-                child: CategoryProductsSection(
-                  products: _products,
-                  onTap: (product) async {
-                    final result = await AppNavigation.goToScreen(
-                      context,
-                      ProductDetailScreen(product: product),
-                    );
-                    if (result == true) setState(() => _loadProducts());
-                  },
-                ),
+              const SizedBox(height: AppSizes.size24),
+              CategoryProductsSection(
+                products: _products,
+                onTap: (product) async {
+                  final result = await AppNavigation.goToScreen(
+                    context,
+                    ProductDetailScreen(product: product),
+                  );
+                  if (result == true) setState(() => _loadProducts());
+                },
               ),
             ],
           ),

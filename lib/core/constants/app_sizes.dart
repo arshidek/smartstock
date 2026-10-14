@@ -1,5 +1,3 @@
-
-
 class AppSizes {
   // logo
   static const double logoSize = 120;
@@ -82,7 +80,7 @@ class AppSizes {
   static const double margin5 = 5;
   static const double padding8 = 8.0;
   static const double padding10 = 10.0;
-  static const double padding12= 12.0;
+  static const double padding12 = 12.0;
   static const double padding16 = 16.0;
   static const double padding20 = 20.0;
   static const double padding25 = 25.0;

@@ -57,6 +57,7 @@ class RevenueReportFunctions {
         isPositive: revGrow >= 0,
         iconColor: AppColors.purple,
         iconBackgroundColor: AppColors.lightPurple,
+        subtitle: "Total Revenue",
       ),
       SummaryMetric(
         icon: Icons.shopping_bag_outlined,
@@ -66,6 +67,7 @@ class RevenueReportFunctions {
         isPositive: ordGrow >= 0,
         iconColor: AppColors.darkGreen,
         iconBackgroundColor: AppColors.lightDarkGreen,
+        subtitle: "Completed Orders",
       ),
       SummaryMetric(
         icon: Icons.receipt_long_outlined,
@@ -75,6 +77,7 @@ class RevenueReportFunctions {
         isPositive: avgGrow >= 0,
         iconColor: AppColors.warning,
         iconBackgroundColor: AppColors.lightWarning,
+        subtitle: "Per Order",
       ),
       SummaryMetric(
         icon: Icons.account_balance_wallet_outlined,
@@ -84,6 +87,7 @@ class RevenueReportFunctions {
         isPositive: profGrow >= 0,
         iconColor: AppColors.success,
         iconBackgroundColor: AppColors.success.withValues(alpha: 0.2),
+        subtitle: "Overall Profit",
       ),
     ];
   }

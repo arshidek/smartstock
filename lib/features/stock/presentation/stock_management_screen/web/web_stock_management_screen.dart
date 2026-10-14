@@ -17,6 +17,7 @@ class WebStockManagementScreen extends StatelessWidget {
   final VoidCallback loadProducts;
   final ValueChanged<String> searchProducts;
   final ValueChanged<Map<String, dynamic>> applyFilters;
+  final Map<String, dynamic>? activeFilters;
 
   const WebStockManagementScreen({
     super.key,
@@ -27,6 +28,7 @@ class WebStockManagementScreen extends StatelessWidget {
     required this.loadProducts,
     required this.searchProducts,
     required this.applyFilters,
+    this.activeFilters,
   });
 
   @override
@@ -73,10 +75,13 @@ class WebStockManagementScreen extends StatelessWidget {
                     onFilterTap: () async {
                       final result = await showDialog<Map<String, dynamic>>(
                         context: context,
-                        builder: (_) => const Dialog(
+                        builder: (_) => Dialog(
                           child: SizedBox(
                             width: 400,
-                            child: AppFilterBottomSheet(isSalesFilter: false),
+                            child: AppFilterBottomSheet(
+                              isSalesFilter: false,
+                              initialFilters: activeFilters,
+                            ),
                           ),
                         ),
                       );

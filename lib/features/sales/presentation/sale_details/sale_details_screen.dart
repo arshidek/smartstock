@@ -4,7 +4,6 @@ import 'mobile/mobile_sale_details_screen.dart';
 import 'web/web_sale_details_screen.dart';
 import '../../../../data/models/sale_model.dart';
 
-
 class SaleDetailsScreen extends StatefulWidget {
   final SaleModel sale;
   const SaleDetailsScreen({super.key, required this.sale});
@@ -22,4 +21,3 @@ class _SaleDetailsScreenState extends State<SaleDetailsScreen> {
         : WebSaleDetailsScreen(sale: sale);
   }
 }
-

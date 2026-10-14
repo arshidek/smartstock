@@ -18,7 +18,8 @@ class MobileBrandDetailsScreen extends StatefulWidget {
   const MobileBrandDetailsScreen({super.key, required this.brand});
 
   @override
-  State<MobileBrandDetailsScreen> createState() => _MobileBrandDetailsScreenState();
+  State<MobileBrandDetailsScreen> createState() =>
+      _MobileBrandDetailsScreenState();
 }
 
 class _MobileBrandDetailsScreenState extends State<MobileBrandDetailsScreen> {
@@ -46,7 +47,8 @@ class _MobileBrandDetailsScreenState extends State<MobileBrandDetailsScreen> {
         onRefresh: () => setState(() => _loadProducts()),
       ),
       body: Container(
-        width: double.infinity, height: double.infinity,
+        width: double.infinity,
+        height: double.infinity,
         decoration: const BoxDecoration(gradient: AppColors.background),
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(vertical: AppSizes.size10),
@@ -60,7 +62,9 @@ class _MobileBrandDetailsScreenState extends State<MobileBrandDetailsScreen> {
                     BrandDescriptionSection(
                       brand: widget.brand,
                       isReadMoreExpanded: _isReadMoreExpanded,
-                      onReadMore: () => setState(() => _isReadMoreExpanded = !_isReadMoreExpanded),
+                      onReadMore: () => setState(
+                        () => _isReadMoreExpanded = !_isReadMoreExpanded,
+                      ),
                     ),
                     const SizedBox(height: AppSizes.size20),
                     BrandSummaryCards(
@@ -74,7 +78,10 @@ class _MobileBrandDetailsScreenState extends State<MobileBrandDetailsScreen> {
               BrandProductsSection(
                 products: _products,
                 onTap: (product) async {
-                  final result = await AppNavigation.goToScreen(context, ProductDetailScreen(product: product));
+                  final result = await AppNavigation.goToScreen(
+                    context,
+                    ProductDetailScreen(product: product),
+                  );
                   if (result == true) setState(() => _loadProducts());
                 },
               ),

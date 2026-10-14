@@ -111,7 +111,9 @@ class DashboardRecentProducts extends StatelessWidget {
                     stock: p.stock,
                     stockStatus: p.stockStatus,
                     stockColor: p.stockColor,
-                    imagePath: p.allImages.isNotEmpty ? p.allImages.first : null,
+                    imagePath: p.allImages.isNotEmpty
+                        ? p.allImages.first
+                        : null,
                     margin: EdgeInsets.zero,
                     onTap: () {
                       AppNavigation.goToScreen(

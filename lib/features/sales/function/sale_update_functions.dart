@@ -62,7 +62,9 @@ class SaleUpdateFunctions {
 
       // Revert old stock
       for (var oldItem in existingSale.items) {
-        ProductModel? product = productService.getProductByProductId(oldItem.productId);
+        ProductModel? product = productService.getProductByProductId(
+          oldItem.productId,
+        );
         if (product != null) {
           product.stock += oldItem.quantity;
           await productService.updateProduct(product);
@@ -71,7 +73,9 @@ class SaleUpdateFunctions {
 
       // Apply new stock
       for (var newItem in newCartItems) {
-        ProductModel? product = productService.getProductByProductId(newItem.productId);
+        ProductModel? product = productService.getProductByProductId(
+          newItem.productId,
+        );
         if (product != null) {
           product.stock -= newItem.quantity;
           if (product.stock < 0) {

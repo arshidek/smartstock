@@ -22,6 +22,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
   final ProductListState _state = ProductListState();
 
   int _filterCount = 0;
+  Map<String, dynamic>? activeFilters;
 
   @override
   void initState() {
@@ -102,10 +103,11 @@ class _ProductListScreenState extends State<ProductListScreen> {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (_) => const AppFilterBottomSheet(),
+      builder: (_) => AppFilterBottomSheet(initialFilters: activeFilters),
     );
 
     if (result != null) {
+      activeFilters = result;
       _applyFilters(result);
     }
   }
@@ -128,19 +130,21 @@ class _ProductListScreenState extends State<ProductListScreen> {
 
       appBar: const ProductListAppBar(),
 
-      body: kIsWeb ? WebProductListScreen(
-        state: _state,
-        filterCount: _filterCount,
-        onSearch: _searchProducts,
-        onFilterTap: _openFilters,
-        onRefresh: _loadProducts,
-      ) : MobileProductListScreen(
-        state: _state,
-        filterCount: _filterCount,
-        onSearch: _searchProducts,
-        onFilterTap: _openFilters,
-        onRefresh: _loadProducts,
-      ),
+      body: kIsWeb
+          ? WebProductListScreen(
+              state: _state,
+              filterCount: _filterCount,
+              onSearch: _searchProducts,
+              onFilterTap: _openFilters,
+              onRefresh: _loadProducts,
+            )
+          : MobileProductListScreen(
+              state: _state,
+              filterCount: _filterCount,
+              onSearch: _searchProducts,
+              onFilterTap: _openFilters,
+              onRefresh: _loadProducts,
+            ),
 
       // Add Product
       floatingActionButton: FloatingActionButton(

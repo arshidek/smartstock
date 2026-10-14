@@ -17,6 +17,7 @@ class MobileStockManagementScreen extends StatelessWidget {
   final VoidCallback loadProducts;
   final ValueChanged<String> searchProducts;
   final ValueChanged<Map<String, dynamic>> applyFilters;
+  final Map<String, dynamic>? activeFilters;
 
   const MobileStockManagementScreen({
     super.key,
@@ -27,6 +28,7 @@ class MobileStockManagementScreen extends StatelessWidget {
     required this.loadProducts,
     required this.searchProducts,
     required this.applyFilters,
+    this.activeFilters,
   });
 
   @override
@@ -73,8 +75,10 @@ class MobileStockManagementScreen extends StatelessWidget {
                         context: context,
                         isScrollControlled: true,
                         backgroundColor: Colors.transparent,
-                        builder: (_) =>
-                            const AppFilterBottomSheet(isSalesFilter: false),
+                        builder: (_) => AppFilterBottomSheet(
+                          isSalesFilter: false,
+                          initialFilters: activeFilters,
+                        ),
                       );
 
                   if (result != null) {

@@ -6,6 +6,7 @@ import 'package:smartstock_inventory/core/constants/app_sizes.dart';
 import 'package:smartstock_inventory/core/services/category_service.dart';
 import 'package:smartstock_inventory/core/services/product_service.dart';
 import 'package:smartstock_inventory/core/widgets/search/app_search_bar.dart';
+import 'package:smartstock_inventory/core/responsive/responsive.dart';
 import 'package:smartstock_inventory/data/models/category_model.dart';
 import 'package:smartstock_inventory/features/category/function/category_functions.dart';
 import 'package:smartstock_inventory/features/category/presentation/add_category/add_category_bottom_sheet.dart';
@@ -52,7 +53,7 @@ class _WebCategoryScreenState extends State<WebCategoryScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                width: 400,
+                width: double.infinity,
                 child: AppSearchBar(
                   controller: _searchController,
                   hintText: "Search Categories...",

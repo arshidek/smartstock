@@ -27,7 +27,7 @@ class AppBottomNavigationBar extends StatelessWidget {
         targetScreen = const ReportScreen();
         break;
       case 3:
-        targetScreen =  SettingsScreen();
+        targetScreen = SettingsScreen();
         break;
       default:
         targetScreen = const DashboardScreen();
@@ -64,25 +64,21 @@ class AppBottomNavigationBar extends StatelessWidget {
           icon: _buildIcon(
             Icons.home_outlined,
             AppColors.blue,
-            AppColors.lightBlue,
+            Colors.transparent,
           ),
-          activeIcon: _buildIcon(
-            Icons.home,
-            AppColors.blue,
-            AppColors.lightBlue,
-          ),
+          activeIcon: _buildIcon(Icons.home, AppColors.white, AppColors.blue),
           label: "Dashboard",
         ),
         BottomNavigationBarItem(
           icon: _buildIcon(
             Icons.shopping_cart_outlined,
             AppColors.darkGreen,
-            AppColors.lightDarkGreen,
+            Colors.transparent,
           ),
           activeIcon: _buildIcon(
             Icons.shopping_cart,
+            AppColors.white,
             AppColors.darkGreen,
-            AppColors.lightDarkGreen,
           ),
           label: "Sales",
         ),
@@ -90,12 +86,12 @@ class AppBottomNavigationBar extends StatelessWidget {
           icon: _buildIcon(
             Icons.bar_chart_outlined,
             AppColors.warning,
-            AppColors.lightWarning,
+            Colors.transparent,
           ),
           activeIcon: _buildIcon(
             Icons.bar_chart,
+            AppColors.white,
             AppColors.warning,
-            AppColors.lightWarning,
           ),
           label: "Reports",
         ),
@@ -103,12 +99,12 @@ class AppBottomNavigationBar extends StatelessWidget {
           icon: _buildIcon(
             Icons.settings_outlined,
             AppColors.lightBlack,
-            AppColors.lightGrey.withOpacity(0.2),
+            Colors.transparent,
           ),
           activeIcon: _buildIcon(
             Icons.settings,
+            AppColors.white,
             AppColors.lightBlack,
-            AppColors.lightGrey.withOpacity(0.2),
           ),
           label: "Settings",
         ),

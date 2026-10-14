@@ -138,6 +138,6 @@ class ProductDetailInfoCard extends StatelessWidget {
           ),
         ),
       ],
-     );
+    );
   }
 }

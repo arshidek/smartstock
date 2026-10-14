@@ -115,98 +115,153 @@ class TrendBarChart extends StatelessWidget {
           const SizedBox(height: AppSizes.padding20),
           SizedBox(
             height: 280,
-            child: BarChart(
-              BarChartData(
-                alignment: BarChartAlignment.spaceAround,
-                maxY: maxValue * 1.2, // Add some headroom
-                barTouchData: BarTouchData(
-                  enabled: true,
-                  touchTooltipData: BarTouchTooltipData(
-                    getTooltipColor: (group) => AppColors.black,
-                    tooltipPadding: const EdgeInsets.all(AppSizes.padding8),
-                    tooltipMargin: AppSizes.padding8,
-                    getTooltipItem: (group, groupIndex, rod, rodIndex) {
-                      return BarTooltipItem(
-                        '₹${rod.toY.toStringAsFixed(0)}',
-                        TextStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: AppSizes.font14,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                titlesData: FlTitlesData(
-                  show: true,
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget: (value, meta) {
-                        final index = value.toInt();
-                        if (index < 0 || index >= data.length)
-                          return const SizedBox.shrink();
-
-                        return Padding(
-                          padding: const EdgeInsets.only(
-                            top: AppSizes.padding8,
-                          ),
-                          child: Text(
-                            data[index].label,
-                            style: const TextStyle(
-                              color: AppColors.grey,
-                              fontSize: AppSizes.font12,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        );
-                      },
-                      reservedSize: 28,
+            child: Stack(
+              children: [
+                // Custom Background Grid Lanes
+                Container(
+                  decoration: BoxDecoration(
+                    color: AppColors.grey.withValues(alpha: 0.1),
+                    border: Border(
+                      left: BorderSide(
+                        color: AppColors.grey.withValues(alpha: 0.2),
+                        width: 1,
+                      ),
+                      right: BorderSide(
+                        color: AppColors.grey.withValues(alpha: 0.2),
+                        width: 1,
+                      ),
+                      top: BorderSide(
+                        color: AppColors.grey.withValues(alpha: 0.2),
+                        width: 1,
+                      ),
+                      bottom: BorderSide(
+                        color: AppColors.grey.withValues(alpha: 0.2),
+                        width: 1,
+                      ),
                     ),
                   ),
-                  leftTitles: const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-                  topTitles: const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-                  rightTitles: const AxisTitles(
-                    sideTitles: SideTitles(showTitles: false),
-                  ),
-                ),
-                gridData: const FlGridData(show: false),
-                borderData: FlBorderData(show: false),
-                barGroups: data.asMap().entries.map((entry) {
-                  final index = entry.key;
-                  final point = entry.value;
-
-                  return BarChartGroupData(
-                    x: index,
-                    barRods: [
-                      BarChartRodData(
-                        toY: point.value,
-                        width: 45,
-                        color: highlightBarColor.withValues(
-                          alpha:
-                              0.2 +
-                              (index /
-                                      (data.length > 1 ? data.length - 1 : 1)) *
-                                  0.8,
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(6),
-                          topRight: Radius.circular(6),
-                        ),
-                        backDrawRodData: BackgroundBarChartRodData(
-                          show: true,
-                          toY: maxValue * 1.2,
-                          color: AppColors.appBarColor,
+                  child: Row(
+                    children: List.generate(
+                      data.length,
+                      (index) => Expanded(
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: index < data.length - 1
+                                ? Border(
+                                    right: BorderSide(
+                                      color: AppColors.grey.withValues(
+                                        alpha: 0.2,
+                                      ),
+                                      width: 1,
+                                    ),
+                                  )
+                                : null,
+                          ),
                         ),
                       ),
-                    ],
-                  );
-                }).toList(),
-              ),
+                    ),
+                  ),
+                ),
+                // The Chart
+                BarChart(
+                  BarChartData(
+                    alignment: BarChartAlignment.spaceAround,
+                    maxY: maxValue * 1.2, // Add some headroom
+                    barTouchData: BarTouchData(
+                      enabled: true,
+                      touchTooltipData: BarTouchTooltipData(
+                        getTooltipColor: (group) => AppColors.black,
+                        tooltipPadding: const EdgeInsets.all(AppSizes.padding8),
+                        tooltipMargin: AppSizes.padding8,
+                        getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                          return BarTooltipItem(
+                            '₹${rod.toY.toStringAsFixed(0)}',
+                            TextStyle(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: AppSizes.font14,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    titlesData: FlTitlesData(
+                      show: true,
+                      bottomTitles: AxisTitles(
+                        sideTitles: SideTitles(
+                          showTitles: true,
+                          getTitlesWidget: (value, meta) {
+                            final index = value.toInt();
+                            if (index < 0 || index >= data.length)
+                              return const SizedBox.shrink();
+
+                            return Padding(
+                              padding: const EdgeInsets.only(
+                                top: AppSizes.padding8,
+                              ),
+                              child: Text(
+                                data[index].label,
+                                style: const TextStyle(
+                                  color: AppColors.grey,
+                                  fontSize: AppSizes.font12,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            );
+                          },
+                          reservedSize: 28,
+                        ),
+                      ),
+                      leftTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      topTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                      rightTitles: const AxisTitles(
+                        sideTitles: SideTitles(showTitles: false),
+                      ),
+                    ),
+                    gridData: const FlGridData(show: false),
+                    borderData: FlBorderData(
+                      show: true,
+                      border: Border(
+                        bottom: BorderSide(
+                          color: AppColors.grey.withValues(alpha: 0.3),
+                          width: 1,
+                        ),
+                      ),
+                    ),
+                    barGroups: data.asMap().entries.map((entry) {
+                      final index = entry.key;
+                      final point = entry.value;
+
+                      return BarChartGroupData(
+                        x: index,
+                        barRods: [
+                          BarChartRodData(
+                            toY: point.value,
+                            width: 45,
+                            color: highlightBarColor.withValues(
+                              alpha:
+                                  0.2 +
+                                  (index /
+                                          (data.length > 1
+                                              ? data.length - 1
+                                              : 1)) *
+                                      0.8,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(6),
+                              topRight: Radius.circular(6),
+                            ),
+                          ),
+                        ],
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

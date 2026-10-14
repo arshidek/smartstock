@@ -27,8 +27,9 @@ class ReportTabs extends StatelessWidget {
               text: "Inventory",
               icon: Icons.widgets_outlined,
               onPressed: () => onTabChanged(0),
-              backgroundColor:
-                  selectedIndex == 0 ? AppColors.blue : AppColors.white,
+              backgroundColor: selectedIndex == 0
+                  ? AppColors.blue
+                  : AppColors.white,
               textColor: selectedIndex == 0 ? AppColors.white : AppColors.black,
               iconColor: selectedIndex == 0 ? AppColors.white : AppColors.black,
             ),
@@ -39,8 +40,9 @@ class ReportTabs extends StatelessWidget {
               text: "Revenue",
               icon: Icons.payments_outlined,
               onPressed: () => onTabChanged(1),
-              backgroundColor:
-                  selectedIndex == 1 ? AppColors.success : AppColors.white,
+              backgroundColor: selectedIndex == 1
+                  ? AppColors.success
+                  : AppColors.white,
               textColor: selectedIndex == 1 ? AppColors.white : AppColors.black,
               iconColor: selectedIndex == 1 ? AppColors.white : AppColors.black,
             ),

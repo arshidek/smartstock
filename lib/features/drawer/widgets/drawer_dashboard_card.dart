@@ -13,7 +13,6 @@ class DrawerDashboardCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final cardContent = Container(
       decoration: BoxDecoration(
-        color: AppColors.white.withOpacity(0.9),
         borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
         boxShadow: [
           BoxShadow(
@@ -23,22 +22,44 @@ class DrawerDashboardCard extends StatelessWidget {
           ),
         ],
       ),
-      child: isCollapsed
-          ? InkWell(
-              onTap: () => AppNavigation.goToScreenAndRemoveAll(
-                context,
-                const DashboardScreen(),
-              ),
-              borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: AppSizes.padding12,
+      child: Material(
+        color: AppColors.white.withOpacity(0.9),
+        borderRadius: BorderRadius.circular(AppSizes.borderRadius16),
+        clipBehavior: Clip.antiAlias,
+        child: isCollapsed
+            ? InkWell(
+                onTap: () => AppNavigation.goToScreenAndRemoveAll(
+                  context,
+                  const DashboardScreen(),
                 ),
-                child: Container(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: AppSizes.padding12,
+                  ),
+                  child: Container(
+                    padding: const EdgeInsets.all(AppSizes.padding8),
+                    decoration: BoxDecoration(
+                      color: AppColors.glassIconBackground,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      Icons.home,
+                      color: AppColors.blue,
+                      size: AppSizes.size24,
+                    ),
+                  ),
+                ),
+              )
+            : ListTile(
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: AppSizes.padding16,
+                  vertical: 4,
+                ),
+                leading: Container(
                   padding: const EdgeInsets.all(AppSizes.padding8),
                   decoration: BoxDecoration(
                     color: AppColors.glassIconBackground,
-                    shape: BoxShape.circle,
+                    borderRadius: BorderRadius.circular(AppSizes.borderRadius8),
                   ),
                   child: Icon(
                     Icons.home,
@@ -46,38 +67,20 @@ class DrawerDashboardCard extends StatelessWidget {
                     size: AppSizes.size24,
                   ),
                 ),
-              ),
-            )
-          : ListTile(
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: AppSizes.padding16,
-                vertical: 4,
-              ),
-              leading: Container(
-                padding: const EdgeInsets.all(AppSizes.padding8),
-                decoration: BoxDecoration(
-                  color: AppColors.glassIconBackground,
-                  borderRadius: BorderRadius.circular(AppSizes.borderRadius8),
+                title: Text(
+                  "Dashboard",
+                  style: TextStyle(
+                    color: AppColors.blue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: AppSizes.font16,
+                  ),
                 ),
-                child: Icon(
-                  Icons.home,
-                  color: AppColors.blue,
-                  size: AppSizes.size24,
+                onTap: () => AppNavigation.goToScreenAndRemoveAll(
+                  context,
+                  const DashboardScreen(),
                 ),
               ),
-              title: Text(
-                "Dashboard",
-                style: TextStyle(
-                  color: AppColors.blue,
-                  fontWeight: FontWeight.bold,
-                  fontSize: AppSizes.font16,
-                ),
-              ),
-              onTap: () => AppNavigation.goToScreenAndRemoveAll(
-                context,
-                const DashboardScreen(),
-              ),
-            ),
+      ),
     );
 
     if (isCollapsed) {

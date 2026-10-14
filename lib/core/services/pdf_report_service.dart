@@ -185,8 +185,9 @@ class PdfReportService {
     }
 
     final sorted = productSales.values.toList()
-      ..sort((a, b) =>
-          (b['revenue'] as double).compareTo(a['revenue'] as double));
+      ..sort(
+        (a, b) => (b['revenue'] as double).compareTo(a['revenue'] as double),
+      );
     return sorted.take(5).toList();
   }
 

@@ -43,7 +43,6 @@ class ProductService {
     await _box.clear();
   }
 
-
   // Product Already Exists
   bool productExists(String productName) {
     return _box.values.any(
@@ -59,7 +58,6 @@ class ProductService {
           product.barcode.trim().toLowerCase() == barcode.trim().toLowerCase(),
     );
   }
-
 
   // Brand Already Used
   bool isBrandUsed(String brandId) {
@@ -99,7 +97,6 @@ class ProductService {
       (total, product) => total + (product.sellingPrice * product.stock),
     );
   }
-
 
   // Category Already Used
   bool isCategoryUsed(String categoryId) {

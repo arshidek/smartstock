@@ -21,34 +21,34 @@ class ReportUiHelpers {
         borderRadius: BorderRadius.circular(AppSizes.borderRadius8),
         child: imagePath.isNotEmpty
             ? imagePath.startsWith('data:image')
-                ? Image.memory(
-                    UriData.parse(imagePath).contentAsBytes(),
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) => const Icon(
-                      Icons.image_not_supported_outlined,
-                      color: AppColors.grey,
-                      size: AppSizes.size20,
-                    ),
-                  )
-                : kIsWeb
-                    ? Image.network(
-                        imagePath,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => const Icon(
-                          Icons.image_not_supported_outlined,
-                          color: AppColors.grey,
-                          size: AppSizes.size20,
-                        ),
-                      )
-                    : Image.file(
-                        File(imagePath),
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => const Icon(
-                          Icons.image_not_supported_outlined,
-                          color: AppColors.grey,
-                          size: AppSizes.size20,
-                        ),
-                      )
+                  ? Image.memory(
+                      UriData.parse(imagePath).contentAsBytes(),
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => const Icon(
+                        Icons.image_not_supported_outlined,
+                        color: AppColors.grey,
+                        size: AppSizes.size20,
+                      ),
+                    )
+                  : kIsWeb
+                  ? Image.network(
+                      imagePath,
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => const Icon(
+                        Icons.image_not_supported_outlined,
+                        color: AppColors.grey,
+                        size: AppSizes.size20,
+                      ),
+                    )
+                  : Image.file(
+                      File(imagePath),
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) => const Icon(
+                        Icons.image_not_supported_outlined,
+                        color: AppColors.grey,
+                        size: AppSizes.size20,
+                      ),
+                    )
             : const Icon(
                 Icons.image_outlined,
                 color: AppColors.grey,
@@ -138,7 +138,7 @@ class ReportUiHelpers {
     return TopListItemModel(
       leading: buildProductImage(p.imagePath),
       title: p.name,
-      subtitle: p.category,
+      subtitle: "${p.quantity} Orders  •  ${p.category}",
       onTap: productModel != null
           ? () {
               AppNavigation.goToScreen(
@@ -147,15 +147,6 @@ class ReportUiHelpers {
               );
             }
           : null,
-      middleText: Text(
-        "${p.quantity}",
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: AppSizes.font15,
-          color: AppColors.black,
-        ),
-      ),
       trailing: buildRevenueTrailing(
         "₹${p.revenue.toStringAsFixed(0)}",
         double.parse(percentage.toStringAsFixed(1)),

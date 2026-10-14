@@ -82,7 +82,6 @@ class StockUpdateCard extends StatelessWidget {
             children: [
               IconButton(
                 onPressed: () {
-
                   if (!isAddStock && currentStock <= 0) {
                     AppSnackBar.warning(
                       context,

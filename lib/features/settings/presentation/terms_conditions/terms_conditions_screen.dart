@@ -12,7 +12,6 @@ class TermsConditionsScreen extends StatefulWidget {
 }
 
 class _TermsConditionsScreenState extends State<TermsConditionsScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

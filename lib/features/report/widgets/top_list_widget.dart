@@ -62,7 +62,7 @@ class TopListWidget extends StatelessWidget {
                   child: const Text(
                     "View All",
                     style: TextStyle(
-                      color: AppColors.purple,
+                      color: AppColors.blue,
                       fontSize: AppSizes.font12,
                       fontWeight: FontWeight.bold,
                     ),

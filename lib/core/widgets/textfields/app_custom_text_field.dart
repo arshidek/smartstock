@@ -52,28 +52,36 @@ class AppCustomTextField {
           child: iconWidget,
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius ?? AppSizes.borderRadius12),
+          borderRadius: BorderRadius.circular(
+            borderRadius ?? AppSizes.borderRadius12,
+          ),
           borderSide: BorderSide(
             color: borderColor ?? AppColors.textFieldBlue,
             width: AppSizes.borderSize2,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius ?? AppSizes.borderRadius12),
+          borderRadius: BorderRadius.circular(
+            borderRadius ?? AppSizes.borderRadius12,
+          ),
           borderSide: BorderSide(
             color: borderColor ?? AppColors.textFieldBlue,
             width: AppSizes.borderSize2,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius ?? AppSizes.borderRadius12),
+          borderRadius: BorderRadius.circular(
+            borderRadius ?? AppSizes.borderRadius12,
+          ),
           borderSide: const BorderSide(
             color: AppColors.error,
             width: AppSizes.borderSize2,
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(borderRadius ?? AppSizes.borderRadius12),
+          borderRadius: BorderRadius.circular(
+            borderRadius ?? AppSizes.borderRadius12,
+          ),
           borderSide: const BorderSide(
             color: AppColors.error,
             width: AppSizes.borderSize2,
@@ -111,7 +119,6 @@ class AppCustomTextField {
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
-                color: AppColors.blue.withOpacity(0.05),
                 borderRadius: BorderRadius.circular(
                   borderRadius ?? AppSizes.borderRadius12,
                 ),
@@ -122,62 +129,54 @@ class AppCustomTextField {
                   width: AppSizes.borderSize2,
                 ),
               ),
-              padding: const EdgeInsets.all(AppSizes.padding12),
-              child: Column(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSizes.padding10,
+                vertical: AppSizes.padding10,
+              ),
+              child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // ── Icon + hint label row (always visible) ──
-                  Row(
-                    children: [
-                      Container(
-                        width: AppSizes.size40,
-                        height: AppSizes.size40,
-                        decoration: BoxDecoration(
-                          color: AppColors.lightBlue,
-                          borderRadius: BorderRadius.circular(
-                            AppSizes.borderRadius12,
-                          ),
-                        ),
-                        child: Icon(
-                          icon,
-                          color: AppColors.blue,
-                          size: AppSizes.size22,
-                        ),
+                  Container(
+                    width: AppSizes.size40,
+                    height: AppSizes.size40,
+                    decoration: BoxDecoration(
+                      color: AppColors.lightBlue,
+                      borderRadius: BorderRadius.circular(
+                        AppSizes.borderRadius12,
                       ),
-                      const SizedBox(width: AppSizes.size10),
-                      Text(
-                        hint,
-                        style: const TextStyle(
+                    ),
+                    child: Icon(
+                      icon,
+                      color: AppColors.blue,
+                      size: AppSizes.size22,
+                    ),
+                  ),
+                  const SizedBox(width: AppSizes.size10),
+                  Expanded(
+                    child: TextField(
+                      controller: controller,
+                      onChanged: (v) {
+                        state.didChange(v);
+                        onChanged?.call(v);
+                      },
+                      minLines: minLines,
+                      maxLines: null,
+                      textInputAction: textInputAction,
+                      style: const TextStyle(
+                        color: AppColors.black,
+                        fontSize: AppSizes.font14,
+                      ),
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        isDense: true,
+                        contentPadding: const EdgeInsets.only(
+                          top: AppSizes.size10,
+                        ),
+                        hintText: hint,
+                        hintStyle: const TextStyle(
                           color: AppColors.grey,
                           fontSize: AppSizes.font14,
-                          fontWeight: FontWeight.w400,
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: AppSizes.size8),
-                  // ── Free-form typing area ──
-                  TextField(
-                    controller: controller,
-                    onChanged: (v) {
-                      state.didChange(v);
-                      onChanged?.call(v);
-                    },
-                    minLines: minLines,
-                    maxLines: null,
-                    textInputAction: textInputAction,
-                    style: const TextStyle(
-                      color: AppColors.black,
-                      fontSize: AppSizes.font14,
-                    ),
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      isDense: true,
-                      contentPadding: EdgeInsets.zero,
-                      hintText: 'Start typing...',
-                      hintStyle: TextStyle(
-                        color: AppColors.lightGrey,
-                        fontSize: AppSizes.font14,
                       ),
                     ),
                   ),

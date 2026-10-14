@@ -26,7 +26,6 @@ class TrendLineChart extends StatelessWidget {
         .map((e) => e.value)
         .reduce((a, b) => a > b ? a : b);
 
-
     return Container(
       padding: const EdgeInsets.all(AppSizes.padding20),
       decoration: BoxDecoration(
@@ -106,7 +105,9 @@ class TrendLineChart extends StatelessWidget {
                             index == data.length ~/ 2 ||
                             index == data.length - 1) {
                           return Padding(
-                            padding: const EdgeInsets.only(top: AppSizes.padding10),
+                            padding: const EdgeInsets.only(
+                              top: AppSizes.padding10,
+                            ),
                             child: Text(
                               data[index].label,
                               style: const TextStyle(

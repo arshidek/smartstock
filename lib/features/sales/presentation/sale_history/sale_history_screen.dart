@@ -70,7 +70,10 @@ class _SaleHistoryScreenState extends State<SaleHistoryScreen> {
                 context: context,
                 isScrollControlled: true,
                 backgroundColor: Colors.transparent,
-                builder: (_) => const AppFilterBottomSheet(isSalesFilter: true),
+                builder: (_) => AppFilterBottomSheet(
+                  isSalesFilter: true,
+                  initialFilters: activeFilters,
+                ),
               );
               if (result != null) {
                 final brands = List<String>.from(result['brands'] ?? []);
@@ -102,7 +105,10 @@ class _SaleHistoryScreenState extends State<SaleHistoryScreen> {
                 context: context,
                 isScrollControlled: true,
                 backgroundColor: Colors.transparent,
-                builder: (_) => const AppFilterBottomSheet(isSalesFilter: true),
+                builder: (_) => AppFilterBottomSheet(
+                  isSalesFilter: true,
+                  initialFilters: activeFilters,
+                ),
               );
               if (result != null) {
                 final brands = List<String>.from(result['brands'] ?? []);

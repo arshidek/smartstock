@@ -59,10 +59,7 @@ class WebEditProfileScreen extends StatelessWidget {
               ),
               child: Column(
                 children: [
-                  ProfileAvatar(
-                    user: currentUser,
-                    onCameraTap: onPickImage,
-                  ),
+                  ProfileAvatar(user: currentUser, onCameraTap: onPickImage),
                   const SizedBox(height: AppSizes.size32),
                   const Text(
                     "Update Your Profile",
@@ -126,10 +123,8 @@ class WebEditProfileScreen extends StatelessWidget {
                       label: "Shop Name",
                       hint: "Enter Shop Name",
                       icon: Icons.store,
-                      validator: (value) => Validator.validateName(
-                        value,
-                        fieldName: "Shop name",
-                      ),
+                      validator: (value) =>
+                          Validator.validateName(value, fieldName: "Shop name"),
                     ),
                   ],
                 ),

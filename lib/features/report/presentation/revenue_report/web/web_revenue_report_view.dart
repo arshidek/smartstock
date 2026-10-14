@@ -68,53 +68,18 @@ class WebRevenueReportView extends StatelessWidget {
               Expanded(
                 child: TopListWidget(
                   title: "Top Selling Products",
-                  headerRow: const Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Text(
-                          "PRODUCT",
-                          style: TextStyle(
-                            color: AppColors.grey,
-                            fontSize: AppSizes.font12,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          "ORDERS",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: AppColors.grey,
-                            fontSize: AppSizes.font10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: Text(
-                          "REVENUE %",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(
-                            color: AppColors.grey,
-                            fontSize: AppSizes.font10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+
                   items: topSellingFunctions
                       .getTopSellingProducts(selectedDate: selectedDate)
-                      .map((data) => ReportUiHelpers.mapTopSelling(
-                            data.agg,
-                            data.productModel,
-                            data.percentage,
-                            context,
-                          ))
+                      .take(5)
+                      .map(
+                        (data) => ReportUiHelpers.mapTopSelling(
+                          data.agg,
+                          data.productModel,
+                          data.percentage,
+                          context,
+                        ),
+                      )
                       .toList(),
                   onViewAll: () {
                     AppNavigation.goToScreen(

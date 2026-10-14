@@ -30,7 +30,7 @@ class AddProductAppBar extends StatelessWidget implements PreferredSizeWidget {
             style: TextStyle(
               color: AppColors.black,
               fontWeight: FontWeight.bold,
-              fontSize: AppSizes.font24
+              fontSize: AppSizes.font24,
             ),
           ),
         ],

@@ -10,7 +10,6 @@ import '../../../widgets/add_product_image_name.dart';
 import '../../../widgets/add_product_pricing_inventory.dart';
 import '../../../widgets/edit_product_action_buttons.dart';
 
-
 class MobileEditProductScreen extends StatelessWidget {
   final GlobalKey<FormState> formKey;
   final List<File> images;
@@ -67,7 +66,6 @@ class MobileEditProductScreen extends StatelessWidget {
       decoration: BoxDecoration(gradient: AppColors.background),
       child: SafeArea(
         child: SingleChildScrollView(
-
           child: Form(
             key: formKey,
             child: AppCardWidget(

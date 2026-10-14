@@ -5,11 +5,11 @@ class AppColors {
   static const LinearGradient background = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: [Color(0xFFBFD8FF), Color(0xFFFFFFFF), Color(0xFFBFD8FF)],
-    stops: [0.0, 0.5, 1.0],
+    colors: [Color(0xFFF8F9FB), Color(0xFFC1DCFA), Color(0xFFF8F9FB)],
+    stops: [0.0, 0.5, 2.0],
   );
 
-  static const Color appBarColor = Color(0xFFBFD8FF);
+  static const Color appBarColor = Color(0xFFEAF2FF);
 
   // colors
   static Color white = Colors.white;
@@ -19,15 +19,15 @@ class AppColors {
   static const Color purple = Color(0xFF8939DD);
   static const Color lightPurple = Color(0xFFE3CDFA);
 
-  static const Color blue = Color(0xFF1248F6);
+  static const Color blue = Color(0xFF1375E4);
   static const Color bannerBlue = Colors.blueAccent;
   static const Color lightBlue = Color(0xFFF2F4FB);
   static const Color textFieldBlue = Color(0xFF6A8AF1);
   static const Color black = Color(0xFF00040B);
   static const Color lightBlack = Color(0xFF474749);
   static const Color grey = Color(0xFF90949A);
-  static const Color darkGreen =  Color(0xFF06B6D4,);
-  static const Color lightDarkGreen =  Color(0xFFCFFAFE);
+  static const Color darkGreen = Color(0xFF06B6D4);
+  static const Color lightDarkGreen = Color(0xFFCFFAFE);
 
   static const Color lightGrey = Color(0x73ACAAAA);
   static const Color success = Color(0xFF22C55E);
@@ -39,17 +39,11 @@ class AppColors {
 
   // Delete / Danger Gradient
   static const LinearGradient deleteGradient = LinearGradient(
-    colors: [
-      Color(0xFFFF6B6B),
-      Color(0xFFE53935),
-    ],
+    colors: [Color(0xFFFF6B6B), Color(0xFFE53935)],
   );
 
   static const LinearGradient infoGradient = LinearGradient(
-    colors: [
-      Color(0xFFFFD54F),
-      Color(0xFFF9A825),
-    ],
+    colors: [Color(0xFFFFD54F), Color(0xFFF9A825)],
   );
   static const Color lightRed = Color(0xFFFFEBEE);
   static const Color lightError = Color(0xFFFFCDD2);

@@ -67,17 +67,19 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
           });
         },
       ),
-      body: kIsWeb ? WebProductDetailScreen(
-        product: widget.product,
-        brand: _brand,
-        category: _category,
-        formattedDate: _formatDateTime(widget.product.createdAt),
-      ) : MobileProductDetailScreen(
-        product: widget.product,
-        brand: _brand,
-        category: _category,
-        formattedDate: _formatDateTime(widget.product.createdAt),
-      ),
+      body: kIsWeb
+          ? WebProductDetailScreen(
+              product: widget.product,
+              brand: _brand,
+              category: _category,
+              formattedDate: _formatDateTime(widget.product.createdAt),
+            )
+          : MobileProductDetailScreen(
+              product: widget.product,
+              brand: _brand,
+              category: _category,
+              formattedDate: _formatDateTime(widget.product.createdAt),
+            ),
     );
   }
 }

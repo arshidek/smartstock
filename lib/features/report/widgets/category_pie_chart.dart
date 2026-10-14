@@ -82,7 +82,6 @@ class CategoryPieChart extends StatelessWidget {
                                 ),
                               ]
                             : data.map((point) {
-
                                 return PieChartSectionData(
                                   color: point.color,
                                   value: total == 0

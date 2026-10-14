@@ -45,15 +45,16 @@ class AppOutlineButton extends StatelessWidget {
     return Container(
       width: width ?? double.infinity,
       height: height,
-      constraints: BoxConstraints(
-        minHeight: height ?? AppSizes.size55,
-      ),
+      constraints: BoxConstraints(minHeight: height ?? AppSizes.size55),
       child: OutlinedButton(
         onPressed: onPressed,
         style: OutlinedButton.styleFrom(
           padding:
               padding ??
-              const EdgeInsets.symmetric(horizontal: AppSizes.padding12, vertical: 8),
+              const EdgeInsets.symmetric(
+                horizontal: AppSizes.padding12,
+                vertical: 8,
+              ),
           backgroundColor: isSelected ? backgroundColor : AppColors.white,
           side: BorderSide(color: borderColor, width: AppSizes.borderSize2),
           shape: RoundedRectangleBorder(
@@ -83,13 +84,9 @@ class AppOutlineButton extends StatelessWidget {
               const SizedBox(width: AppSizes.size12),
             ],
             if (expandText)
-              Expanded(
-                child: _buildTextColumn(),
-              )
+              Expanded(child: _buildTextColumn())
             else
-              Flexible(
-                child: _buildTextColumn(),
-              ),
+              Flexible(child: _buildTextColumn()),
             if (trailing != null) ...[
               const SizedBox(width: AppSizes.size8),
               trailing!,
@@ -103,7 +100,9 @@ class AppOutlineButton extends StatelessWidget {
   Widget _buildTextColumn() {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: expandText ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+      crossAxisAlignment: expandText
+          ? CrossAxisAlignment.start
+          : CrossAxisAlignment.center,
       children: [
         Text(
           text,
